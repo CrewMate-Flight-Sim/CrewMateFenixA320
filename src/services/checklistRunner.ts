@@ -4,6 +4,7 @@ import { simvarGet, simvarSet } from "@/API/simvarApi"
 import { delay } from "@/lib/utils"
 import { getChecklistById } from "@/services/checklistLoader"
 import { playSound, playSoundSequence, waitForSoundFinished } from "@/services/playSounds"
+import { getTakeoffPerformance } from "@/services/takeoffPerformance"
 import { useChecklistStore } from "@/store/checklistStore"
 import { usePerformanceStore } from "@/store/performanceStore"
 import { useSettingsStore } from "@/store/settingsStore"
@@ -429,11 +430,11 @@ class ChecklistRunner {
 
       if (responseList.length === 0 || matchesAnyResponse(spoken, responseList)) {
         if (item.takeoff_confirmation && !spoken.includes("set and checked")) {
-          const { thrustSetting } = usePerformanceStore.getState().takeoff
+          const { thrust } = getTakeoffPerformance(useTelemetryStore.getState().telemetry)
           const hasV1 = /\bv\s*1\b/.test(spoken) || /\bv\s*one\b/i.test(spoken)
           const hasVR = /\bv\s*r\b/.test(spoken) || /\bv\s*rotate\b/i.test(spoken)
           const hasV2 = /\bv\s*2\b/.test(spoken) || /\bv\s*two\b/i.test(spoken)
-          const hasThrust = thrustSetting === "flex" ? /\bflex\b/i.test(spoken) : /\btoga\b/i.test(spoken)
+          const hasThrust = thrust === "flex" ? /\bflex\b/i.test(spoken) : /\btoga\b/i.test(spoken)
           if (!(hasV1 && hasVR && hasV2 && hasThrust)) continue
         }
 
@@ -448,8 +449,7 @@ class ChecklistRunner {
   }
 
   private async playTakeoffConfirmation(): Promise<void> {
-    const { v1, vr, v2, thrustSetting } = usePerformanceStore.getState().takeoff
-    const t = useTelemetryStore.getState().telemetry
+    const { v1, vr, v2, thrust, flexTemp } = getTakeoffPerformance(useTelemetryStore.getState().telemetry)
     const digits = (n: number) =>
       String(Math.round(n))
         .split("")
@@ -457,8 +457,7 @@ class ChecklistRunner {
 
     const filenames: string[] = ["v_one.ogg", ...digits(v1), "v_r.ogg", ...digits(vr), "v_2.ogg", ...digits(v2)]
 
-    if (thrustSetting === "flex") {
-      const flexTemp = t?.iniFlexTemperature ?? 0
+    if (thrust === "flex") {
       filenames.push("flex.ogg", ...digits(flexTemp))
     } else {
       filenames.push("TOGA.ogg")

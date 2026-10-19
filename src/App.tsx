@@ -21,7 +21,6 @@ import { useSpeechCommands } from "@/hooks/useSpeechCommands"
 import { useVoiceHints } from "@/hooks/useVoiceHints"
 import { useFlowStore } from "@/store/flowStore"
 import { useFoPresenceStore } from "@/store/foPresenceStore"
-import { usePerformanceStore } from "@/store/performanceStore"
 import { usePreflightTimerStore } from "@/store/preflightTimerStore"
 import { useSettingsStore } from "@/store/settingsStore"
 import { useTelemetryStore } from "@/store/telemetryStore"
@@ -39,7 +38,6 @@ function App() {
   const setVoiceEnabled = useSettingsStore((state) => state.setVoiceEnabled)
   const voiceMode = useSettingsStore((state) => state.voiceMode)
   const [pttHeld, setPttHeld] = useState(false)
-  const takeoffVr = usePerformanceStore((state) => state.takeoff.vr)
 
   const { currentFlow, executionState } = useFlowStore()
   const isRunning = executionState === "running"
@@ -53,7 +51,7 @@ function App() {
   // Mutable memory to persist preference state across connection dropouts
   const wasVoiceEnabledBeforeDisconnect = useRef<boolean | null>(null)
 
-  useCallouts(takeoffVr)
+  useCallouts()
   useAutoFlows()
   usePreflightTimer()
   const { recognizedText, isValidCommand, isUnrecognized, speechKey, speechEngineError } = useSpeechCommands({

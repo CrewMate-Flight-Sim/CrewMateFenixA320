@@ -2,11 +2,8 @@ import { listen } from "@tauri-apps/api/event"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
+// V-speeds, flex and thrust come from the MCDU PERF page (services/takeoffPerformance.ts)
 interface TakeoffData {
-  v1: number
-  vr: number
-  v2: number
-  thrustSetting?: string
   packs?: string
   antiIce?: string
   runway: string
@@ -30,10 +27,6 @@ interface PerformanceStore {
 }
 
 const DEFAULT_TAKEOFF_DATA: TakeoffData = {
-  v1: 0,
-  vr: 0,
-  v2: 0,
-  thrustSetting: "toga",
   packs: "on",
   antiIce: "off",
   runway: ""

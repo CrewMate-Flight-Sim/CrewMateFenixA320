@@ -1,3 +1,4 @@
+import { getTakeoffPerformance } from "@/services/takeoffPerformance"
 import { usePerformanceStore } from "@/store/performanceStore"
 import { useTelemetryStore } from "@/store/telemetryStore"
 import type { ChecklistItem } from "@/types/checklist"
@@ -35,12 +36,10 @@ export function getDisplayResponses(item: ChecklistItem): string[] {
     if (runway) extras.push(`${runway.toUpperCase()} confirmed`)
   }
 
-  // Takeoff confirmation: show only the currently-configured thrust variant + safeword
+  // Takeoff confirmation: show only the thrust the MCDU PERF page gives + safeword
   if (item.takeoff_confirmation) {
-    const { v1, vr, v2, thrustSetting } = usePerformanceStore.getState().takeoff
-    const flexTemp = useTelemetryStore.getState().telemetry?.iniFlexTemperature
-    const thrust = thrustSetting === "flex" ? `flex ${flexTemp !== undefined ? Math.round(flexTemp) : "??"}` : "toga"
-    extras.push(`v1 ${v1} vr ${vr} v2 ${v2} ${thrust}`, "set and checked")
+    const { v1, vr, v2, thrust, flexTemp } = getTakeoffPerformance(useTelemetryStore.getState().telemetry)
+    extras.push(`v1 ${v1} vr ${vr} v2 ${v2} ${thrust === "flex" ? `flex ${flexTemp}` : "toga"}`, "set and checked")
     return extras
   }
 

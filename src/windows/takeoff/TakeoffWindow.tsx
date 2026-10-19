@@ -1,7 +1,7 @@
 import { emit } from "@tauri-apps/api/event"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { Info } from "lucide-react"
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,12 +12,8 @@ import { usePerformanceStore } from "@/store/performanceStore"
 const SELECT_CLS =
   "w-full h-8 bg-slate-900/50 border border-slate-600 text-white text-xs rounded-md px-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"
 
-const V_SPEED_MIN = 100
-const V_SPEED_MAX = 200
-
 export function TakeoffWindow() {
   const { takeoff, setTakeoffData } = usePerformanceStore()
-  const vSpeedsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     getCurrentWindow()
@@ -25,82 +21,21 @@ export function TakeoffWindow() {
       .catch(() => {})
   }, [])
 
-  // React's onWheel is passive and can't stop the browser's own number input scrolling
-  useEffect(() => {
-    const grid = vSpeedsRef.current
-    if (!grid) return
-    const handler = (e: WheelEvent) => e.preventDefault()
-    grid.addEventListener("wheel", handler, { passive: false })
-    return () => grid.removeEventListener("wheel", handler)
-  }, [])
-
   const handleChange = (name: string, value: string | number) => {
     setTakeoffData({ [name]: value } as Partial<typeof takeoff>)
     emit("takeoff-updated", { ...takeoff, [name]: value })
-  }
-
-  const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e.target.name, Number(e.target.value))
   }
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     handleChange(e.target.name, e.target.value)
   }
 
-  const handleVSpeedWheel = (speed: "v1" | "vr" | "v2", deltaY: number) => {
-    const current = takeoff[speed]
-    const next = current ? current + (deltaY > 0 ? -1 : 1) : V_SPEED_MIN
-    handleChange(speed, Math.max(V_SPEED_MIN, Math.min(V_SPEED_MAX, next)))
-  }
-
   const labelRow = "flex items-center gap-1 h-4"
 
   return (
     <div className="h-screen bg-black text-white p-3 flex flex-col gap-3">
-      {/*  V Speeds */}
-      <div ref={vSpeedsRef} className="grid grid-cols-3 gap-2">
-        {(["v1", "vr", "v2"] as const).map((speed) => (
-          <div key={speed} className="space-y-1">
-            <Label htmlFor={speed} className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
-              {speed.toUpperCase()}
-            </Label>
-            <Input
-              type="number"
-              id={speed}
-              name={speed}
-              min={V_SPEED_MIN}
-              max={V_SPEED_MAX}
-              value={takeoff[speed] ?? ""}
-              onChange={handleNumberInput}
-              onWheel={(e) => handleVSpeedWheel(speed, e.deltaY)}
-              className="h-8 bg-slate-900/50 border-slate-600 text-white text-xs font-mono text-center px-1 focus-visible:ring-cyan-500"
-              placeholder="—"
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Thrust + Packs + Anti Ice */}
+      {/* Packs + Anti Ice + Runway */}
       <div className="grid grid-cols-3 gap-2">
-        <div className="space-y-1">
-          <div className={labelRow}>
-            <Label htmlFor="thrustSetting" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
-              Thrust
-            </Label>
-          </div>
-
-          <select
-            id="thrustSetting"
-            name="thrustSetting"
-            value={takeoff.thrustSetting}
-            onChange={handleSelectChange}
-            className={SELECT_CLS}
-          >
-            <option value="toga">TOGA</option>
-            <option value="flex">FLEX</option>
-          </select>
-        </div>
-
         <div className="space-y-1">
           <div className={labelRow}>
             <Label htmlFor="packs" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">

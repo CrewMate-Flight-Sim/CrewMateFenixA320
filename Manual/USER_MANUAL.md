@@ -161,7 +161,7 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 - When LDG CONF is set and a cabin report is received, call for the LANDING checklist.
 - PF announces "Continue" at minima or "Go‑around - flaps" as appropriate.
-- After touchdown the FO calls "spoilers", "reverse green", the autobrake mode on the FMA ("BTV" or "brake med") and "decel". There is no "autobrake off" call: the aircraft announces that itself.
+- After touchdown the FO calls "spoilers", "reverse green" and "decel". There is no "autobrake off" call: the aircraft announces that itself.
 
 ### After Landing
 
@@ -471,7 +471,7 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 | Barometric Reference | "altimeter \_\_\_\_ set" / "QNH \_\_\_\_ set" / "\_\_\_\_ set" / "set" — the FO reads the setting back. |
 | Minimums Reference   | "baro \_\_\_ feet" or "radio \_\_\_ feet"                                                               |
 | Runway Condition     | "dry" / "wet" / "compacted snow" / "snow" / "slippery" / "standing water" / "slush" / "ice"             |
-| Auto Brake           | "medium" / "brake medium" / "BTV" — checked against the FMA.                                            |
+| Auto Brake           | "medium" / "brake medium" — checked against the FMA.                                                    |
 
 ### Landing
 

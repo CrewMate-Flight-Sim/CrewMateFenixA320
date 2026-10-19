@@ -10,12 +10,13 @@ import { useSettingsStore } from "@/store/settingsStore"
 import { useTelemetryStore } from "@/store/telemetryStore"
 import type { Telemetry } from "@/store/telemetryStore"
 
-type LandingPhase = "idle" | "spoilers" | "reverser" | "autobrake" | "decel"
+type LandingPhase = "idle" | "spoilers" | "reverser" | "decel"
 
 interface SpeedCalloutFlags {
   calledThrustSet: boolean
   called100: boolean
   called70: boolean
+  calledV1: boolean
   calledVr: boolean
   vrInhibit: boolean
 }
@@ -24,8 +25,8 @@ interface AltitudeCalloutFlags {
   positiveClimb: boolean
   tenThousandClimb: boolean
   tenThousandDescent: boolean
-  transitionAltitude: boolean
-  transitionLevel: boolean
+  transitionAltitude: boolean // need to check vars
+  transitionLevel: boolean // need to check vars
   oneToGo: boolean
 }
 
@@ -49,26 +50,22 @@ interface PreviousValues {
   speed: number
   alt: number
   onGround: number
-  cabinIsReady: number
-  takeoffN1: number
   fcuAlt: number
 }
 
-const THRUST_SET_MARGIN = 3
+const DETENT_FLX = 4
+const THRUST_SET_MIN_N1 = 73
+const THRUST_SET_MAX_DELTA = 5
 
-const getTakeoffThrustTarget = (t: Telemetry) => {
-  if ((t.iniFlexTemperature ?? 0) > 1) {
-    return t.iniThrustFlexN1 ?? 0
-  }
+// No N1 limit is exported, so thrust is set once N1 is within a few percent of what the FADEC demands
+const isTakeoffThrustSet = (t: Telemetry) =>
+  t.throttleDetent1 >= DETENT_FLX &&
+  t.throttleDetent2 >= DETENT_FLX &&
+  t.engine1N1Display >= THRUST_SET_MIN_N1 &&
+  t.engine1N1DemandDelta < THRUST_SET_MAX_DELTA
 
-  return t.iniThrustTogaN1 ?? 0
-}
-
-// Idle reverse reads -0.055 and forward idle +0.016, so this sits between them
-const REVERSE_LEVER_THRESHOLD = -0.02
-
-const isReverseSelected = (t: Telemetry) =>
-  t.throttleLever1 < REVERSE_LEVER_THRESHOLD || t.throttleLever2 < REVERSE_LEVER_THRESHOLD
+// Fenix's own reverse flag, because the lever position check sometimes missed reverse
+const isReverseSelected = (t: Telemetry) => t.engine1InReverse > 0.5 || t.engine2InReverse > 0.5
 
 const crossedUp = (prev: number, curr: number, threshold: number) => prev < threshold && curr >= threshold
 
@@ -128,28 +125,23 @@ function handleSpoilersPhase(ls: LandingSequenceState, t: Telemetry, elapsed: nu
 function handleReverserPhase(ls: LandingSequenceState, t: Telemetry, elapsed: number, now: number) {
   if (sawIndication(ls, isReverseSelected(t), now)) {
     playSound("reverse_green.ogg")
-    advancePhase(ls, "autobrake", now)
+    advancePhase(ls, "decel", now)
   } else if (ls.readySince === null && elapsed >= REVERSER_TIMEOUT) {
     playSound("no_reverse_engine_1_and_2.ogg")
-    advancePhase(ls, "autobrake", now)
-  }
-}
-
-// FCOM PRO-NOR-SOP-210: with BTV the PM announces it between REVERSE GREEN and DECEL
-const AUTOBRAKE_BTV = 1
-
-function handleAutobrakePhase(ls: LandingSequenceState, t: Telemetry, _elapsed: number, now: number) {
-  if (t.autobrakeLevel !== AUTOBRAKE_BTV) {
-    advancePhase(ls, "decel", now)
-  } else if (sawIndication(ls, true, now)) {
-    playSound("BTV.ogg")
     advancePhase(ls, "decel", now)
   }
 }
+
+// Autobrake lights DECEL instead of moving the pedals, so either one counts
+const isBraking = (t: Telemetry) =>
+  t.brakeLeftPosition > 0.1 ||
+  t.brakeRightPosition > 0.1 ||
+  t.autobrakeLoDecel > 0.5 ||
+  t.autobrakeMedDecel > 0.5 ||
+  t.autobrakeMaxDecel > 0.5
 
 function handleDecelPhase(ls: LandingSequenceState, t: Telemetry, elapsed: number, now: number) {
-  const brakesApplied = t.brakeLeftPosition > 0.1 || t.brakeRightPosition > 0.1
-  if (sawIndication(ls, brakesApplied && t.ias > 40, now)) {
+  if (sawIndication(ls, isBraking(t) && t.ias > 40, now)) {
     playSound("decel.ogg")
     completeLanding(ls)
   } else if (ls.readySince === null && elapsed >= DECEL_TIMEOUT) {
@@ -163,7 +155,6 @@ const PHASE_HANDLERS: Record<
 > = {
   spoilers: handleSpoilersPhase,
   reverser: handleReverserPhase,
-  autobrake: handleAutobrakePhase,
   decel: handleDecelPhase
 }
 
@@ -190,10 +181,9 @@ function handleRto(rto: RtoState, t: Telemetry, prevSpeed: number, now: number) 
 
   if (rto.calledDecel) return
 
-  const brakesApplied = t.brakeLeftPosition > 0.1 || t.brakeRightPosition > 0.1
   const elapsed = rto.startedAt ? now - rto.startedAt : 0
 
-  if (brakesApplied && t.ias < prevSpeed) {
+  if (isBraking(t) && t.ias < prevSpeed) {
     playSound("decel.ogg")
     rto.calledDecel = true
   } else if (elapsed >= RTO_DECEL_TIMEOUT) {
@@ -244,11 +234,12 @@ const newDeviationState = (): Record<DeviationCall, number | null> => ({
   glide: null
 })
 
-export function useCallouts(vrSpeed: number) {
+export function useCallouts() {
   const speed = useRef<SpeedCalloutFlags>({
     calledThrustSet: false,
     called100: false,
     called70: false,
+    calledV1: false,
     calledVr: false,
     vrInhibit: true
   })
@@ -275,16 +266,8 @@ export function useCallouts(vrSpeed: number) {
     speed: 0,
     alt: 0,
     onGround: 1,
-    cabinIsReady: 0,
-    takeoffN1: 0,
     fcuAlt: 0
   })
-
-  const cabinReadyPrimed = useRef(false)
-  const thrustSetPrimed = useRef(false)
-
-  const vrSpeedRef = useRef(vrSpeed)
-  vrSpeedRef.current = vrSpeed
 
   // When each deviation call last played, or null while it is armed
   const deviationCalledAt = useRef(newDeviationState())
@@ -331,22 +314,10 @@ export function useCallouts(vrSpeed: number) {
     const al = altitude.current
     const ls = landing.current
     const p = prev.current
-    const vr = vrSpeedRef.current
+    const v1 = Math.round(t.v1Speed ?? 0)
+    const vr = Math.round(t.vrSpeed ?? 0)
     const now = Date.now()
-    const cabinIsReady = (t.cabinIsReady ?? 0) > 0.5 ? 1 : 0
-    const takeoffN1 = Math.min(t.engine1N1 ?? 0, t.engine2N1 ?? 0)
     const fcuAlt = t.fcuAlt ?? 0
-    const takeoffThrustTarget = getTakeoffThrustTarget(t)
-
-    if (!cabinReadyPrimed.current) {
-      cabinReadyPrimed.current = true
-      p.cabinIsReady = cabinIsReady
-    }
-
-    if (!thrustSetPrimed.current) {
-      thrustSetPrimed.current = true
-      p.takeoffN1 = takeoffN1
-    }
 
     // Re-arm one-to-go when FCU altitude changes
     if (fcuAlt !== p.fcuAlt) {
@@ -372,7 +343,22 @@ export function useCallouts(vrSpeed: number) {
     }
 
     // Speed callouts (ground)
-    if (t.onGround && !sp.vrInhibit && vr && !isNaN(vr) && t.ias >= vr && t.ias < vr + 5 && !sp.calledVr) {
+    if (t.onGround && !sp.vrInhibit && v1 > 0 && t.ias >= v1 && t.ias < v1 + 5 && !sp.calledV1) {
+      playSound("v1.ogg")
+      sp.calledV1 = true
+    }
+
+    // V1 often equals VR on the A320, so rotate waits for the V1 call to finish
+    if (
+      t.onGround &&
+      !sp.vrInhibit &&
+      vr > 0 &&
+      t.ias >= vr &&
+      t.ias < vr + 10 &&
+      (sp.calledV1 || v1 === 0) &&
+      !sp.calledVr &&
+      !(await isSoundPlaying())
+    ) {
       playSound("rotate.ogg")
       sp.calledVr = true
       sp.vrInhibit = true
@@ -394,20 +380,9 @@ export function useCallouts(vrSpeed: number) {
       }, 5000)
     }
 
-    if (
-      t.onGround &&
-      t.ias < 80 &&
-      takeoffThrustTarget > 0 &&
-      p.takeoffN1 < takeoffThrustTarget - THRUST_SET_MARGIN &&
-      takeoffN1 >= takeoffThrustTarget - THRUST_SET_MARGIN &&
-      !sp.calledThrustSet
-    ) {
+    if (t.onGround && t.ias < 80 && isTakeoffThrustSet(t) && !sp.calledThrustSet) {
       playSound("thrust_set.ogg")
       sp.calledThrustSet = true
-    }
-
-    if (t.onGround && p.cabinIsReady === 0 && cabinIsReady === 1) {
-      playSound("cabin_ready.ogg")
     }
 
     if (!t.onGround && t.vs > 120 && t.radioAlt > 30 && !al.positiveClimb) {
@@ -478,9 +453,14 @@ export function useCallouts(vrSpeed: number) {
       }
     }
 
+    // Thrust set stays true while the levers are forward, so it re-arms on the levers instead of speed
+    if (t.throttleDetent1 < DETENT_FLX && t.throttleDetent2 < DETENT_FLX) {
+      sp.calledThrustSet = false
+    }
+
     // Re-arm at taxi speed
     if (t.onGround && t.ias < 30) {
-      sp.calledThrustSet = false
+      sp.calledV1 = false
       sp.calledVr = false
       sp.called100 = false
       sp.vrInhibit = false
@@ -573,8 +553,6 @@ export function useCallouts(vrSpeed: number) {
     p.speed = t.ias
     p.alt = t.alt
     p.onGround = t.onGround
-    p.cabinIsReady = cabinIsReady
-    p.takeoffN1 = takeoffN1
     p.fcuAlt = fcuAlt
   }
 
