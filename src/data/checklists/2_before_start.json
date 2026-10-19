@@ -1,0 +1,53 @@
+{
+  "id": "before_start",
+  "name": "Before Start",
+  "items": [
+    {
+      "challenge": "parking_brake.ogg",
+      "incorrect": "are_you_sure.ogg",
+      "response": ["set", "set and checked"],
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [{ "type": "simvar", "var": "(A:BRAKE PARKING INDICATOR, Bool)", "expected": true }]
+        }
+      ],
+      "label": "Parking Brake"
+    },
+    {
+      "challenge": "takeoff_speeds_and_thrust.ogg",
+      "response": ["*", "set and checked"],
+      "label": "Takeoff Speeds and Thrust",
+      "takeoff_confirmation": true
+    },
+
+    {
+      "challenge": "slides.ogg",
+      "response": ["armed", "set and checked"],
+      "label": "Slides",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [{ "type": "simvar", "var": "(L:INI_DOOR0_ARMED)", "expected": 1 }]
+        }
+      ]
+    },
+    {
+      "label": "Beacon On",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [{ "type": "simvar", "var": "(L:INI_LIGHTS_BEACON)", "expected": 1 }]
+        }
+      ],
+      "incorrect": "check_beacon.ogg"
+    },
+    {
+      "challenge": "nws_disc_memo.ogg",
+      "response": ["checked", "set and checked"],
+      "label": "Nose Wheel disconnect Memo"
+    }
+  ],
+  "completion": "before_start_checklist_completed.ogg"
+}

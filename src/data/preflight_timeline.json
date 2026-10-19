@@ -1,0 +1,49 @@
+[
+  {
+    "minuteMark": 50,
+    "label": "Arrive at aircraft",
+    "type": "flow",
+    "flowId": "open_curtains"
+  },
+  {
+    "minuteMark": 48,
+    "label": "Preliminary cockpit preparation",
+    "type": "flow",
+    "flowId": "prelim_cockpit_prep"
+  },
+  {
+    "minuteMark": 44,
+    "label": "PM walkaround",
+    "type": "flow",
+    "sound": "walkaround.ogg",
+    "flowId": "table_close"
+  },
+  {
+    "minuteMark": 35,
+    "label": "PM back from walkaround and cockpit preparation",
+    "type": "flow",
+    "brakesReport": true,
+    "flowId": "cockpit_prep"
+  },
+  {
+    "minuteMark": 25,
+    "label": "Briefing: Add performance to takeoff window",
+    "type": "reminder"
+  },
+  {
+    "minuteMark": 20,
+    "label": "Cockpit preparation checklist",
+    "type": "reminder"
+  },
+  {
+    "minuteMark": 5,
+    "label": "FO closes table and APU start reminder",
+    "type": "flow",
+    "flowId": "table_close"
+  },
+  {
+    "minuteMark": 1,
+    "label": "Before start procedure and checklist",
+    "type": "reminder"
+  }
+]

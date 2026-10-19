@@ -1,0 +1,33 @@
+{
+  "id": "cockpit_preparation",
+  "name": "Cockpit Preparation",
+  "items": [
+    {
+      "challenge": "gear_pins_and_covers.ogg",
+      "response": ["removed", "set and checked"],
+      "label": "Gear Pins and Covers"
+    },
+    {
+      "challenge": "fuel_quantity.ogg",
+      "response": ["tons", "kilograms", "pounds", "kilograms balanced", "pounds balanced", "set and checked"],
+      "label": "Fuel Quantity"
+    },
+    {
+      "label": "Seatbelts on",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [{ "type": "simvar", "var": "(L:INI_SEATBELTS_SWITCH)", "expected": 0 }]
+        }
+      ],
+      "incorrect": "check_belts.ogg"
+    },
+    {
+      "challenge": "baro_ref.ogg",
+      "response": ["set", "set and checked"],
+      "baro_confirmation": true,
+      "label": "Barometric Reference"
+    }
+  ],
+  "completion": "cockpit_preparation_checklist_completed.ogg"
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "CrewMateFenixA320",
+  "version": "0.1.0",
+  "identifier": "crewmatefenixa320",
+  "build": {
+    "beforeDevCommand": "npm run voice:fetch && npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run voice:fetch && npm run build",
+    "frontendDist": "../dist",
+    "removeUnusedCommands": true
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "CrewMate Fenix A320",
+        "width": 360,
+        "height": 310,
+        "minWidth": 360,
+        "minHeight": 310,
+        "maximizable": false,
+        "fullscreen": false,
+        "visible": false,
+        "resizable": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self' ipc: http://ipc.localhost ws://127.0.0.1:*"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "createUpdaterArtifacts": true,
+    "targets": [
+      "msi"
+    ],
+    "externalBin": [
+      "bin/copilot_speech"
+    ],
+    "resources": [
+      "sounds",
+      "bin/grammar.xml",
+      "Trainer",
+      "Manual"
+    ],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IERBOTM3OTRGNUVFRjhBRjEKUldUeGl1OWVUM21UMmtCZzZ1L1NEbEtyWmZKcElrVGRuay9uOWJ6RkNqdkRDSkhUZTNqdXNYRnMK",
+      "endpoints": [
+        "https://github.com/CrewMate-Flight-Sim/CrewMateFenixA320/releases/latest/download/latest.json"
+      ]
+    }
+  }
+}

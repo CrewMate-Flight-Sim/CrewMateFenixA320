@@ -1,0 +1,48 @@
+{
+  "id": "landing",
+  "name": "Landing Checklist",
+  "mode": "silent",
+  "items": [
+    {
+      "label": "Spoilers Armed",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [{ "type": "simvar", "var": "(L:INI_SPOILERS_ARMED)", "expected": 1 }]
+        }
+      ],
+      "incorrect": "check_spoilers.ogg"
+    },
+    {
+      "label": "Flaps",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [
+            { "type": "store", "store": "landing.flaps", "equals": "3" },
+            { "type": "simvar", "var": "(A:FLAPS HANDLE INDEX, number)", "expected": 3 }
+          ]
+        },
+        {
+          "when": { "always": true },
+          "checks": [
+            { "type": "store", "store": "landing.flaps", "equals": "Full" },
+            { "type": "simvar", "var": "(A:FLAPS HANDLE INDEX, number)", "expected": 4 }
+          ]
+        }
+      ],
+      "incorrect": "check_flaps.ogg"
+    },
+    {
+      "label": "Gear Down",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [{ "type": "simvar", "var": "(A:GEAR HANDLE POSITION,Position)", "expected": 1 }]
+        }
+      ],
+      "incorrect": "check_landing_gear.ogg"
+    }
+  ],
+  "completion": "landing_checklist_completed.ogg"
+}

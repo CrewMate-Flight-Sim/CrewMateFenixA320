@@ -1,0 +1,74 @@
+{
+  "id": "line_up",
+  "name": "Line Up Checklist",
+  "items": [
+    {
+      "challenge": "cabin.ogg",
+      "response": ["secured", "signaled", "set and checked"],
+      "label": "Cabin Advisory"
+    },
+    {
+      "challenge": "takeoff_runway.ogg",
+      "response": ["confirmed", "set and checked"],
+      "label": "Take off Runway",
+      "rwy_confirmation": true
+    },
+    {
+      "label": "Packs Settings",
+      "challenge": "packs_one_and_two.ogg",
+      "response": ["on", "on supplied by apu", "off", "set and checked"],
+      "validations": [
+        {
+          "when": { "responses": ["on"] },
+          "checks": [
+            { "type": "store", "store": "takeoff.packs", "equals": "on" },
+            { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 1 },
+            { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 1 }
+          ]
+        },
+        {
+          "when": { "responses": ["on supplied by apu"] },
+          "checks": [
+            { "type": "store", "store": "takeoff.packs", "equals": "apu" },
+            { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 1 },
+            { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 1 }
+          ]
+        },
+        {
+          "when": { "responses": ["off"] },
+          "checks": [
+            { "type": "store", "store": "takeoff.packs", "equals": "off" },
+            { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 0 },
+            { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 0 }
+          ]
+        },
+        {
+          "when": { "responses": ["set and checked"] },
+          "checks": [
+            {
+              "type": "any",
+              "groups": [
+                [
+                  { "type": "store", "store": "takeoff.packs", "equals": "on" },
+                  { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 1 },
+                  { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 1 }
+                ],
+                [
+                  { "type": "store", "store": "takeoff.packs", "equals": "apu" },
+                  { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 1 },
+                  { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 1 }
+                ],
+                [
+                  { "type": "store", "store": "takeoff.packs", "equals": "off" },
+                  { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 0 },
+                  { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 0 }
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "completion": "line_up_checklist_completed.ogg"
+}
