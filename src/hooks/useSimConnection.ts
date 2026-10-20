@@ -22,11 +22,12 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "landingGear", expression: "(A:GEAR HANDLE POSITION,Position)" },
   { key: "brakeLeftPosition", expression: "(A:BRAKE LEFT POSITION,Number)" },
   { key: "parkingBrake", expression: "(A:BRAKE PARKING INDICATOR,Bool)" },
-  { key: "taxiLight", expression: "(L:INI_LIGHTS_NOSE)" },
+  { key: "taxiLight", expression: "(L:S_OH_EXT_LT_NOSE)" },
   { key: "brakeRightPosition", expression: "(A:BRAKE RIGHT POSITION,Number)" },
-  { key: "aileronDeflection", expression: "(A:AILERON LEFT DEFLECTION PCT,Percent Over 100)" },
-  { key: "elevatorDeflection", expression: "(A:ELEVATOR DEFLECTION PCT,Percent Over 100)" },
-  { key: "rudderDeflection", expression: "(A:RUDDER DEFLECTION PCT,Percent Over 100)" },
+  // Fenix surface positions, 0-200 with 100 neutral; the sim deflection simvars follow the stick instead
+  { key: "aileronDeflection", expression: "(L:A320_FC_AIL_L)" },
+  { key: "elevatorDeflection", expression: "(L:A320_FC_L_ELEV)" },
+  { key: "rudderDeflection", expression: "(L:A320_FC_RUDDER)" },
   { key: "spoilersHandlePosition", expression: "(A:SPOILERS HANDLE POSITION,Position)" },
   { key: "transitionAltitude", expression: "(L:INI_TRANSITION_ALTITUDE)" },
   { key: "transitionLevel", expression: "(L:INI_TRANSITION_LEVEL)" },
@@ -42,18 +43,18 @@ const SIM_VARS: { key: string; expression: string }[] = [
   // E/WD N1 and its gap to the FADEC target; Fenix publishes the gap for engine 1 only
   { key: "engine1N1Display", expression: "(L:A320_Sound:ENG_1_N1)" },
   { key: "engine1N1DemandDelta", expression: "(L:A320_Sound:ENG_1_N1_Demand_Delta)" },
-  { key: "autopilotEngaged", expression: "(L:INI_AP1_BUTTON,Bool)" },
+  { key: "autopilotEngaged", expression: "(L:I_FCU_AP1)" },
   { key: "captAltimeterSettingMB", expression: "(A:KOHLSMAN SETTING MB:1, Millibars)" },
   { key: "captAltimeterSettingHG", expression: "(A:KOHLSMAN SETTING HG:1, inHg)" },
   { key: "ignitionKnob", expression: "(L:INI_IGNITION_KNOB)" },
-  { key: "flapsIndex", expression: "(A:FLAPS HANDLE INDEX,Number)" },
+  { key: "flapsIndex", expression: "(L:S_FC_FLAPS)" },
   { key: "mixture1", expression: "(L:INI_MIXTURE_RATIO1_HANDLE)" },
   { key: "mixture2", expression: "(L:INI_MIXTURE_RATIO2_HANDLE)" },
   { key: "spoilersArmed", expression: "(L:INI_SPOILERS_ARMED)" },
   { key: "fcuAlt", expression: "(L:N_FCU_ALTITUDE)" },
-  { key: "cptBaro", expression: "(L:XMLVAR_BARO_Selector_HPA_1)" },
-  { key: "foBaro", expression: "(L:XMLVAR_BARO_Selector_HPA_2)" },
-  { key: "linkedInstruments", expression: "(L:INI_LINKED_INSTRUMENTS)" },
+  // Unit selectors, 0 inHg / 1 hPa (the reverse of the cockpit tooltip order)
+  { key: "cptBaro", expression: "(L:S_FCU_EFIS1_BARO_MODE)" },
+  { key: "foBaro", expression: "(L:S_FCU_EFIS2_BARO_MODE)" },
   { key: "arrRunwayHdg", expression: "(L:INI_ARR_RUNWAY_HDG)" },
   { key: "engine1InReverse", expression: "(L:A320_Sound:ENG_1_In_Reverse)" },
   { key: "engine2InReverse", expression: "(L:A320_Sound:ENG_2_In_Reverse)" },
@@ -63,13 +64,16 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "autobrakeMaxDecel", expression: "(L:I_MIP_AUTOBRAKE_MAX_U)" },
   { key: "thrustLeverClb", expression: "(L:INI_LEVER_IN_CL)" },
   { key: "foChrono", expression: "(L:INI_FO_CHRONO)" },
-  { key: "baroMode", expression: "(L:XMLVAR_Baro1_Mode)" },
+  { key: "baroStd", expression: "(L:B_FCU_EFIS1_BARO_STD)" },
   { key: "pitchDegrees", expression: "(A:PLANE PITCH DEGREES,Degrees)" },
   { key: "bankDegrees", expression: "(A:PLANE BANK DEGREES,Degrees)" },
-  { key: "speedTarget", expression: "(A:AUTOPILOT AIRSPEED HOLD VAR,Knots)" },
-  { key: "locDeviation", expression: "(L:INI_LOC_DEV)" },
-  { key: "glideDeviation", expression: "(L:INI_GS_DEV)" },
-  { key: "locValid", expression: "(L:INI_LOC_VALID)" }
+  // Keeps the managed target behind the FCU speed
+  { key: "speedTarget", expression: "(L:N_FCU_SPEED)" },
+  // Fenix tunes the ILS on NAV 3 (the MMR)
+  { key: "locDeviation", expression: "(A:NAV RADIAL ERROR:3,Degrees)" },
+  { key: "glideDeviation", expression: "(A:NAV GLIDE SLOPE ERROR:3,Degrees)" },
+  { key: "locValid", expression: "(A:NAV HAS LOCALIZER:3,Bool)" },
+  { key: "glideValid", expression: "(A:NAV HAS GLIDE SLOPE:3,Bool)" }
 ]
 
 const RETRY_INTERVAL_MS = 5000

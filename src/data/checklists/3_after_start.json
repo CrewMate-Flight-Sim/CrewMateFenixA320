@@ -12,27 +12,27 @@
           "when": { "responses": ["off"] },
           "checks": [
             { "type": "store", "store": "takeoff.antiIce", "equals": "off" },
-            { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE1_STATE)", "expected": 0 },
-            { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE2_STATE)", "expected": 0 },
-            { "type": "simvar", "var": "(L:INI_WING_ANTI_ICE1_STATE)", "expected": 0 }
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)", "expected": 0 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)", "expected": 0 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)", "expected": 0 }
           ]
         },
         {
           "when": { "responses": ["engines on"] },
           "checks": [
             { "type": "store", "store": "takeoff.antiIce", "equals": "oneng" },
-            { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE1_STATE)", "expected": 1 },
-            { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE2_STATE)", "expected": 1 },
-            { "type": "simvar", "var": "(L:INI_WING_ANTI_ICE1_STATE)", "expected": 0 }
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)", "expected": 0 }
           ]
         },
         {
           "when": { "responses": ["engines on wings on"] },
           "checks": [
             { "type": "store", "store": "takeoff.antiIce", "equals": "onengwing" },
-            { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE1_STATE)", "expected": 1 },
-            { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE2_STATE)", "expected": 1 },
-            { "type": "simvar", "var": "(L:INI_WING_ANTI_ICE1_STATE)", "expected": 1 }
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)", "expected": 1 }
           ]
         },
         {
@@ -43,21 +43,21 @@
               "groups": [
                 [
                   { "type": "store", "store": "takeoff.antiIce", "equals": "off" },
-                  { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE1_STATE)", "expected": 0 },
-                  { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE2_STATE)", "expected": 0 },
-                  { "type": "simvar", "var": "(L:INI_WING_ANTI_ICE1_STATE)", "expected": 0 }
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)", "expected": 0 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)", "expected": 0 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)", "expected": 0 }
                 ],
                 [
                   { "type": "store", "store": "takeoff.antiIce", "equals": "oneng" },
-                  { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE1_STATE)", "expected": 1 },
-                  { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE2_STATE)", "expected": 1 },
-                  { "type": "simvar", "var": "(L:INI_WING_ANTI_ICE1_STATE)", "expected": 0 }
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)", "expected": 1 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)", "expected": 1 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)", "expected": 0 }
                 ],
                 [
                   { "type": "store", "store": "takeoff.antiIce", "equals": "onengwing" },
-                  { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE1_STATE)", "expected": 1 },
-                  { "type": "simvar", "var": "(L:INI_ENG_ANTI_ICE2_STATE)", "expected": 1 },
-                  { "type": "simvar", "var": "(L:INI_WING_ANTI_ICE1_STATE)", "expected": 1 }
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)", "expected": 1 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)", "expected": 1 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)", "expected": 1 }
                 ]
               ]
             }

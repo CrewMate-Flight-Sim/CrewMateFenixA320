@@ -327,14 +327,11 @@ The FO reads the altitude back — "go around altitude, four thousand, feet set"
 
 Wipers are refused above 230 knots unless you are selecting OFF.
 
-| Say                          | What happens         |
-| ---------------------------- | -------------------- |
-| "Wipers off"                 | Wipers off.          |
-| "Wipers slow"                | Slow continuous.     |
-| "Wipers fast"                | Fast continuous.     |
-| "Wipers slow intermittent"   | Slow intermittent.   |
-| "Wipers medium intermittent" | Medium intermittent. |
-| "Wipers fast intermittent"   | Fast intermittent.   |
+| Say           | What happens     |
+| ------------- | ---------------- |
+| "Wipers off"  | Wipers off.      |
+| "Wipers slow" | Slow continuous. |
+| "Wipers fast" | Fast continuous. |
 
 ### Engines and APU
 
@@ -355,7 +352,6 @@ Wipers are refused above 230 knots unless you are selecting OFF.
 | "Cabin crew disarm slides"                                        | Disarms the door slides. |
 | "Seat belts on"                                                   | Seat belt signs on.      |
 | "Seat belts off"                                                  | Seat belt signs off.     |
-| "Seat belts auto"                                                 | Seat belt signs to AUTO. |
 
 ### Brakes
 

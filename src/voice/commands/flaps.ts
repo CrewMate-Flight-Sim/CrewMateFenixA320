@@ -3,6 +3,7 @@ import { moveFlapsLever } from "@/services/flapsLever"
 import { playSound } from "@/services/playSounds"
 import { useTelemetryStore } from "@/store/telemetryStore"
 
+// will be done via GraphQL
 type A350Variant = "A350-900" | "A350-1000"
 
 const FLAP_SPEED_LIMITS: Record<A350Variant, Record<number, number>> = {

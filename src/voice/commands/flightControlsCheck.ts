@@ -3,11 +3,18 @@ import { playSound, waitForSoundFinished } from "@/services/playSounds"
 import { useTelemetryStore } from "@/store/telemetryStore"
 import type { Telemetry } from "@/store/telemetryStore"
 
-// Surface deflection, so each call waits for the surface to reach its stop, not just the stick
-const FULL_THRESHOLD = 0.95
-// The elevator stops at -0.565 nose down, measured on the ground
-const ELEVATOR_FULL_DOWN = -0.55
-const NEUTRAL_THRESHOLD = 0.05
+// Surface position, so each call waits for the surface to reach its stop, not just the stick
+// Fenix stops measured on the ground: elevator 200 up / 50.75 down, left aileron 17.6 left / 183.4 right, rudder 1 / 200
+const ELEVATOR_FULL_UP = 195
+const ELEVATOR_FULL_DOWN = 55
+const AILERON_FULL_LEFT = 22
+const AILERON_FULL_RIGHT = 178
+const RUDDER_FULL_LEFT = 5
+const RUDDER_FULL_RIGHT = 195
+const NEUTRAL = 100
+const NEUTRAL_TOLERANCE = 5
+
+const isNeutral = (position: number) => Math.abs(position - NEUTRAL) < NEUTRAL_TOLERANCE
 
 interface Step {
   condition: (t: Telemetry) => boolean
@@ -15,17 +22,17 @@ interface Step {
 }
 
 const STEPS: Step[] = [
-  { condition: (t) => t.elevatorDeflection > FULL_THRESHOLD, sound: "full_up.ogg" },
+  { condition: (t) => t.elevatorDeflection > ELEVATOR_FULL_UP, sound: "full_up.ogg" },
   { condition: (t) => t.elevatorDeflection < ELEVATOR_FULL_DOWN, sound: "full_down.ogg" },
-  { condition: (t) => Math.abs(t.elevatorDeflection) < NEUTRAL_THRESHOLD, sound: "neutral.ogg" },
+  { condition: (t) => isNeutral(t.elevatorDeflection), sound: "neutral.ogg" },
 
-  { condition: (t) => t.aileronDeflection < -FULL_THRESHOLD, sound: "full_left.ogg" },
-  { condition: (t) => t.aileronDeflection > FULL_THRESHOLD, sound: "full_right.ogg" },
-  { condition: (t) => Math.abs(t.aileronDeflection) < NEUTRAL_THRESHOLD, sound: "neutral.ogg" },
+  { condition: (t) => t.aileronDeflection < AILERON_FULL_LEFT, sound: "full_left.ogg" },
+  { condition: (t) => t.aileronDeflection > AILERON_FULL_RIGHT, sound: "full_right.ogg" },
+  { condition: (t) => isNeutral(t.aileronDeflection), sound: "neutral.ogg" },
 
-  { condition: (t) => t.rudderDeflection < -FULL_THRESHOLD, sound: "full_left.ogg" },
-  { condition: (t) => t.rudderDeflection > FULL_THRESHOLD, sound: "full_right.ogg" },
-  { condition: (t) => Math.abs(t.rudderDeflection) < NEUTRAL_THRESHOLD, sound: "neutral.ogg" }
+  { condition: (t) => t.rudderDeflection < RUDDER_FULL_LEFT, sound: "full_left.ogg" },
+  { condition: (t) => t.rudderDeflection > RUDDER_FULL_RIGHT, sound: "full_right.ogg" },
+  { condition: (t) => isNeutral(t.rudderDeflection), sound: "neutral.ogg" }
 ]
 
 function waitFor(condition: (t: Telemetry) => boolean): Promise<void> {

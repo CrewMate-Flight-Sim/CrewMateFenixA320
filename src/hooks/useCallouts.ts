@@ -201,6 +201,8 @@ const DEVIATION_MIN_RA = 50
 const DEVIATION_MAX_RA = 1000
 const DEVIATION_REARM_MS = 5000
 const DOTS_LIMIT = 0.5
+const LOC_DEGREES_PER_DOT = 0.8
+const GLIDE_DEGREES_PER_DOT = 0.4
 
 const DEVIATION_SOUNDS: Record<DeviationCall, string> = {
   speed: "speed.ogg",
@@ -214,14 +216,13 @@ const DEVIATION_SOUNDS: Record<DeviationCall, string> = {
 function exceededDeviations(t: Telemetry): Record<DeviationCall, boolean> {
   // The sim reports nose up as negative pitch
   const pitchUp = -t.pitchDegrees
-  const lsValid = t.locValid > 0.5
   return {
     speed: t.speedTarget > 0 && (t.ias < t.speedTarget - 5 || t.ias > t.speedTarget + 10),
     sinkRate: t.vs < -1000,
     bank: Math.abs(t.bankDegrees) > 6,
     pitch: pitchUp > 10 || pitchUp < 0,
-    loc: lsValid && Math.abs(t.locDeviation) > DOTS_LIMIT,
-    glide: lsValid && Math.abs(t.glideDeviation) > DOTS_LIMIT
+    loc: t.locValid > 0.5 && Math.abs(t.locDeviation) / LOC_DEGREES_PER_DOT > DOTS_LIMIT,
+    glide: t.glideValid > 0.5 && Math.abs(t.glideDeviation) / GLIDE_DEGREES_PER_DOT > DOTS_LIMIT
   }
 }
 
@@ -410,10 +411,8 @@ export function useCallouts() {
       al.oneToGo = true
     }
 
-    // Both calls prompt an altimeter change, so they are skipped once it is made (XMLVAR_Baro1_Mode 3 = STD)
-    const baroMode = t.baroMode ?? -1
-    const onStandard = baroMode === 3
-    const baroKnown = baroMode >= 0
+    // Both calls prompt an altimeter change, so they are skipped once it is made (captain side STD flag)
+    const onStandard = (t.baroStd ?? 0) > 0.5
 
     if (
       !t.onGround &&
@@ -422,7 +421,7 @@ export function useCallouts() {
       t.transitionAltitude > 0 &&
       crossedUp(p.alt, t.alt, t.transitionAltitude)
     ) {
-      if (!baroKnown || !onStandard) playSound("transiton_altitude.ogg")
+      if (!onStandard) playSound("transiton_altitude.ogg")
       al.transitionAltitude = true
     }
 
@@ -433,7 +432,7 @@ export function useCallouts() {
       t.transitionLevel > 0 &&
       crossedDown(p.alt, t.alt, t.transitionLevel)
     ) {
-      if (!baroKnown || onStandard) playSound("transiton_level.ogg")
+      if (onStandard) playSound("transiton_level.ogg")
       al.transitionLevel = true
     }
 

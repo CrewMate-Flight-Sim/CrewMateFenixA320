@@ -63,7 +63,7 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
   const engOff = enginesOff(t)
   const transitionLevel = num(t, "transitionLevel") ?? 0
   const landingGear = num(t, "landingGear") ?? 0
-  const onStandard = num(t, "baroMode") === 3
+  const onStandard = (num(t, "baroStd") ?? 0) > 0.5
   const autopilotOn = (num(t, "autopilotEngaged") ?? 0) > 0.5
 
   // ── AIRBORNE ────────────────────────────────────────────────────────────────

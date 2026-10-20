@@ -4,21 +4,21 @@
   "steps": [
     {
       "label": "Engine 1 Anti Ice",
-      "read": "(L:INI_ENG_ANTI_ICE1_STATE)",
-      "on": "0 (>L:INI_ENG_ANTI_ICE1_STATE)",
+      "read": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)",
+      "on": "0 (>L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)",
       "expect": 0,
       "skip_delay": true
     },
     {
       "label": "Engine 2 Anti Ice",
-      "read": "(L:INI_ENG_ANTI_ICE2_STATE)",
-      "on": "0 (>L:INI_ENG_ANTI_ICE2_STATE)",
+      "read": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)",
+      "on": "0 (>L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)",
       "expect": 0
     },
     {
       "label": "Wing Anti Ice",
-      "read": "(L:INI_WING_ANTI_ICE1_STATE)",
-      "on": "0 (>L:INI_WING_ANTI_ICE1_STATE)",
+      "read": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)",
+      "on": "0 (>L:S_OH_PNEUMATIC_WING_ANTI_ICE)",
       "expect": 0
     },
     {

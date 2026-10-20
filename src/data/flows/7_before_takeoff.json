@@ -24,11 +24,11 @@
     },
     {
       "label": "Brake Fan",
-      "read": "(L:INI_BRAKE_FAN_ON)",
-      "on": "0 (>L:INI_BRAKE_FAN_ON)",
+      "read": "(L:S_MIP_BRAKE_FAN)",
+      "on": "0 (>L:S_MIP_BRAKE_FAN)",
       "expect": 0,
       "only_if": {
-        "read": "(L:INI_OPTION_BRAKE_FANS)",
+        "read": "(L:B_CONFIG_BRAKEFANS)",
         "one_of": [1]
       }
     },

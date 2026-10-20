@@ -154,7 +154,6 @@ wipers slow
 wipers fast
 seat belts on
 seat belts off
-seat belts auto
 chocks in place
 parking brake set
 cabin crew arm slides and cross check

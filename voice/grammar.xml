@@ -544,13 +544,9 @@
       <item>wipers off<tag>out.pid="wipers_off";</tag></item>
       <item>wipers slow<tag>out.pid="wipers_slow";</tag></item>
       <item>wipers fast<tag>out.pid="wipers_fast";</tag></item>
-      <item>wipers slow intermittent<tag>out.pid="wipers_slow_intermittent";</tag></item>
-      <item>wipers medium intermittent<tag>out.pid="wipers_medium_intermittent";</tag></item>
-      <item>wipers fast intermittent<tag>out.pid="wipers_fast_intermittent";</tag></item>
       <!-- Seat belts -->
       <item>seat belts on<tag>out.pid="seat_belts_on";</tag></item>
       <item>seat belts off<tag>out.pid="seat_belts_off";</tag></item>
-      <item>seat belts auto<tag>out.pid="seat_belts_auto";</tag></item>
       <!-- Cabin crew -->
       <item>cabin crew arm slides and cross check<tag>out.pid="cabin_crew_arm_slides";</tag></item>
       <item>cabin crew arm slides<tag>out.pid="cabin_crew_arm_slides";</tag></item>

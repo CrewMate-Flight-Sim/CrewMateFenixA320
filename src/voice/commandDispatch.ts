@@ -82,7 +82,7 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
 
   // ── Brake Fan ─────────────────────────────────────────────────────────────
   brake_fan_on: async () => {
-    const isFitted = (await simvarGet("(L:INI_OPTION_BRAKE_FANS)")) === 1
+    const isFitted = (await simvarGet("(L:B_CONFIG_BRAKEFANS)")) === 1
     if (isFitted) {
       playSound("check.ogg")
       await setBrakeFan(1)
@@ -92,7 +92,7 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   },
 
   brake_fan_off: async () => {
-    const isFitted = (await simvarGet("(L:INI_OPTION_BRAKE_FANS)")) === 1
+    const isFitted = (await simvarGet("(L:B_CONFIG_BRAKEFANS)")) === 1
     if (isFitted) {
       playSound("check.ogg")
       await setBrakeFan(0)
@@ -112,7 +112,7 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   // ── Lights ────────────────────────────────────────────────────────────────
   landing_lights_on: () => {
     playSound("check.ogg")
-    setLandingLights(1)
+    setLandingLights(2)
   },
   landing_lights_off: () => {
     playSound("check.ogg")
@@ -120,7 +120,7 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   },
   takeoff_lights_on: () => {
     playSound("check.ogg")
-    setTaxiLights(0)
+    setTaxiLights(2)
   },
   taxi_lights_on: () => {
     playSound("check.ogg")
@@ -128,11 +128,11 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   },
   taxi_lights_off: () => {
     playSound("check.ogg")
-    setTaxiLights(2)
+    setTaxiLights(0)
   },
   strobe_lights_on: () => {
     playSound("check.ogg")
-    setStrobeLights(0)
+    setStrobeLights(2)
   },
   strobe_lights_auto: () => {
     playSound("check.ogg")
@@ -140,75 +140,75 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   },
   strobe_lights_off: () => {
     playSound("check.ogg")
-    setStrobeLights(2)
+    setStrobeLights(0)
   },
 
   // ── Flight director & bird ────────────────────────────────────────────────
   flight_director_on: () => {
     playSound("check.ogg")
-    setFlightDirector(1)
+    setFlightDirector(true)
   },
   flight_director_off: () => {
     playSound("check.ogg")
-    setFlightDirector(0)
+    setFlightDirector(false)
   },
   flight_director_off_bird_on: async () => {
     playSound("check.ogg")
-    await setFlightDirector(0)
-    await setBird(1)
+    await setFlightDirector(false)
+    await setBird(true)
   },
   bird_on: () => {
     playSound("check.ogg")
-    setBird(1)
+    setBird(true)
   },
   bird_off: () => {
     playSound("check.ogg")
-    setBird(0)
+    setBird(false)
   },
 
   // ── Autopilot  ──────────────────────────────────────────────
   autopilot_engage: () => {
     playSound("check.ogg")
-    setAutoPilot(1)
+    setAutoPilot(true)
   },
-  autopilot_disconnect: () => setAutoPilot(0),
+  autopilot_disconnect: () => setAutoPilot(false),
 
   // ── FCU knob commands ──────────────────────────────
   pull_heading: () => {
     playSound("check.ogg")
-    setSelHeading(1)
+    setSelHeading()
   },
   manage_nav: () => {
     playSound("check.ogg")
-    setManagedHeading(1)
+    setManagedHeading()
   },
   pull_altitude: () => {
     playSound("check.ogg")
-    setSelAlt(1)
+    setSelAlt()
   },
   manage_altitude: () => {
     playSound("check.ogg")
-    setManagedAlt(1)
+    setManagedAlt()
   },
   pull_speed: () => {
     playSound("check.ogg")
-    setSelSpeed(1)
+    setSelSpeed()
   },
   manage_speed: () => {
     playSound("check.ogg")
-    setManagedSpeed(1)
+    setManagedSpeed()
   },
   push_to_level_off: () => {
     playSound("check.ogg")
-    setLevelOff(1)
+    setLevelOff()
   },
   arm_approach: () => {
     playSound("check.ogg")
-    setAPPR(1)
+    setAPPR()
   },
   arm_localizer: () => {
     playSound("check.ogg")
-    setLOC(1)
+    setLOC()
   },
   set_runway_track: () => {
     const hdg = useTelemetryStore.getState().telemetry?.["arrRunwayHdg"]
@@ -223,7 +223,7 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
     const t = useTelemetryStore.getState().telemetry
     const passingAlt = usePassingAltitudeStore.getState()
 
-    setStdBaro(3)
+    setStdBaro(true)
 
     if (t && !t.onGround && t.vs > 100 && !passingAlt.isTracking()) {
       const targetAlt = t.pAlt + t.vs * (9 / 60)
@@ -238,7 +238,7 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
 
   set_altimeter: async () => {
     playSound("check.ogg")
-    await setStdBaro(0)
+    await setStdBaro(false)
     await delay(500)
     await simvarSet("(>K:BAROMETRIC)")
   },
@@ -277,24 +277,17 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   // ── Seat belts ────────────────────────────────────────────────────────────
   seat_belts_on: () => {
     playSound("check.ogg")
-    setSeatBelts(0)
+    setSeatBelts(1)
   },
   seat_belts_off: () => {
     playSound("check.ogg")
-    setSeatBelts(2)
-  },
-  seat_belts_auto: () => {
-    playSound("check.ogg")
-    setSeatBelts(1)
+    setSeatBelts(0)
   },
 
   // ── Wipers ────────────────────────────────────────────────────────────────
-  wipers_off: () => setWipers(3),
-  wipers_slow: () => setWipers(4),
-  wipers_fast: () => setWipers(5),
-  wipers_slow_intermittent: () => setWipers(0),
-  wipers_medium_intermittent: () => setWipers(1),
-  wipers_fast_intermittent: () => setWipers(2),
+  wipers_off: () => setWipers(0),
+  wipers_slow: () => setWipers(1),
+  wipers_fast: () => setWipers(2),
 
   // ── Cabin crew / doors ────────────────────────────────────────────────────
   cabin_crew_arm_slides: () => setDoorSlides(true),
@@ -423,7 +416,7 @@ export async function dispatchFoCommand(commandType: string, payload: Record<str
     case "heading": {
       const value = payload.value as number
       if (isPull) {
-        setSelHeading(1)
+        setSelHeading()
         await delay(500)
       }
       setHeadingDial(value)
@@ -436,9 +429,9 @@ export async function dispatchFoCommand(commandType: string, payload: Record<str
       setAltitudeDial(feet)
       await delay(200)
       if (isPull) {
-        setSelAlt(1)
+        setSelAlt()
       } else if (isMng) {
-        setManagedAlt(1)
+        setManagedAlt()
       }
       return true
     }
@@ -446,7 +439,7 @@ export async function dispatchFoCommand(commandType: string, payload: Record<str
     case "speed": {
       const value = payload.value as number
       if (isPull) {
-        setSelSpeed(1)
+        setSelSpeed()
         await delay(500)
       }
       setAirspeedDial(value)

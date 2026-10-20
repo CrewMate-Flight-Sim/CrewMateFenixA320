@@ -5,7 +5,7 @@ import { useTelemetryStore } from "@/store/telemetryStore"
 
 const COOLDOWN_MS = 500
 
-// Only with linked instruments off (the aircraft syncs them otherwise); the pressure itself is read-only, so just the inHg/hPa unit follows the Captain
+// The Fenix FO side never follows the captain on its own, so the FO inHg/hPa unit is kept in step here
 export function useBaroSync() {
   const lastWriteRef = useRef<number>(0)
 
@@ -13,8 +13,6 @@ export function useBaroSync() {
     const unsubscribe = useTelemetryStore.subscribe((state) => {
       const t = state.telemetry
       if (!t) return
-
-      if (t.linkedInstruments !== 0) return
 
       const cptBaro = t.cptBaro
       const foBaro = t.foBaro
@@ -25,7 +23,7 @@ export function useBaroSync() {
       if (now - lastWriteRef.current < COOLDOWN_MS) return
 
       lastWriteRef.current = now
-      void simvarSet(`${cptBaro} (>L:XMLVAR_BARO_Selector_HPA_2)`)
+      void simvarSet(`${cptBaro} (>L:S_FCU_EFIS2_BARO_MODE)`)
     })
 
     return unsubscribe

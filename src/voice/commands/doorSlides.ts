@@ -1,3 +1,5 @@
+// FENIX handleds this, need to double check when V3 is released
+
 import { setLvar, simvarGet } from "@/API/simvarApi"
 
 export async function setDoorSlides(shouldArm: boolean) {

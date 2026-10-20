@@ -11,8 +11,8 @@
     },
     {
       "label": "Engine 1 Anti Ice",
-      "read": "(L:INI_ENG_ANTI_ICE1_STATE)",
-      "on": "0 (>L:INI_ENG_ANTI_ICE1_STATE)",
+      "read": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)",
+      "on": "0 (>L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)",
       "expect": 0
     }
   ]

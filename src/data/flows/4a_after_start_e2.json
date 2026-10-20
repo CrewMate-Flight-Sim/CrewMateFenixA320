@@ -10,19 +10,19 @@
     },
     {
       "label": "Engine 1 Anti Ice",
-      "read": "(L:INI_ENG_ANTI_ICE1_STATE)",
+      "read": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)",
       "on": "{anti_ice_eng1_cmd}",
       "expect": "{anti_ice_eng1_expect}"
     },
     {
       "label": "Engine 2 Anti Ice",
-      "read": "(L:INI_ENG_ANTI_ICE2_STATE)",
+      "read": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)",
       "on": "{anti_ice_eng2_cmd}",
       "expect": "{anti_ice_eng2_expect}"
     },
     {
       "label": "Wing Anti Ice",
-      "read": "(L:INI_WING_ANTI_ICE1_STATE)",
+      "read": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)",
       "on": "{anti_ice_wing_cmd}",
       "expect": "{anti_ice_wing_expect}"
     }

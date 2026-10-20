@@ -2,7 +2,7 @@ import { simvarSet } from "@/API/simvarApi"
 import { playSound } from "@/services/playSounds"
 import { useTelemetryStore } from "@/store/telemetryStore"
 
-const GEAR_LOWER_SPEED_LIMIT = 255 // knots
+const GEAR_LOWER_SPEED_LIMIT = 250 // knots
 
 export async function setGearHandle(position: number) {
   try {

@@ -17,8 +17,8 @@
     },
     {
       "label": "Flaps {flaps}",
-      "read": "(A:FLAPS HANDLE INDEX,Number)",
-      "on": "(>K:FLAPS_{flaps})",
+      "read": "(L:S_FC_FLAPS)",
+      "on": "{flaps} (>L:S_FC_FLAPS)",
       "expect": "{flaps}",
       "flaps_lever": true,
       "only_if": {

@@ -207,7 +207,7 @@ class FlowRunner {
       this.postLandingTimer.isActive &&
       !this.parkingSoundPlayedThisCycle &&
       telemetry.parkingBrake > 0.5 &&
-      telemetry.taxiLight === 2 // INI_LIGHTS_NOSE 2 = taxi light off
+      telemetry.taxiLight === 0 // S_OH_EXT_LT_NOSE 0 = nose light off
     ) {
       this.parkingSoundPlayedThisCycle = true
       await playSound("five_minutes_not_passed.ogg")

@@ -80,20 +80,22 @@ async function getTemplateVars(): Promise<Record<string, string>> {
   const engAntiIce = antiIce === "oneng" || antiIce === "onengwing"
   const wingAntiIce = antiIce === "onengwing"
 
-  vars["anti_ice_eng1_cmd"] = engAntiIce ? "1 (>L:INI_ENG_ANTI_ICE1_STATE)" : "0 (>L:INI_ENG_ANTI_ICE1_STATE)"
-  vars["anti_ice_eng2_cmd"] = engAntiIce ? "1 (>L:INI_ENG_ANTI_ICE2_STATE)" : "0 (>L:INI_ENG_ANTI_ICE2_STATE)"
-  vars["anti_ice_wing_cmd"] = wingAntiIce ? "1 (>L:INI_WING_ANTI_ICE1_STATE)" : "0 (>L:INI_WING_ANTI_ICE1_STATE)"
+  vars["anti_ice_eng1_cmd"] = engAntiIce ? "1 (>L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)" : "0 (>L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)"
+  vars["anti_ice_eng2_cmd"] = engAntiIce ? "1 (>L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)" : "0 (>L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)"
+  vars["anti_ice_wing_cmd"] = wingAntiIce
+    ? "1 (>L:S_OH_PNEUMATIC_WING_ANTI_ICE)"
+    : "0 (>L:S_OH_PNEUMATIC_WING_ANTI_ICE)"
   vars["anti_ice_eng1_expect"] = engAntiIce ? "1" : "0"
   vars["anti_ice_eng2_expect"] = engAntiIce ? "1" : "0"
   vars["anti_ice_wing_expect"] = wingAntiIce ? "1" : "0"
 
   const landingAntiIceOn = (landing.antiIce ?? "off") === "oneng"
   vars["landing_anti_ice_eng1_cmd"] = landingAntiIceOn
-    ? "1 (>L:INI_ENG_ANTI_ICE1_STATE)"
-    : "0 (>L:INI_ENG_ANTI_ICE1_STATE)"
+    ? "1 (>L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)"
+    : "0 (>L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)"
   vars["landing_anti_ice_eng2_cmd"] = landingAntiIceOn
-    ? "1 (>L:INI_ENG_ANTI_ICE2_STATE)"
-    : "0 (>L:INI_ENG_ANTI_ICE2_STATE)"
+    ? "1 (>L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)"
+    : "0 (>L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)"
   vars["landing_anti_ice_eng1_expect"] = landingAntiIceOn ? "1" : "0"
   vars["landing_anti_ice_eng2_expect"] = landingAntiIceOn ? "1" : "0"
 
