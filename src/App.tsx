@@ -15,6 +15,7 @@ import { useAutoFlows } from "@/hooks/useAutoFlows"
 import { useBaroSync } from "@/hooks/useBaroSync"
 import { useCallouts } from "@/hooks/useCallouts"
 import { useCloseConfirm } from "@/hooks/useCloseConfirm"
+import { useFenixData } from "@/hooks/useFenixData"
 import { useMcduTransition } from "@/hooks/useMcduTransition"
 import { usePreflightTimer } from "@/hooks/usePreflightTimer"
 import { useSimConnection } from "@/hooks/useSimConnection"
@@ -53,6 +54,7 @@ function App() {
   const wasVoiceEnabledBeforeDisconnect = useRef<boolean | null>(null)
 
   useMcduTransition()
+  useFenixData()
   useCallouts()
   useAutoFlows()
   usePreflightTimer()

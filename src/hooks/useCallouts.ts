@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react"
 import { useTelemetryTick } from "@/hooks/useTelemetryTick"
 import { restartChrono } from "@/services/clockChrono"
 import { playSound, isSoundPlaying } from "@/services/playSounds"
+import { useFenixDataStore } from "@/store/fenixDataStore"
 import { useGoAroundStore } from "@/store/goAroundStore"
 import { usePassingAltitudeStore } from "@/store/passingAltitudeStore"
 import { useRtoStore } from "@/store/rtoStore"
@@ -55,15 +56,19 @@ interface PreviousValues {
 }
 
 const DETENT_FLX = 4
+const DETENT_TOGA = 5
+const THRUST_SET_LIMIT_MARGIN = 1.5
 const THRUST_SET_MIN_N1 = 73
 const THRUST_SET_MAX_DELTA = 5
 
-// No N1 limit is exported, so thrust is set once N1 is within a few percent of what the FADEC demands
-const isTakeoffThrustSet = (t: Telemetry) =>
-  t.throttleDetent1 >= DETENT_FLX &&
-  t.throttleDetent2 >= DETENT_FLX &&
-  t.engine1N1Display >= THRUST_SET_MIN_N1 &&
-  t.engine1N1DemandDelta < THRUST_SET_MAX_DELTA
+// Set once the E/WD N1 is near the FADEC limit for the detent; without the API, near what the FADEC demands
+const isTakeoffThrustSet = (t: Telemetry) => {
+  if (t.throttleDetent1 < DETENT_FLX || t.throttleDetent2 < DETENT_FLX) return false
+  const { flexN1, togaN1 } = useFenixDataStore.getState()
+  const limit = Math.max(t.throttleDetent1, t.throttleDetent2) >= DETENT_TOGA ? togaN1 : flexN1
+  if (limit !== null) return t.engine1N1Display >= limit - THRUST_SET_LIMIT_MARGIN
+  return t.engine1N1Display >= THRUST_SET_MIN_N1 && t.engine1N1DemandDelta < THRUST_SET_MAX_DELTA
+}
 
 // Fenix's own reverse flag, because the lever position check sometimes missed reverse
 const isReverseSelected = (t: Telemetry) => t.engine1InReverse > 0.5 || t.engine2InReverse > 0.5

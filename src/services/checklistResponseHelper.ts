@@ -1,4 +1,5 @@
 import { getTakeoffPerformance } from "@/services/takeoffPerformance"
+import { useFenixDataStore } from "@/store/fenixDataStore"
 import { usePerformanceStore } from "@/store/performanceStore"
 import { useTelemetryStore } from "@/store/telemetryStore"
 import type { ChecklistItem } from "@/types/checklist"
@@ -28,6 +29,12 @@ export function getDisplayResponses(item: ChecklistItem): string[] {
   // Baro confirmation: show clear examples the pilot can say
   if (item.baro_confirmation) {
     extras.push("qnh #4 set", "altimeter #4 set", "#4 set")
+  }
+
+  // Pitch trim: show the takeoff CG from the loadsheet + safeword
+  if (item.cg_confirmation) {
+    const cg = useFenixDataStore.getState().takeoffCg
+    return [`${cg !== null ? cg.toFixed(1) : "##.#"} percent`, "set and checked"]
   }
 
   // Runway confirmation: show the runway entered in the Takeoff Plan

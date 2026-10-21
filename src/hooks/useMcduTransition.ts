@@ -27,7 +27,7 @@ export function useMcduTransition() {
 
       for (const display of MCDU_DISPLAYS) {
         const xml = await readDataRef(display)
-        if (!xml) continue
+        if (typeof xml !== "string") continue
         const lines = displayLines(xml)
 
         // PERF TAKE OFF shows TRANS ALT in feet, e.g. 4000

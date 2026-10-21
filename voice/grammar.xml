@@ -598,6 +598,21 @@
       <item>check<tag>out.pid="checked";</tag></item>
       <item>on<tag>out.pid="on";</tag></item>
       <item>off<tag>out.pid="off";</tag></item>
+      <item>nav<tag>out.pid="nav";</tag></item>
+      <item>closed<tag>out.pid="closed";</tag></item>
+      <item>neutral<tag>out.pid="neutral";</tag></item>
+      <item>zero<tag>out.pid="zero";</tag></item>
+      <!-- Takeoff CG for the pitch trim item: "twenty eight point nine percent [set]" or "two eight point nine percent" -->
+      <item>
+        <one-of>
+          <item><ruleref uri="#FUEL_THOUSANDS" /></item>
+          <item><ruleref uri="#NUMBERS" /><ruleref uri="#NUMBERS" /></item>
+        </one-of>
+        <item repeat="0-1">point <ruleref uri="#NUMBERS" /></item>
+        <item>percent</item>
+        <item repeat="0-1">set</item>
+        <tag>out.pid="cg_percent";</tag>
+      </item>
       <item>armed<tag>out.pid="armed";</tag></item>
       <item>auto<tag>out.pid="auto";</tag></item>
       <item>normal<tag>out.pid="normal";</tag></item>

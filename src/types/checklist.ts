@@ -9,6 +9,7 @@ export interface ChecklistItem {
   baro_confirmation?: true
   takeoff_confirmation?: true
   rwy_confirmation?: true
+  cg_confirmation?: true
   validations?: ValidationRule[]
 }
 

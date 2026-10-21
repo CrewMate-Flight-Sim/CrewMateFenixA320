@@ -19,7 +19,7 @@ interface TriggeredFlags {
 }
 
 interface PrevValues {
-  ignitionKnob: number
+  engineMode: number
   flapsIndex: number
   speedbrakeLever: number
   landingGear: number
@@ -42,7 +42,7 @@ export function useAutoFlows() {
   })
 
   const prev = useRef<PrevValues>({
-    ignitionKnob: 0,
+    engineMode: 0,
     flapsIndex: 0,
     speedbrakeLever: 1,
     landingGear: 1,
@@ -71,10 +71,10 @@ export function useAutoFlows() {
     const t = useTelemetryStore.getState().telemetry
     if (!t || t.isSlewActive) return
 
-    // Seeded from live telemetry, or a switch already on at app start (e.g. ignition) would look like an edge
+    // Seeded from live telemetry, or a switch already on at app start (e.g. engine mode IGN) would look like an edge
     if (!primed.current) {
       primed.current = true
-      prev.current.ignitionKnob = t.ignitionKnob ?? 0
+      prev.current.engineMode = t.engineMode ?? 0
       prev.current.flapsIndex = t.flapsIndex ?? 0
       prev.current.speedbrakeLever = t.speedbrakeLever ?? 1
       prev.current.landingGear = t.landingGear ?? 1
@@ -109,8 +109,8 @@ export function useAutoFlows() {
     }
 
     if (!isRunning) {
-      // After Start: ignition knob 0 → 1 while on ground
-      if (!fl.afterStart && t.onGround && p.ignitionKnob === 2 && t.ignitionKnob === 1) {
+      // After Start: engine mode selector IGN/START → NORM while on ground
+      if (!fl.afterStart && t.onGround && p.engineMode === 2 && t.engineMode === 1) {
         fl.afterStart = true
         executeFlow("after_start")
       }
@@ -164,7 +164,7 @@ export function useAutoFlows() {
     }
 
     p.thrustLeverClb = t.thrustLeverClb ?? 0
-    p.ignitionKnob = t.ignitionKnob ?? 0
+    p.engineMode = t.engineMode ?? 0
     p.flapsIndex = t.flapsIndex ?? 0
     p.speedbrakeLever = t.speedbrakeLever ?? 1
     p.landingGear = t.landingGear ?? 1

@@ -21,7 +21,7 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "throttleLever2", expression: "(A:GENERAL ENG THROTTLE LEVER POSITION:2,Number)" },
   { key: "landingGear", expression: "(A:GEAR HANDLE POSITION,Position)" },
   { key: "brakeLeftPosition", expression: "(A:BRAKE LEFT POSITION,Number)" },
-  { key: "parkingBrake", expression: "(A:BRAKE PARKING INDICATOR,Bool)" },
+  { key: "parkingBrake", expression: "(L:S_MIP_PARKING_BRAKE)" },
   { key: "taxiLight", expression: "(L:S_OH_EXT_LT_NOSE)" },
   { key: "brakeRightPosition", expression: "(A:BRAKE RIGHT POSITION,Number)" },
   // Fenix surface positions, 0-200 with 100 neutral; the sim deflection simvars follow the stick instead
@@ -44,7 +44,8 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "autopilotEngaged", expression: "(L:I_FCU_AP1)" },
   { key: "captAltimeterSettingMB", expression: "(A:KOHLSMAN SETTING MB:1, Millibars)" },
   { key: "captAltimeterSettingHG", expression: "(A:KOHLSMAN SETTING HG:1, inHg)" },
-  { key: "ignitionKnob", expression: "(L:INI_IGNITION_KNOB)" },
+  // 0 CRANK, 1 NORM, 2 IGN/START
+  { key: "engineMode", expression: "(L:S_ENG_MODE)" },
   { key: "flapsIndex", expression: "(L:S_FC_FLAPS)" },
   { key: "mixture1", expression: "(L:INI_MIXTURE_RATIO1_HANDLE)" },
   { key: "mixture2", expression: "(L:INI_MIXTURE_RATIO2_HANDLE)" },

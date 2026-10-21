@@ -9,7 +9,7 @@
       "validations": [
         {
           "when": { "always": true },
-          "checks": [{ "type": "simvar", "var": "(A:BRAKE PARKING INDICATOR, Bool)", "expected": true }]
+          "checks": [{ "type": "simvar", "var": "(L:S_MIP_PARKING_BRAKE)", "expected": 1 }]
         }
       ],
       "label": "Parking Brake"
@@ -20,33 +20,33 @@
       "label": "Takeoff Speeds and Thrust",
       "takeoff_confirmation": true
     },
-
     {
-      "challenge": "slides.ogg",
-      "response": ["armed", "set and checked"],
-      "label": "Slides",
+      "challenge": "windows.ogg",
+      "response": ["closed", "set and checked"],
+      "label": "Windows",
       "incorrect": "are_you_sure.ogg",
       "validations": [
         {
           "when": { "always": true },
-          "checks": [{ "type": "simvar", "var": "(L:INI_DOOR0_ARMED)", "expected": 1 }]
+          "checks": [
+            { "type": "simvar", "var": "(L:N_WINDOW_CAPT)", "expected": 0 },
+            { "type": "simvar", "var": "(L:N_WINDOW_FO)", "expected": 0 }
+          ],
+          "copilot_response": "closed.ogg"
         }
       ]
     },
     {
-      "label": "Beacon On",
+      "challenge": "beacon.ogg",
+      "response": ["on", "set and checked"],
+      "label": "Beacon",
       "validations": [
         {
           "when": { "always": true },
-          "checks": [{ "type": "simvar", "var": "(L:INI_LIGHTS_BEACON)", "expected": 1 }]
+          "checks": [{ "type": "simvar", "var": "(L:S_OH_EXT_LT_BEACON)", "expected": 1 }]
         }
       ],
       "incorrect": "check_beacon.ogg"
-    },
-    {
-      "challenge": "nws_disc_memo.ogg",
-      "response": ["checked", "set and checked"],
-      "label": "Nose Wheel disconnect Memo"
     }
   ],
   "completion": "before_start_checklist_completed.ogg"

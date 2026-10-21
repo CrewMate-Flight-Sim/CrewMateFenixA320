@@ -44,6 +44,11 @@ fuel sixty thousand six hundred kilograms balanced
 fuel eighty thousand pounds
 fuel eighteen point five metric tons
 
+# ── Pitch trim (takeoff CG) ───────────────────────────────────────────────────
+twenty eight point nine percent
+two eight point nine percent
+thirty one percent set
+
 # ── Takeoff data ──────────────────────────────────────────────────────────────
 V1 one three zero VR one three five V2 one four two flex sixty five
 V1 one two five VR one three zero V2 one three five toga

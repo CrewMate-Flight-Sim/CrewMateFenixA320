@@ -13,7 +13,9 @@
       "label": "Fuel Quantity"
     },
     {
-      "label": "Seatbelts on",
+      "challenge": "seat_belts.ogg",
+      "response": ["on", "set and checked"],
+      "label": "Seat Belts",
       "validations": [
         {
           "when": { "always": true },
@@ -21,6 +23,22 @@
         }
       ],
       "incorrect": "check_belts.ogg"
+    },
+    {
+      "challenge": "adirs.ogg",
+      "response": ["nav", "set and checked"],
+      "label": "ADIRS",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [
+            { "type": "simvar", "var": "(L:S_OH_NAV_IR1_MODE)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_OH_NAV_IR2_MODE)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_OH_NAV_IR3_MODE)", "expected": 1 }
+          ]
+        }
+      ],
+      "incorrect": "check_adirs.ogg"
     },
     {
       "challenge": "baro_ref.ogg",

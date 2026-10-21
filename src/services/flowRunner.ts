@@ -91,6 +91,9 @@ function simvarMatchesExpected(actual: number | null, expected: FlowConditionVal
 }
 
 async function shouldExecuteStep(step: FlowStep): Promise<boolean> {
+  // A write whose template value came out blank (e.g. no PERF TO flaps) has nothing to set
+  if (!step.press && /^\s*\(>/.test(step.on)) return false
+
   const condition = step.only_if
   if (!condition) return true
 

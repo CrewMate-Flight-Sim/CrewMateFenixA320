@@ -9,10 +9,11 @@
       "expect": 0
     },
     {
-      "label": "Reset Rudder Trim",
-      "read": "(L:RUDDER_TRIM_RESET_REQ)",
-      "on": "1 (>L:RUDDER_TRIM_RESET_REQ)",
-      "expect": 1,
+      "label": "Rudder Trim Reset",
+      "read": "(L:S_FC_RUDDER_TRIM_RESET)",
+      "on": "S_FC_RUDDER_TRIM_RESET",
+      "press": true,
+      "expect": 0,
       "skip_verify": true
     },
     {
@@ -25,6 +26,19 @@
         "option": "takeoff.antiIce",
         "one_of": ["off"]
       }
+    },
+    {
+      "label": "Pitch Trim",
+      "read": "(L:A_FC_ELEVATOR_TRIM)",
+      "on": "{pitch_trim} (>L:A_FC_ELEVATOR_TRIM)",
+      "expect": "{pitch_trim}"
+    },
+    {
+      "label": "ECAM Status",
+      "read": "(L:I_ECAM_STATUS)",
+      "on": "S_ECAM_STATUS",
+      "press": true,
+      "expect": 1
     },
     {
       "label": "Dome off",

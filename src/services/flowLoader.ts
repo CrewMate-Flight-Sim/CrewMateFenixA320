@@ -1,4 +1,3 @@
-import { simvarGet } from "@/API/simvarApi"
 import afterTakeoff from "@/data/flows/10_after_takeoff.json"
 import climbTenThousand from "@/data/flows/11_climb_ten_thousand_flow.json"
 import descTenThousand from "@/data/flows/12_desc_ten_thousand_flow.json"
@@ -19,6 +18,7 @@ import takeoff from "@/data/flows/8_takeoff.json"
 import packsOn from "@/data/flows/9_packs_on.json"
 import table_close from "@/data/flows/table_close.json"
 import table_open from "@/data/flows/table_open.json"
+import { getTakeoffTrim, PITCH_TRIM_SCALE } from "@/services/pitchTrim"
 import { usePerformanceStore } from "@/store/performanceStore"
 import type { Flow, FlowStep } from "@/types/flow"
 
@@ -53,14 +53,10 @@ async function getTemplateVars(): Promise<Record<string, string>> {
   const { takeoff, landing } = usePerformanceStore.getState()
   const vars: Record<string, string> = {}
 
-  // TO_FLAPS_CONF mapping: 2 → flaps 1, 3 → flaps 2, 5 → flaps 3
-  const TO_FLAPS_MAP: Record<number, string> = { 2: "1", 3: "2", 5: "3" }
-  try {
-    const toFlapsConf = await simvarGet("(L:TO_FLAPS_CONF)")
-    vars["flaps"] = toFlapsConf !== null ? (TO_FLAPS_MAP[toFlapsConf] ?? "") : ""
-  } catch {
-    vars["flaps"] = ""
-  }
+  vars["flaps"] = takeoff.flaps ?? ""
+
+  const pitchTrim = await getTakeoffTrim()
+  vars["pitch_trim"] = pitchTrim !== null ? String(Math.round(pitchTrim * PITCH_TRIM_SCALE)) : ""
 
   // With APU TO PACK the packs stay on and run on APU bleed
   const packsOn = takeoff.packs !== "off"
@@ -97,12 +93,6 @@ async function getTemplateVars(): Promise<Record<string, string>> {
 
   const landingLSonoff = (landing.ls ?? false) === true
   vars["landing_ls_expect"] = landingLSonoff ? "1" : "0"
-
-  const landFlapsMap: Record<string, string> = {
-    "3": "3",
-    Full: "4"
-  }
-  vars["landing_flaps"] = landFlapsMap[landing.flaps] ?? "5"
 
   return vars
 }

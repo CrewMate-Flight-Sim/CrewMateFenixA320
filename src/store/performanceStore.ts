@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware"
 
 // V-speeds, flex and thrust come from the MCDU PERF page (services/takeoffPerformance.ts)
 interface TakeoffData {
+  flaps?: string
   packs?: string
   antiIce?: string
   runway: string

@@ -1,7 +1,9 @@
 const FENIX_GRAPHQL_URL = "http://localhost:8083/graphql"
 
+type DataRefValue = string | number | boolean
+
 // Quiet on failure: it is polled, and Fenix not running yet is normal
-export async function readDataRef(name: string): Promise<string | null> {
+export async function readDataRef(name: string): Promise<DataRefValue | null> {
   try {
     const response = await fetch(FENIX_GRAPHQL_URL, {
       method: "POST",
@@ -13,7 +15,9 @@ export async function readDataRef(name: string): Promise<string | null> {
     })
     const result = (await response.json()) as { data?: { dataRef?: { value?: { value?: unknown } } } }
     const value = result.data?.dataRef?.value?.value
-    return typeof value === "string" ? value : null
+    // An unknown name reads "", and a NaN reading comes back as an error with no value
+    if (value === "" || value === null || value === undefined) return null
+    return typeof value === "string" || typeof value === "number" || typeof value === "boolean" ? value : null
   } catch {
     return null
   }

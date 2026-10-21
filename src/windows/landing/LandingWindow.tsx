@@ -63,18 +63,8 @@ export function LandingWindow() {
 
   return (
     <div className="h-screen bg-black text-white p-3 flex flex-col gap-3">
-      {/* Flaps + Missed Approach */}
+      {/* Missed Approach; landing flaps come from the MCDU PERF APPR page */}
       <div className="grid grid-cols-2 gap-2">
-        <div className="space-y-1">
-          <Label htmlFor="flaps" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
-            Flaps
-          </Label>
-          <select id="flaps" name="flaps" value={landing.flaps} onChange={handleSelectChange} className={SELECT_CLS}>
-            <option value="3">3</option>
-            <option value="Full">Full</option>
-          </select>
-        </div>
-
         <div className="space-y-1">
           <Label htmlFor="missedAltitude" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
             Missed App (ft)

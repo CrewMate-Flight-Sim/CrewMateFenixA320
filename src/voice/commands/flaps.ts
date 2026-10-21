@@ -3,21 +3,27 @@ import { moveFlapsLever } from "@/services/flapsLever"
 import { playSound } from "@/services/playSounds"
 import { useTelemetryStore } from "@/store/telemetryStore"
 
-// will be done via GraphQL
-type A350Variant = "A350-900" | "A350-1000"
+type A32XVariant = "A319" | "A320" | "A321"
 
-const FLAP_SPEED_LIMITS: Record<A350Variant, Record<number, number>> = {
-  "A350-900": {
-    1: 255,
-    2: 212,
-    3: 195,
-    4: 186
+// VFE placard by lever position; the A319 shares the A320 limits
+const FLAP_SPEED_LIMITS: Record<A32XVariant, Record<number, number>> = {
+  A319: {
+    1: 230,
+    2: 200,
+    3: 185,
+    4: 177
   },
-  "A350-1000": {
-    1: 260,
-    2: 219,
-    3: 206,
-    4: 192
+  A320: {
+    1: 230,
+    2: 200,
+    3: 185,
+    4: 177
+  },
+  A321: {
+    1: 235,
+    2: 215,
+    3: 195,
+    4: 190
   }
 }
 
@@ -29,18 +35,10 @@ const SOUND_MAP: Record<number, string> = {
   4: "flaps_full.ogg"
 }
 
-function getA350Variant(title?: string): A350Variant | null {
-  if (!title) return null
-
-  const normalized = title.toUpperCase()
-
-  const is1000 = /A\s*350[\s-]*1000\b/.test(normalized)
-  const is900 = /A\s*350[\s-]*900\b/.test(normalized)
-
-  if (is1000) return "A350-1000"
-  if (is900) return "A350-900"
-
-  return null
+// Fenix titles read like "FenixA320 CFM SL"; neo variants share their ceo limits
+function getA32XVariant(title?: string): A32XVariant | null {
+  const match = title?.toUpperCase().match(/A\s*-?\s*(319|320|321)/)
+  return match ? (`A${match[1]}` as A32XVariant) : null
 }
 
 export async function setFlaps(setting: number, skipAnnouncement = false) {
@@ -48,11 +46,9 @@ export async function setFlaps(setting: number, skipAnnouncement = false) {
     const { telemetry, aircraftTitle } = useTelemetryStore.getState()
     const currentSpeed = telemetry?.ias ?? 0
     const isOnGround = telemetry?.onGround ?? 0
-    const variant = getA350Variant(aircraftTitle ?? undefined)
+    const variant = getA32XVariant(aircraftTitle ?? undefined) ?? "A320"
 
-    const effectiveVariant: A350Variant = variant ?? "A350-900"
-
-    const speedLimit = FLAP_SPEED_LIMITS[effectiveVariant][setting]
+    const speedLimit = FLAP_SPEED_LIMITS[variant][setting]
 
     if (speedLimit && currentSpeed > speedLimit) {
       playSound("check_speed.ogg")

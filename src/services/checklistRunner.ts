@@ -3,6 +3,7 @@ import { listen } from "@tauri-apps/api/event"
 import { simvarGet, simvarSet } from "@/API/simvarApi"
 import { delay } from "@/lib/utils"
 import { getChecklistById } from "@/services/checklistLoader"
+import { getTakeoffCg, getTakeoffTrim, readPitchTrim } from "@/services/pitchTrim"
 import { playSound, playSoundSequence, waitForSoundFinished } from "@/services/playSounds"
 import { getTakeoffPerformance } from "@/services/takeoffPerformance"
 import { useChecklistStore } from "@/store/checklistStore"
@@ -78,6 +79,81 @@ function matchesResponse(spoken: string, token: string): boolean {
 
 function matchesAnyResponse(spoken: string, responses: string[]): boolean {
   return responses.some((r) => matchesResponse(spoken, r))
+}
+
+const SPOKEN_NUMBER_VALUES: Record<string, number> = {
+  zero: 0,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+  niner: 9,
+  ten: 10,
+  eleven: 11,
+  twelve: 12,
+  thirteen: 13,
+  fourteen: 14,
+  fifteen: 15,
+  sixteen: 16,
+  seventeen: 17,
+  eighteen: 18,
+  nineteen: 19,
+  twenty: 20,
+  thirty: 30,
+  forty: 40,
+  fifty: 50,
+  sixty: 60,
+  seventy: 70,
+  eighty: 80,
+  ninety: 90
+}
+
+// "twenty eight point nine percent", "two eight point nine percent" or "28.9 percent"
+function parseSpokenPercent(spoken: string): number | null {
+  const beforePercent = spoken.split("percent")[0]
+  const digits = beforePercent.match(/(\d{1,2}(?:\.\d)?)\s*$/)
+  if (digits) return parseFloat(digits[1])
+
+  const [whole, fraction] = beforePercent.split(/\bpoint\b/)
+  const values = whole
+    .split(/[\s-]+/)
+    .map((word) => SPOKEN_NUMBER_VALUES[word])
+    .filter((value) => value !== undefined)
+  // Two single digits are read digit by digit ("two eight" is 28); otherwise the words add up ("twenty eight")
+  const wholeValue =
+    values.length === 2 && values.every((value) => value < 10)
+      ? values[0] * 10 + values[1]
+      : values.reduce((sum, value) => sum + value, 0)
+  if (wholeValue === 0) return null
+  const tenth = SPOKEN_NUMBER_VALUES[fraction?.trim().split(/\s+/)[0] ?? ""]
+  return tenth !== undefined && tenth < 10 ? wholeValue + tenth / 10 : wholeValue
+}
+
+const CG_TOLERANCE = 0.5
+const PITCH_TRIM_TOLERANCE = 0.2
+
+// The spoken CG has to match the loadsheet and the wheel the takeoff trim; "set and checked" skips the CG
+async function isPitchTrimConfirmed(spoken: string): Promise<boolean> {
+  if (!spoken.includes("set and checked")) {
+    const spokenCg = parseSpokenPercent(spoken)
+    const cg = await getTakeoffCg()
+    if (spokenCg === null || (cg !== null && Math.abs(spokenCg - cg) > CG_TOLERANCE)) {
+      console.log(`[ChecklistRunner] Pitch trim CG mismatch: spoken ${spokenCg}, loadsheet ${cg}`)
+      return false
+    }
+  }
+
+  const [target, wheel] = await Promise.all([getTakeoffTrim(), readPitchTrim()])
+  if (target !== null && wheel !== null && Math.abs(target - wheel) > PITCH_TRIM_TOLERANCE) {
+    console.log(`[ChecklistRunner] Pitch trim wheel ${wheel} does not match takeoff trim ${target}`)
+    return false
+  }
+  return true
 }
 
 // ---------------------------------------------------------------------------
@@ -400,6 +476,12 @@ class ChecklistRunner {
         }
       }
 
+      if (item.cg_confirmation && !(await isPitchTrimConfirmed(spoken))) {
+        await playSyncSound(item.incorrect ?? "are_you_sure.ogg")
+        if (hold()) continue
+        else break
+      }
+
       if (item.takeoff_confirmation) {
         await this.playTakeoffConfirmation()
       }
@@ -439,7 +521,7 @@ class ChecklistRunner {
         }
 
         const expectsFeet = responseList.some((r) => r.toLowerCase().includes("feet"))
-        if ((item.baro_confirmation || expectsFeet) && !spoken.includes("set and checked")) {
+        if ((item.baro_confirmation || item.cg_confirmation || expectsFeet) && !spoken.includes("set and checked")) {
           if (!(/\b\d{2,4}\b/.test(spoken) || NUMBER_WORDS_RE.test(spoken))) continue
         }
 

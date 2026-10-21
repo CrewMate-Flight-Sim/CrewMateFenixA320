@@ -382,15 +382,15 @@ If the aircraft has no brake fans, the FO answers "are you sure?" instead.
 
 Call the ground engineer first — the rest are only answered once the interphone call has been made.
 
-| Say                                              | What happens                            |
-| ------------------------------------------------ | --------------------------------------- |
-| "Ground from cockpit" / "Cockpit to ground"      | The ground engineer answers "go ahead". |
-| "Connect GPU" / "Connect ground power"           | Connects ground power.                  |
-| "Disconnect GPU" / "Disconnect ground power"     | Disconnects ground power.               |
-| "Connect air conditioner"                        | Connects the air conditioning unit.     |
-| "Disconnect air conditioner"                     | Disconnects the air conditioning unit.  |
-| "Disconnect all" / "Disconnect all services"     | Disconnects everything.                 |
-| "We are ready for pushback"                      | Requests pushback.                      |
+| Say                                          | What happens                            |
+| -------------------------------------------- | --------------------------------------- |
+| "Ground from cockpit" / "Cockpit to ground"  | The ground engineer answers "go ahead". |
+| "Connect GPU" / "Connect ground power"       | Connects ground power.                  |
+| "Disconnect GPU" / "Disconnect ground power" | Disconnects ground power.               |
+| "Connect air conditioner"                    | Connects the air conditioning unit.     |
+| "Disconnect air conditioner"                 | Disconnects the air conditioning unit.  |
+| "Disconnect all" / "Disconnect all services" | Disconnects everything.                 |
+| "We are ready for pushback"                  | Requests pushback.                      |
 
 ### FMA Callouts
 
@@ -412,33 +412,36 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Gear Pins and Covers | "removed"                                                                                                                                                        |
 | Fuel Quantity        | "fuel quantity \_\_\_ kilograms / pounds / tons", optionally "balanced". The short forms "tons" / "kilograms" / "pounds" also match.                             |
-| Seat Belts           | _auto_ — checked against the seat belt switch                                                                                                                    |
+| Seat Belts           | "on" — verified against the seat belt switch                                                                                                                     |
+| ADIRS                | "nav" — verified against all three IR mode selectors                                                                                                             |
 | Barometric Reference | "altimeter \_\_\_\_ set" / "QNH \_\_\_\_ set" / "\_\_\_\_ set" / "set" — the FO reads the setting back. inHg (2700–3100) and hPa (900–1100) are both understood. |
 
 ### Before Start
 
-| Item                       | Say                                                                                                                                                               |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Parking Brake              | "set" — verified against the parking brake                                                                                                                        |
-| Takeoff Speeds and Thrust  | "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ flex \_\_" or "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ toga" — all three speeds and the thrust setting must be said; the FO reads them back. |
-| Slides                     | "armed" — verified against the door slides                                                                                                                        |
-| Beacon                     | _auto_ — checked against the beacon switch                                                                                                                        |
-| Nose Wheel Disconnect Memo | "checked"                                                                                                                                                         |
+| Item                      | Say                                                                                                                                                               |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parking Brake             | "set" — verified against the parking brake                                                                                                                        |
+| Takeoff Speeds and Thrust | "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ flex \_\_" or "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ toga" — all three speeds and the thrust setting must be said; the FO reads them back. |
+| Windows                   | "closed" — verified against both side windows; the FO answers "closed" too                                                                                        |
+| Beacon                    | "on" — verified against the beacon switch                                                                                                                         |
 
 ### After Start
 
-| Item             | Say                                          |
-| ---------------- | -------------------------------------------- |
-| Anti Ice         | "engines on" / "engines on wings on" / "off" |
-| Flight Controls  | "checked"                                    |
-| Ground Clearance | "received"                                   |
+| Item             | Say                                                                                                                                                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Anti Ice         | "engines on" / "engines on wings on" / "off"                                                                                                                                                                        |
+| ECAM Status      | "checked"                                                                                                                                                                                                           |
+| Pitch Trim       | the takeoff CG, e.g. "twenty eight point nine percent" or "two eight point nine percent" — checked against the loadsheet CG, and the trim wheel against the PERF TO THS (or the trim for that CG when THS is blank) |
+| Rudder Trim      | "neutral" / "zero" — verified against the rudder trim                                                                                                                                                               |
+| Ground Clearance | "received" — the FO answers "received" too                                                                                                                                                                          |
 
 ### Taxi
 
-| Item          | Say                                                 |
-| ------------- | --------------------------------------------------- |
-| Flap Settings | "config one plus f" / "config two" / "config three" |
-| Radar         | "on"                                                |
+| Item            | Say                                                 |
+| --------------- | --------------------------------------------------- |
+| Flight Controls | "checked"                                           |
+| Flap Settings   | "config one plus f" / "config two" / "config three" |
+| Radar           | "on"                                                |
 
 ### Departure Change
 
