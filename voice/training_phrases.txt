@@ -66,6 +66,9 @@ radio one hundred sixty feet
 radio fifty feet
 baro one thousand feet
 baro one thousand two hundred thirty four feet
+baro four five zero feet
+baro one two three zero feet
+radio five zero feet
 
 # ── FMA callouts ─────────────────────────────────────────────────────────────
 toga srs runway autothrust blue
@@ -202,6 +205,8 @@ running
 advised
 signaled
 stop
+low
+brake low
 medium
 brake medium
 go around flaps

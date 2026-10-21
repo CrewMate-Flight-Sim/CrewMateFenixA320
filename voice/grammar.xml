@@ -632,6 +632,8 @@
       <item>running<tag>out.pid="running";</tag></item>
       <item>advised<tag>out.pid="advised";</tag></item>
       <item>signaled<tag>out.pid="signaled";</tag></item>
+      <item>low<tag>out.pid="low";</tag></item>
+      <item>brake low<tag>out.pid="low";</tag></item>
       <item>medium<tag>out.pid="medium";</tag></item>
       <item>brake medium<tag>out.pid="medium";</tag></item>
       <item>engines on<tag>out.pid="engines_on";</tag></item>
@@ -931,6 +933,32 @@
   ──────────────────────────────────────────────────────────────────────────── -->
   <rule id="MINIMUMS_VALUE">
     <one-of>
+      <!-- digit by digit: "four five zero" → "450", "one two three zero" → "1230" -->
+      <item>
+        <ruleref uri="#NUMBERS" />
+        <tag>out.a=rules.NUMBERS;</tag>
+        <ruleref uri="#NUMBERS" />
+        <tag>out.b=rules.NUMBERS;</tag>
+        <ruleref uri="#NUMBERS" />
+        <tag>out.c=rules.NUMBERS;</tag>
+        <ruleref uri="#NUMBERS" />
+        <tag>out=out.a+out.b+out.c+rules.NUMBERS;</tag>
+      </item>
+      <item>
+        <ruleref uri="#NUMBERS" />
+        <tag>out.a=rules.NUMBERS;</tag>
+        <ruleref uri="#NUMBERS" />
+        <tag>out.b=rules.NUMBERS;</tag>
+        <ruleref uri="#NUMBERS" />
+        <tag>out=out.a+out.b+rules.NUMBERS;</tag>
+      </item>
+      <item>
+        <ruleref uri="#NUMBERS" />
+        <tag>out.a=rules.NUMBERS;</tag>
+        <ruleref uri="#NUMBERS" />
+        <tag>out=out.a+rules.NUMBERS;</tag>
+      </item>
+
       <!-- pure sub-hundred: CAT III DH values like "fifty" or "eighty" -->
       <item>
         <ruleref uri="#MIN_BELOW_100" />

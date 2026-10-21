@@ -464,12 +464,13 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 
 ### Approach
 
-| Item                 | Say                                                                                                     |
-| -------------------- | ------------------------------------------------------------------------------------------------------- |
-| Barometric Reference | "altimeter \_\_\_\_ set" / "QNH \_\_\_\_ set" / "\_\_\_\_ set" / "set" — the FO reads the setting back. |
-| Minimums Reference   | "baro \_\_\_ feet" or "radio \_\_\_ feet"                                                               |
-| Runway Condition     | "dry" / "wet" / "compacted snow" / "snow" / "slippery" / "standing water" / "slush" / "ice"             |
-| Auto Brake           | "medium" / "brake medium" — checked against the FMA.                                                    |
+| Item                 | Say                                                                                                                                          |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Barometric Reference | "altimeter \_\_\_\_ set" / "QNH \_\_\_\_ set" / "\_\_\_\_ set" / "set" — the FO reads the setting back.                                      |
+| Seat Belts           | "on" — checked against the seat belts sign                                                                                                   |
+| Minimums Reference   | "baro \_\_\_ feet" or "radio \_\_\_ feet", as a number or digit by digit — e.g. "baro four hundred fifty feet" or "baro four five zero feet" |
+| Auto Brake           | "low" / "brake low" / "medium" / "brake medium" — checked against the autobrake ON light                                                     |
+| ENG Mode Sel         | "normal" / "ignition" — checked against the engine mode selector                                                                             |
 
 ### Landing
 
