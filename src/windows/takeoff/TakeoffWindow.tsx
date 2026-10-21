@@ -4,7 +4,6 @@ import { Info } from "lucide-react"
 import { useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 import { usePerformanceStore } from "@/store/performanceStore"
@@ -34,8 +33,8 @@ export function TakeoffWindow() {
 
   return (
     <div className="h-screen bg-black text-white p-3 flex flex-col gap-3">
-      {/* Packs + Anti Ice + Runway */}
-      <div className="grid grid-cols-3 gap-2">
+      {/* Packs + Anti Ice */}
+      <div className="grid grid-cols-2 gap-2">
         <div className="space-y-1">
           <div className={labelRow}>
             <Label htmlFor="packs" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
@@ -80,39 +79,6 @@ export function TakeoffWindow() {
             <option value="oneng">ENG</option>
             <option value="onengwing">ENG+WING</option>
           </select>
-        </div>
-
-        <div className="space-y-1">
-          <div className={labelRow}>
-            <Label htmlFor="runway" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
-              Runway
-            </Label>
-
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="w-3 h-3 text-slate-400 cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="text-xs max-w-[200px]">
-                  Used for line up checklist takeoff runway item
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-
-          <Input
-            type="text"
-            id="runway"
-            name="runway"
-            maxLength={4}
-            value={takeoff.runway ?? ""}
-            onChange={(e) => {
-              const val = e.target.value.toUpperCase().replace(/[^0-9LCR]/g, "")
-              handleChange("runway", val)
-            }}
-            className="h-8 bg-slate-900/50 border-slate-600 text-white text-xs font-mono text-center focus-visible:ring-cyan-500 uppercase"
-            placeholder="08L"
-          />
         </div>
       </div>
 

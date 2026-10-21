@@ -129,6 +129,7 @@ $phrases = @{
     "ecam_status"                               = "ECAM status"
     "rudder_trim"                               = "Rudder trim"
     "received"                                  = "Received"
+    "tcas"                                      = "Tee cas"
     "beacon"                                    = "Beacon"
     "pressure_zero"                             = "Pressure zero"
     "standard_cross_checked"                    = "Standard cross checked"

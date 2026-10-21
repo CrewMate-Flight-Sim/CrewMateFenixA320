@@ -87,7 +87,7 @@ This tutorial assumes you are parked at the gate with engines off. You are the C
 - 44 min: PM departs for external walkaround. PF starts cockpit preparation.
   ![Cockpit Preparation flow pattern](Images/COCKPIT%20PREPARATION%20FLOW%20PATTERN.png)
 - 35 min: PM returns and starts cockpit preparation on the right-hand side. The FO reports the walkaround: "all good, no issues found", or each worn tyre or brake by gear (nose, left main, right main) followed by "we need maintenance". Worn means red on the EFB maintenance page.
-- 25 min: PF conducts the departure briefing (enter takeoff data in the Takeoff Performance window, including the departure **Runway** — the FO reads it back on the LINE-UP checklist).
+- 25 min: PF conducts the departure briefing (enter takeoff data in the Takeoff Performance window; the FO reads back the F-PLN departure runway on the LINE-UP checklist).
 - 20 min: PF calls for the COCKPIT PREPARATION checklist.
 - 5 min: PM closes the table, and a reminder to start the APU is shown.
 - 1 min: CrewMate closes the cockpit door. PF and PM perform before start flow, after that PF calls for the BEFORE START checklist.
@@ -454,11 +454,11 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 
 ### Line-Up
 
-| Item           | Say                                                                                                                                                  |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cabin Advisory | "secured" / "signaled"                                                                                                                               |
-| Takeoff Runway | The runway, then "confirmed" — e.g. "zero nine left confirmed". "Left", "right", "center" and "centre" are understood; the FO reads the runway back. |
-| Packs Settings | "on" / "on supplied by apu" / "off"                                                                                                                  |
+| Item           | Say                                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Takeoff Runway | The runway, then "confirmed" — e.g. "zero nine left confirmed". "Left", "right", "center" and "centre" are understood; the FO reads back the F-PLN departure runway. |
+| TCAS           | "TA RA" / "TA only" — checked against the TCAS mode selector                                                                                                         |
+| Packs Settings | "on" / "on supplied by apu" / "off"                                                                                                                                  |
 
 ### Approach
 

@@ -18,11 +18,12 @@ export function useFenixData() {
     const poll = async () => {
       if (useTelemetryStore.getState().status !== "connected") return
 
-      const [flex, toga, takeoffFlaps, landingFlaps, takeoffCg] = await Promise.all([
+      const [flex, toga, takeoffFlaps, landingFlaps, flightPlanXml, takeoffCg] = await Promise.all([
         readDataRef("aircraft.engines.limits.flex"),
         readDataRef("aircraft.engines.limits.toga"),
         readDataRef("aircraft.fms.perf.takeOff.flaps"),
         readDataRef("aircraft.fms.perf.landing.flaps"),
+        readDataRef("aircraft.fms.flightPlanXml"),
         getTakeoffCg()
       ])
 
@@ -39,6 +40,12 @@ export function useFenixData() {
       if (toFlaps !== null) {
         const flaps = toFlaps >= 1 && toFlaps <= 3 ? String(toFlaps) : ""
         if (flaps !== performance.takeoff.flaps) performance.setTakeoffData({ flaps })
+      }
+
+      // The active F-PLN origin runway (e.g. "27R") is what the FO reads back on the line-up checklist
+      if (typeof flightPlanXml === "string") {
+        const runway = flightPlanXml.match(/<originRunway>([^<]*)<\/originRunway>/)?.[1] ?? ""
+        if (runway !== performance.takeoff.runway) performance.setTakeoffData({ runway })
       }
 
       // The MCDU PERF APPR page is the source, so the landing window no longer asks for it

@@ -37,7 +37,7 @@ export function getDisplayResponses(item: ChecklistItem): string[] {
     return [`${cg !== null ? cg.toFixed(1) : "##.#"} percent`, "set and checked"]
   }
 
-  // Runway confirmation: show the runway entered in the Takeoff Plan
+  // Runway confirmation: show the F-PLN origin runway
   if (item.rwy_confirmation) {
     const runway = usePerformanceStore.getState().takeoff.runway?.trim()
     if (runway) extras.push(`${runway.toUpperCase()} confirmed`)

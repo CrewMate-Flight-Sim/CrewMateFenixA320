@@ -602,6 +602,8 @@
       <item>closed<tag>out.pid="closed";</tag></item>
       <item>neutral<tag>out.pid="neutral";</tag></item>
       <item>zero<tag>out.pid="zero";</tag></item>
+      <item>T A R A<tag>out.pid="ta_ra";</tag></item>
+      <item>T A only<tag>out.pid="ta_only";</tag></item>
       <!-- Takeoff CG for the pitch trim item: "twenty eight point nine percent [set]" or "two eight point nine percent" -->
       <item>
         <one-of>

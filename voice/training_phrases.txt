@@ -192,6 +192,8 @@ secured
 removed
 released
 received
+T A R A
+T A only
 started
 running
 advised
