@@ -23,8 +23,8 @@
     },
     {
       "label": "APU Bleed",
-      "read": "(L:INI_AIR_BLEED_APU)",
-      "on": "1 (>L:INI_AIR_BLEED_APU)",
+      "read": "(L:S_OH_PNEUMATIC_APU_BLEED)",
+      "on": "1 (>L:S_OH_PNEUMATIC_APU_BLEED)",
       "expect": 1
     },
     {

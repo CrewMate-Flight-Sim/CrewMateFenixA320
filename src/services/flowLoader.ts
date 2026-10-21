@@ -61,11 +61,11 @@ async function getTemplateVars(): Promise<Record<string, string>> {
   // With APU TO PACK the packs stay on and run on APU bleed
   const packsOn = takeoff.packs !== "off"
   const apuPacks = takeoff.packs === "apu"
-  vars["pack1_cmd"] = packsOn ? "1 (>L:INI_AIR_PACK1_BUTTON)" : "0 (>L:INI_AIR_PACK1_BUTTON)"
-  vars["pack2_cmd"] = packsOn ? "1 (>L:INI_AIR_PACK2_BUTTON)" : "0 (>L:INI_AIR_PACK2_BUTTON)"
+  vars["pack1_cmd"] = packsOn ? "1 (>L:S_OH_PNEUMATIC_PACK_1)" : "0 (>L:S_OH_PNEUMATIC_PACK_1)"
+  vars["pack2_cmd"] = packsOn ? "1 (>L:S_OH_PNEUMATIC_PACK_2)" : "0 (>L:S_OH_PNEUMATIC_PACK_2)"
   vars["pack1_expect"] = packsOn ? "1" : "0"
   vars["pack2_expect"] = packsOn ? "1" : "0"
-  vars["apu_bleed_cmd"] = apuPacks ? "1 (>L:INI_AIR_BLEED_APU)" : "0 (>L:INI_AIR_BLEED_APU)"
+  vars["apu_bleed_cmd"] = apuPacks ? "1 (>L:S_OH_PNEUMATIC_APU_BLEED)" : "0 (>L:S_OH_PNEUMATIC_APU_BLEED)"
   vars["apu_bleed_expect"] = apuPacks ? "1" : "0"
 
   const antiIce = takeoff.antiIce ?? "off"
