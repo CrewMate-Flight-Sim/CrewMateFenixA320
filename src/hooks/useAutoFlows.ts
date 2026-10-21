@@ -21,7 +21,7 @@ interface TriggeredFlags {
 interface PrevValues {
   ignitionKnob: number
   flapsIndex: number
-  spoilersArmed: number
+  speedbrakeLever: number
   landingGear: number
   alt: number
   mixture1: number
@@ -44,7 +44,7 @@ export function useAutoFlows() {
   const prev = useRef<PrevValues>({
     ignitionKnob: 0,
     flapsIndex: 0,
-    spoilersArmed: 0,
+    speedbrakeLever: 1,
     landingGear: 1,
     alt: 0,
     mixture1: 1,
@@ -76,7 +76,7 @@ export function useAutoFlows() {
       primed.current = true
       prev.current.ignitionKnob = t.ignitionKnob ?? 0
       prev.current.flapsIndex = t.flapsIndex ?? 0
-      prev.current.spoilersArmed = t.spoilersArmed ?? 0
+      prev.current.speedbrakeLever = t.speedbrakeLever ?? 1
       prev.current.landingGear = t.landingGear ?? 1
       prev.current.alt = t.alt ?? 0
       prev.current.thrustLeverClb = t.thrustLeverClb ?? 0
@@ -132,8 +132,8 @@ export function useAutoFlows() {
         executeFlow("after_takeoff")
       }
 
-      // After Landing: spoilers disarmed on ground
-      else if (!fl.afterLanding && t.onGround && p.spoilersArmed === 1 && t.spoilersArmed === 0) {
+      // After Landing: spoilers disarmed on ground; the lever is analog, so the halfway point marks the move
+      else if (!fl.afterLanding && t.onGround && p.speedbrakeLever < 0.5 && t.speedbrakeLever >= 0.5) {
         fl.afterLanding = true
         executeFlow("after_landing")
       }
@@ -166,7 +166,7 @@ export function useAutoFlows() {
     p.thrustLeverClb = t.thrustLeverClb ?? 0
     p.ignitionKnob = t.ignitionKnob ?? 0
     p.flapsIndex = t.flapsIndex ?? 0
-    p.spoilersArmed = t.spoilersArmed ?? 0
+    p.speedbrakeLever = t.speedbrakeLever ?? 1
     p.landingGear = t.landingGear ?? 1
     p.alt = t.alt ?? 0
     p.mixture1 = t.mixture1 ?? 1

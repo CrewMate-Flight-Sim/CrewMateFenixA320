@@ -29,8 +29,6 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "elevatorDeflection", expression: "(L:A320_FC_L_ELEV)" },
   { key: "rudderDeflection", expression: "(L:A320_FC_RUDDER)" },
   { key: "spoilersHandlePosition", expression: "(A:SPOILERS HANDLE POSITION,Position)" },
-  { key: "transitionAltitude", expression: "(L:INI_TRANSITION_ALTITUDE)" },
-  { key: "transitionLevel", expression: "(L:INI_TRANSITION_LEVEL)" },
   // MCDU PERF TAKE OFF page
   { key: "v1Speed", expression: "(L:N_MISC_PERF_TO_V1)" },
   { key: "vrSpeed", expression: "(L:N_MISC_PERF_TO_VR)" },
@@ -50,7 +48,8 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "flapsIndex", expression: "(L:S_FC_FLAPS)" },
   { key: "mixture1", expression: "(L:INI_MIXTURE_RATIO1_HANDLE)" },
   { key: "mixture2", expression: "(L:INI_MIXTURE_RATIO2_HANDLE)" },
-  { key: "spoilersArmed", expression: "(L:INI_SPOILERS_ARMED)" },
+  // 0 armed, 1 retracted
+  { key: "speedbrakeLever", expression: "(L:A_FC_SPEEDBRAKE)" },
   { key: "fcuAlt", expression: "(L:N_FCU_ALTITUDE)" },
   // Unit selectors, 0 inHg / 1 hPa (the reverse of the cockpit tooltip order)
   { key: "cptBaro", expression: "(L:S_FCU_EFIS1_BARO_MODE)" },
@@ -63,7 +62,7 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "autobrakeMedDecel", expression: "(L:I_MIP_AUTOBRAKE_MED_U)" },
   { key: "autobrakeMaxDecel", expression: "(L:I_MIP_AUTOBRAKE_MAX_U)" },
   { key: "thrustLeverClb", expression: "(L:INI_LEVER_IN_CL)" },
-  { key: "foChrono", expression: "(L:INI_FO_CHRONO)" },
+  { key: "foChrono", expression: "(L:N_MIP_CLOCK_CHRONO)" },
   { key: "baroStd", expression: "(L:B_FCU_EFIS1_BARO_STD)" },
   { key: "pitchDegrees", expression: "(A:PLANE PITCH DEGREES,Degrees)" },
   { key: "bankDegrees", expression: "(A:PLANE BANK DEGREES,Degrees)" },

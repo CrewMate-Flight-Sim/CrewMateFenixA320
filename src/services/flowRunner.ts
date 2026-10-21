@@ -1,5 +1,6 @@
-import { simvarGet, simvarSet } from "@/API/simvarApi"
+import { pressButton, simvarGet, simvarSet } from "@/API/simvarApi"
 import { delay } from "@/lib/utils"
+import { chronoSeconds, stopChrono } from "@/services/clockChrono"
 import { moveFlapsLever } from "@/services/flapsLever"
 import { getFlowById, resolveFlow } from "@/services/flowLoader"
 import { playSound, waitForSoundFinished } from "@/services/playSounds"
@@ -117,7 +118,8 @@ async function shouldExecuteStep(step: FlowStep): Promise<boolean> {
 
 class PostLandingTimer {
   private active = false
-  private expired = false
+  // Armed only by a reset on the ground, so a chrono already past 5:00 at app start or touchdown stays quiet
+  private expired = true
   private readonly THRESHOLD = 300
   public onReset?: () => void
 
@@ -133,10 +135,18 @@ class PostLandingTimer {
 
   private onTelemetry(telemetry: Telemetry | null): void {
     if (!telemetry) return
-    const chronoValue = telemetry.foChrono
-    if (typeof chronoValue !== "number") return
+    if (typeof telemetry.foChrono !== "number") return
 
-    // Chrono reset to 0 — re-arm for the next landing
+    // A chrono started for takeoff would otherwise reach 5:00 in the climb
+    if (!telemetry.onGround) {
+      this.active = false
+      this.expired = true
+      return
+    }
+
+    const chronoValue = chronoSeconds(telemetry.foChrono)
+
+    // Chrono reset or cleared — re-arm for the cool down
     if (chronoValue <= 0) {
       this.active = false
       this.expired = false
@@ -157,11 +167,7 @@ class PostLandingTimer {
   }
 
   private async fireExpiry(): Promise<void> {
-    try {
-      await simvarSet("1 (>L:INI_FO_CHRONO_BUTTON)")
-    } catch (err) {
-      console.error("[FlowRunner] Failed to fire INI_FO_CHRONO_BUTTON:", err)
-    }
+    await stopChrono()
     try {
       await playSound("five_minutes.ogg")
     } catch (err) {
@@ -318,6 +324,15 @@ class FlowRunner {
       return
     }
 
+    // A button without a light can't be checked before or after, so it is just pressed
+    if (step.press && step.skip_verify) {
+      await pressButton(step.on, step.label)
+      this.checkAbort(signal)
+      await this.handlePostWrite(step, signal)
+      setStepStatus(index, "done")
+      return
+    }
+
     const currentValue = await readSimvar(step.read)
     this.checkAbort(signal)
 
@@ -331,6 +346,7 @@ class FlowRunner {
     }
 
     if (step.flaps_lever) await moveFlapsLever(expectedValue)
+    else if (step.press) await pressButton(step.on, step.label)
     else await writeSimvar(step.on)
     this.checkAbort(signal)
 

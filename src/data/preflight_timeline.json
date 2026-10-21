@@ -1,11 +1,5 @@
 [
   {
-    "minuteMark": 50,
-    "label": "Arrive at aircraft",
-    "type": "flow",
-    "flowId": "open_curtains"
-  },
-  {
     "minuteMark": 48,
     "label": "Preliminary cockpit preparation",
     "type": "flow",

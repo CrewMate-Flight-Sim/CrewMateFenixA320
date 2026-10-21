@@ -17,6 +17,7 @@ export interface FlowStep {
   release?: string
   timeout_ms?: number
   flaps_lever?: boolean
+  press?: boolean
 }
 
 export interface Flow {

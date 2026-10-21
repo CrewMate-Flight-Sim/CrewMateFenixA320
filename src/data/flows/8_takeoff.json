@@ -3,20 +3,30 @@
   "name": "Takeoff",
   "steps": [
     {
-      "label": "Landing Lights",
-      "read": "(L:INI_LIGHTS_LANDING)",
-      "on": "1 (>L:INI_LIGHTS_LANDING)",
-      "expect": 1,
+      "label": "Landing Light Left",
+      "read": "(L:S_OH_EXT_LT_LANDING_L)",
+      "on": "2 (>L:S_OH_EXT_LT_LANDING_L)",
+      "expect": 2,
       "only_if": {
         "option": "settings.lightsControlMode",
         "one_of": ["virtual"]
       }
     },
     {
-      "label": "Nose Wheel Light",
-      "read": "(L:INI_LIGHTS_NOSE)",
-      "on": "0 (>L:INI_LIGHTS_NOSE)",
-      "expect": 0,
+      "label": "Landing Light Right",
+      "read": "(L:S_OH_EXT_LT_LANDING_R)",
+      "on": "2 (>L:S_OH_EXT_LT_LANDING_R)",
+      "expect": 2,
+      "only_if": {
+        "option": "settings.lightsControlMode",
+        "one_of": ["virtual"]
+      }
+    },
+    {
+      "label": "Nose Light",
+      "read": "(L:S_OH_EXT_LT_NOSE)",
+      "on": "2 (>L:S_OH_EXT_LT_NOSE)",
+      "expect": 2,
       "only_if": {
         "option": "settings.lightsControlMode",
         "one_of": ["virtual"]
@@ -24,9 +34,10 @@
     },
     {
       "label": "Chrono",
-      "read": "(L:INI_FO_CHRONO_BUTTON)",
-      "on": "1 (>L:INI_FO_CHRONO_BUTTON)",
-      "expect": 1,
+      "read": "(L:S_MIP_CHRONO_FO)",
+      "on": "S_MIP_CHRONO_FO",
+      "press": true,
+      "expect": 0,
       "skip_verify": true
     }
   ]

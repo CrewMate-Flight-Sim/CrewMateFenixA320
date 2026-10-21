@@ -4,20 +4,26 @@
   "steps": [
     {
       "label": "Table",
-      "read": "(L:INI_FO_TRAY_COVER_TGT)",
-      "on": "0 (>L:INI_FO_TRAY_COVER_TGT)",
+      "read": "(L:S_TRAY_TABLE_FO)",
+      "on": "0 (>L:S_TRAY_TABLE_FO)",
       "expect": 0
     },
     {
-      "label": "Landing Lights",
-      "read": "(L:INI_LIGHTS_LANDING)",
-      "on": "1 (>L:INI_LIGHTS_LANDING)",
-      "expect": 1
+      "label": "Landing Light Left",
+      "read": "(L:S_OH_EXT_LT_LANDING_L)",
+      "on": "2 (>L:S_OH_EXT_LT_LANDING_L)",
+      "expect": 2
+    },
+    {
+      "label": "Landing Light Right",
+      "read": "(L:S_OH_EXT_LT_LANDING_R)",
+      "on": "2 (>L:S_OH_EXT_LT_LANDING_R)",
+      "expect": 2
     },
     {
       "label": "Wing Lights",
-      "read": "(L:INI_LIGHTS_WING)",
-      "on": "1 (>L:INI_LIGHTS_WING)",
+      "read": "(L:S_OH_EXT_LT_WING)",
+      "on": "1 (>L:S_OH_EXT_LT_WING)",
       "expect": 1
     },
     {
@@ -27,27 +33,23 @@
       "expect": 1
     },
     {
-      "label": "Weather Radar",
-      "read": "(L:INI_WXR2_ON)",
-      "on": "0 (>L:INI_WXR2_ON)",
-      "expect": 0
-    },
-    {
-      "label": "Terrain Display",
-      "read": "(L:INI_TERR_ON_FO)",
-      "on": "1 (>L:INI_TERR_ON_FO)",
+      "label": "FO CSTR",
+      "read": "(L:I_FCU_EFIS2_CSTR)",
+      "on": "S_FCU_EFIS2_CSTR",
+      "press": true,
       "expect": 1
     },
     {
       "label": "ND SET",
-      "read": "(L:INI_MAP_RANGE_FO_SWITCH)",
-      "on": "6 (>L:INI_MAP_RANGE_FO_SWITCH)",
-      "expect": 6
+      "read": "(L:S_FCU_EFIS2_ND_ZOOM)",
+      "on": "0 (>L:S_FCU_EFIS2_ND_ZOOM)",
+      "expect": 0
     },
     {
       "label": "FO LS",
-      "read": "(L:INI_LS_FO)",
-      "on": "{landing_ls_on}",
+      "read": "(L:I_FCU_EFIS2_LS)",
+      "on": "S_FCU_EFIS2_LS",
+      "press": true,
       "expect": "{landing_ls_expect}"
     }
   ]

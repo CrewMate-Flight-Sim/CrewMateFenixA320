@@ -15,6 +15,7 @@ import { useAutoFlows } from "@/hooks/useAutoFlows"
 import { useBaroSync } from "@/hooks/useBaroSync"
 import { useCallouts } from "@/hooks/useCallouts"
 import { useCloseConfirm } from "@/hooks/useCloseConfirm"
+import { useMcduTransition } from "@/hooks/useMcduTransition"
 import { usePreflightTimer } from "@/hooks/usePreflightTimer"
 import { useSimConnection } from "@/hooks/useSimConnection"
 import { useSpeechCommands } from "@/hooks/useSpeechCommands"
@@ -51,6 +52,7 @@ function App() {
   // Mutable memory to persist preference state across connection dropouts
   const wasVoiceEnabledBeforeDisconnect = useRef<boolean | null>(null)
 
+  useMcduTransition()
   useCallouts()
   useAutoFlows()
   usePreflightTimer()

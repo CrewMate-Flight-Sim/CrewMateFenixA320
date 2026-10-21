@@ -68,10 +68,8 @@ export function useVoiceHints({ voiceEnabled, connected }: UseVoiceHintsOptions)
           "we are ready for pushback",
           "connect GPU",
           "disconnect GPU",
-          "connect ASU",
-          "disconnect ASU",
-          "connect ACU",
-          "disconnect ACU",
+          "connect air conditioner",
+          "disconnect air conditioner",
           "disconnect all"
         ]
       }

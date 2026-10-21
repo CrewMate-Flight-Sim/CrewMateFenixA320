@@ -17,8 +17,6 @@ import afterControlsCheck from "@/data/flows/6_after_flight_controls_check.json"
 import beforeTakeoff from "@/data/flows/7_before_takeoff.json"
 import takeoff from "@/data/flows/8_takeoff.json"
 import packsOn from "@/data/flows/9_packs_on.json"
-import curtains_close from "@/data/flows/curtains_close.json"
-import curtains_open from "@/data/flows/curtains_open.json"
 import table_close from "@/data/flows/table_close.json"
 import table_open from "@/data/flows/table_open.json"
 import { usePerformanceStore } from "@/store/performanceStore"
@@ -43,8 +41,6 @@ export const ALL_FLOWS: Flow[] = [
   shutdown_e1,
   shutdown_e2,
   parking,
-  curtains_open,
-  curtains_close,
   table_open,
   table_close
 ] as Flow[]
@@ -100,7 +96,6 @@ async function getTemplateVars(): Promise<Record<string, string>> {
   vars["landing_anti_ice_eng2_expect"] = landingAntiIceOn ? "1" : "0"
 
   const landingLSonoff = (landing.ls ?? false) === true
-  vars["landing_ls_on"] = landingLSonoff ? "1 (>L:INI_LS_FO)" : "0 (>L:INI_LS_FO)"
   vars["landing_ls_expect"] = landingLSonoff ? "1" : "0"
 
   const landFlapsMap: Record<string, string> = {

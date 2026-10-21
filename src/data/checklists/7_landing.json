@@ -8,7 +8,7 @@
       "validations": [
         {
           "when": { "always": true },
-          "checks": [{ "type": "simvar", "var": "(L:INI_SPOILERS_ARMED)", "expected": 1 }]
+          "checks": [{ "type": "simvar", "var": "(L:A_FC_SPEEDBRAKE)", "expected": 0 }]
         }
       ],
       "incorrect": "check_spoilers.ogg"

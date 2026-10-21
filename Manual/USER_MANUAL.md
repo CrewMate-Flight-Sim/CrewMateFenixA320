@@ -83,7 +83,6 @@ This tutorial assumes you are parked at the gate with engines off. You are the C
 
 ### Typical preflight timeline (example)
 
-- 50 min: Cockpit door and curtains opened.
 - 48 min: PM starts preliminary cockpit preparation and sets the parking brake, so the brake wear indicators can be checked on the walkaround.
 - 44 min: PM departs for external walkaround. PF starts cockpit preparation.
   ![Cockpit Preparation flow pattern](Images/COCKPIT%20PREPARATION%20FLOW%20PATTERN.png)
@@ -388,10 +387,8 @@ Call the ground engineer first — the rest are only answered once the interphon
 | "Ground from cockpit" / "Cockpit to ground"      | The ground engineer answers "go ahead". |
 | "Connect GPU" / "Connect ground power"           | Connects ground power.                  |
 | "Disconnect GPU" / "Disconnect ground power"     | Disconnects ground power.               |
-| "Connect ASU" / "Connect air starter"            | Connects the air starter unit.          |
-| "Disconnect ASU" / "Disconnect air starter"      | Disconnects the air starter unit.       |
-| "Connect ACU" / "Connect air conditioning"       | Connects the air conditioning unit.     |
-| "Disconnect ACU" / "Disconnect air conditioning" | Disconnects the air conditioning unit.  |
+| "Connect air conditioner"                        | Connects the air conditioning unit.     |
+| "Disconnect air conditioner"                     | Disconnects the air conditioning unit.  |
 | "Disconnect all" / "Disconnect all services"     | Disconnects everything.                 |
 | "We are ready for pushback"                      | Requests pushback.                      |
 

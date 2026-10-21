@@ -4,9 +4,9 @@
   "steps": [
     {
       "label": "Ground Spoilers",
-      "read": "(L:INI_SPOILERS_ARMED)",
-      "on": "1 (>K:SPOILERS_ARM_SET)",
-      "expect": 1
+      "read": "(L:A_FC_SPEEDBRAKE)",
+      "on": "0 (>L:A_FC_SPEEDBRAKE)",
+      "expect": 0
     },
     {
       "label": "Reset Rudder Trim",

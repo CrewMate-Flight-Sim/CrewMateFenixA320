@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 
-import { simvarSet } from "@/API/simvarApi"
 import { useTelemetryTick } from "@/hooks/useTelemetryTick"
+import { restartChrono } from "@/services/clockChrono"
 import { playSound, isSoundPlaying } from "@/services/playSounds"
 import { useGoAroundStore } from "@/store/goAroundStore"
 import { usePassingAltitudeStore } from "@/store/passingAltitudeStore"
@@ -9,6 +9,7 @@ import { useRtoStore } from "@/store/rtoStore"
 import { useSettingsStore } from "@/store/settingsStore"
 import { useTelemetryStore } from "@/store/telemetryStore"
 import type { Telemetry } from "@/store/telemetryStore"
+import { useTransitionStore } from "@/store/transitionStore"
 
 type LandingPhase = "idle" | "spoilers" | "reverser" | "decel"
 
@@ -25,8 +26,8 @@ interface AltitudeCalloutFlags {
   positiveClimb: boolean
   tenThousandClimb: boolean
   tenThousandDescent: boolean
-  transitionAltitude: boolean // need to check vars
-  transitionLevel: boolean // need to check vars
+  transitionAltitude: boolean
+  transitionLevel: boolean
   oneToGo: boolean
 }
 
@@ -319,6 +320,7 @@ export function useCallouts() {
     const vr = Math.round(t.vrSpeed ?? 0)
     const now = Date.now()
     const fcuAlt = t.fcuAlt ?? 0
+    const { transitionAltitude, transitionLevel } = useTransitionStore.getState()
 
     // Re-arm one-to-go when FCU altitude changes
     if (fcuAlt !== p.fcuAlt) {
@@ -341,6 +343,8 @@ export function useCallouts() {
       al.tenThousandDescent = false
       al.transitionLevel = false
       al.oneToGo = false
+      // Cleared so the next flight can't use this one's values
+      useTransitionStore.getState().reset()
     }
 
     // Speed callouts (ground)
@@ -373,10 +377,10 @@ export function useCallouts() {
     if (t.onGround && crossedDown(p.speed, t.ias, 70) && !sp.called70) {
       playSound("70_knots.ogg")
       sp.called70 = true
-      // The FO chrono times the 5 minute engine cool down; the announcement plays when it reaches 300 s
+      // The clock chrono times the 5 minute engine cool down; the announcement plays when it reaches 5:00
       setTimeout(() => {
         if (useSettingsStore.getState().postLandingShutdownEnabled) {
-          void simvarSet("1 (>L:INI_FO_CHRONO_BUTTON)")
+          void restartChrono()
         }
       }, 5000)
     }
@@ -392,12 +396,12 @@ export function useCallouts() {
     }
 
     if (!t.onGround && t.vs > 100 && !al.tenThousandClimb && crossedUp(p.alt, t.alt, 10000)) {
-      playSound(t.transitionAltitude < 10000 ? "fl_100.ogg" : "ten_thousand.ogg")
+      playSound(transitionAltitude < 10000 ? "fl_100.ogg" : "ten_thousand.ogg")
       al.tenThousandClimb = true
     }
 
     if (!t.onGround && t.vs < -100 && !al.tenThousandDescent && crossedDown(p.alt, t.alt, 10000)) {
-      playSound(t.transitionLevel < 10000 ? "fl_100.ogg" : "ten_thousand.ogg")
+      playSound(transitionLevel < 10000 ? "fl_100.ogg" : "ten_thousand.ogg")
       al.tenThousandDescent = true
     }
 
@@ -418,8 +422,8 @@ export function useCallouts() {
       !t.onGround &&
       t.vs > 100 &&
       !al.transitionAltitude &&
-      t.transitionAltitude > 0 &&
-      crossedUp(p.alt, t.alt, t.transitionAltitude)
+      transitionAltitude > 0 &&
+      crossedUp(p.alt, t.alt, transitionAltitude)
     ) {
       if (!onStandard) playSound("transiton_altitude.ogg")
       al.transitionAltitude = true
@@ -429,8 +433,8 @@ export function useCallouts() {
       !t.onGround &&
       t.vs < -100 &&
       !al.transitionLevel &&
-      t.transitionLevel > 0 &&
-      crossedDown(p.alt, t.alt, t.transitionLevel)
+      transitionLevel > 0 &&
+      crossedDown(p.alt, t.alt, transitionLevel)
     ) {
       if (onStandard) playSound("transiton_level.ogg")
       al.transitionLevel = true

@@ -1,24 +1,19 @@
+import { writeDataRef } from "@/API/fenixApi"
 import { gsxClient } from "@/API/gsxApi"
-import { setLvar } from "@/API/simvarApi"
 
 gsxClient.connect()
 
 export async function setGPU(on: boolean) {
-  await setLvar(on ? 1 : 0, "INI_GPU_AVAIL", "GPU")
+  await writeDataRef("groundservice.groundpower", on)
 }
 
-export async function setASU(on: boolean) {
-  await setLvar(on ? 1 : 0, "INI_ASU_AVAIL", "ASU")
-}
-
-export async function setACU(on: boolean) {
-  await setLvar(on ? 1 : 0, "INI_ACU_AVAIL", "ACU")
+export async function setPCA(on: boolean) {
+  await writeDataRef("groundservice.preconditionedAir", on)
 }
 
 export async function disconnectAllGround() {
   await setGPU(false)
-  await setASU(false)
-  await setACU(false)
+  await setPCA(false)
 }
 
 export async function callPushback() {

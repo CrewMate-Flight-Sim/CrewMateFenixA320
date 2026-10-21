@@ -1,4 +1,5 @@
 import type { Telemetry } from "@/store/telemetryStore"
+import { useTransitionStore } from "@/store/transitionStore"
 
 // Result for VoiceGuide UI — phrases must match CopilotSpeech grammar
 export type VoiceHintPhase = {
@@ -61,7 +62,7 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
   const flapsIndex = num(t, "flapsIndex") ?? 0
   const ground = isOnGround(t)
   const engOff = enginesOff(t)
-  const transitionLevel = num(t, "transitionLevel") ?? 0
+  const { transitionAltitude, transitionLevel } = useTransitionStore.getState()
   const landingGear = num(t, "landingGear") ?? 0
   const onStandard = (num(t, "baroStd") ?? 0) > 0.5
   const autopilotOn = (num(t, "autopilotEngaged") ?? 0) > 0.5
@@ -134,7 +135,6 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
     }
 
     // Climb / cruise — phrases built from independent conditions
-    const transitionAltitude = num(t, "transitionAltitude") ?? 0
     const cruising = onStandard && Math.abs(vs) < CRUISE_VS_LIMIT && alt > 10000
     const cruisePhrases: string[] = []
     if (alt > transitionAltitude && !onStandard) cruisePhrases.push("set standard")
