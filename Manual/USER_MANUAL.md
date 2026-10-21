@@ -148,6 +148,8 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 ### 10k Descent
 
+- With CONF 3 on the MCDU PERF APPR page, the FO also sets the GPWS **LDG FLAP 3** pushbutton.
+
 ![10k descent flow pattern](Images/AT%2010%20000%20FT%20AAL%20DES%20FLOW%20PATTERN.png)
 
 ### Approach
@@ -166,6 +168,7 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 - Disarming the ground spoilers will trigger the After‑Landing flow.
 - If anti‑ice is used, flaps may remain at LDG CONF per procedure.
+- The FO resets the GPWS **LDG FLAP 3** pushbutton.
 
 ![After landing flow pattern](Images/AFTER%20LANDING%20FLOW%20PATTERN.png)
 
@@ -474,7 +477,11 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 
 ### Landing
 
-Run silently — the FO checks spoilers armed, flaps and gear down, and calls out anything that is not set.
+The FO first checks spoilers armed, flaps in the landing config and gear down, and calls out anything that is not set.
+
+| Item      | Say               |
+| --------- | ----------------- |
+| ECAM Memo | "landing no blue" |
 
 ### Parking
 

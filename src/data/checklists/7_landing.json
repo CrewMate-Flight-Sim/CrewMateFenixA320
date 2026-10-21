@@ -1,14 +1,21 @@
 {
   "id": "landing",
   "name": "Landing Checklist",
-  "mode": "silent",
   "items": [
     {
       "label": "Spoilers Armed",
       "validations": [
         {
-          "when": { "always": true },
-          "checks": [{ "type": "simvar", "var": "(L:A_FC_SPEEDBRAKE)", "expected": 0 }]
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "simvar",
+              "var": "(L:A_FC_SPEEDBRAKE)",
+              "expected": 0
+            }
+          ]
         }
       ],
       "incorrect": "check_spoilers.ogg"
@@ -17,17 +24,37 @@
       "label": "Flaps",
       "validations": [
         {
-          "when": { "always": true },
+          "when": {
+            "always": true
+          },
           "checks": [
-            { "type": "store", "store": "landing.flaps", "equals": "3" },
-            { "type": "simvar", "var": "(L:S_FC_FLAPS)", "expected": 3 }
+            {
+              "type": "store",
+              "store": "landing.flaps",
+              "equals": "3"
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_FC_FLAPS)",
+              "expected": 3
+            }
           ]
         },
         {
-          "when": { "always": true },
+          "when": {
+            "always": true
+          },
           "checks": [
-            { "type": "store", "store": "landing.flaps", "equals": "Full" },
-            { "type": "simvar", "var": "(L:S_FC_FLAPS)", "expected": 4 }
+            {
+              "type": "store",
+              "store": "landing.flaps",
+              "equals": "Full"
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_FC_FLAPS)",
+              "expected": 4
+            }
           ]
         }
       ],
@@ -37,11 +64,24 @@
       "label": "Gear Down",
       "validations": [
         {
-          "when": { "always": true },
-          "checks": [{ "type": "simvar", "var": "(A:GEAR HANDLE POSITION,Position)", "expected": 1 }]
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "simvar",
+              "var": "(A:GEAR HANDLE POSITION,Position)",
+              "expected": 1
+            }
+          ]
         }
       ],
       "incorrect": "check_landing_gear.ogg"
+    },
+    {
+      "challenge": "ecam_memo.ogg",
+      "response": ["landing no blue", "set and checked"],
+      "label": "ECAM Memo"
     }
   ],
   "completion": "landing_checklist_completed.ogg"

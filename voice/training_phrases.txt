@@ -200,6 +200,7 @@ T A only
 on and auto
 ignition
 takeoff no blue
+landing no blue
 started
 running
 advised
