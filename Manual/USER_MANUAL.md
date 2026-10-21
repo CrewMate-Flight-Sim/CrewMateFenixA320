@@ -168,7 +168,8 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 - Disarming the ground spoilers will trigger the After‑Landing flow.
 - If anti‑ice is used, flaps may remain at LDG CONF per procedure.
-- The FO resets the GPWS **LDG FLAP 3** pushbutton.
+- The FO resets the GPWS **LDG FLAP 3** pushbutton and switches the weather radar and predictive windshear off.
+- When the flow is done, call for the AFTER LANDING checklist.
 
 ![After landing flow pattern](Images/AFTER%20LANDING%20FLOW%20PATTERN.png)
 
@@ -224,6 +225,7 @@ Where a command takes a number, say it naturally: "two seven zero", "three hundr
 | "Lineup checklist"                                        | LINE-UP                     |
 | "Approach checklist"                                      | APPROACH                    |
 | "Landing checklist"                                       | LANDING                     |
+| "After landing checklist"                                 | AFTER LANDING               |
 | "Parking checklist"                                       | PARKING                     |
 | "Secure aircraft checklist"                               | SECURING THE AIRCRAFT       |
 | "Cancel checklist" / "Stop checklist" / "Abort checklist" | Aborts the active checklist |
@@ -467,13 +469,13 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 
 ### Approach
 
-| Item                 | Say                                                                                                                                          |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Barometric Reference | "altimeter \_\_\_\_ set" / "QNH \_\_\_\_ set" / "\_\_\_\_ set" / "set" — the FO reads the setting back.                                      |
-| Seat Belts           | "on" — checked against the seat belts sign                                                                                                   |
-| Minimums Reference   | "baro \_\_\_ feet" or "radio \_\_\_ feet", as a number or digit by digit — e.g. "baro four hundred fifty feet" or "baro four five zero feet" |
-| Auto Brake           | "low" / "brake low" / "medium" / "brake medium" — checked against the autobrake ON light                                                     |
-| ENG Mode Sel         | "normal" / "ignition" — checked against the engine mode selector                                                                             |
+| Item                 | Say                                                                                                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Barometric Reference | "altimeter \_\_\_\_ set" / "QNH \_\_\_\_ set" / "\_\_\_\_ set" / "set" — the FO reads the setting back.                                                                      |
+| Seat Belts           | "on" — checked against the seat belts sign                                                                                                                                   |
+| Minimums Reference   | "baro \_\_\_ feet" or "radio \_\_\_ feet", as a number or digit by digit — e.g. "baro four hundred fifty feet" or "baro four five zero feet"; "no DH set" when there is none |
+| Auto Brake           | "low" / "brake low" / "medium" / "brake medium" — checked against the autobrake ON light                                                                                     |
+| ENG Mode Sel         | "normal" / "ignition" — checked against the engine mode selector                                                                                                             |
 
 ### Landing
 
@@ -483,12 +485,22 @@ The FO first checks spoilers armed, flaps in the landing config and gear down, a
 | --------- | ----------------- |
 | ECAM Memo | "landing no blue" |
 
+### After Landing
+
+| Item             | Say                                                                 |
+| ---------------- | ------------------------------------------------------------------- |
+| Radar & PRED W/S | "off" — checked against the radar system switch (OFF) and PWS (OFF) |
+
 ### Parking
 
-| Item                    | Say                                     |
-| ----------------------- | --------------------------------------- |
-| Parking Brake or Chocks | "chocks in place" / "parking brake set" |
-| Wing Lights             | "off"                                   |
+| Item                    | Say                                                                                               |
+| ----------------------- | ------------------------------------------------------------------------------------------------- |
+| Slides                  | "disarmed" — checked against every door slide                                                     |
+| Parking Brake or Chocks | "set" / "chocks in place" / "parking brake set" — checked against the parking brake or the chocks |
+| Engines                 | "off" — checked against both engine masters                                                       |
+| Fuel Pumps              | "off" — checked against all six fuel pumps                                                        |
+| Yellow Elec Pump        | "off" — checked against the yellow electric pump                                                  |
+| Wing Lights             | "off" — checked against the wing lights switch                                                    |
 
 ### Securing the Aircraft
 

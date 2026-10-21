@@ -501,6 +501,7 @@
       <item>lineup checklist<tag>out.pid="checklist_lineup";</tag></item>
       <item>approach checklist<tag>out.pid="checklist_approach";</tag></item>
       <item>landing checklist<tag>out.pid="checklist_landing";</tag></item>
+      <item>after landing checklist<tag>out.pid="checklist_after_landing";</tag></item>
       <item>parking checklist<tag>out.pid="checklist_parking";</tag></item>
       <item>secure aircraft checklist<tag>out.pid="checklist_secure_aircraft";</tag></item>
       <item>cancel checklist<tag>out.pid="checklist_cancel";</tag></item>
@@ -608,6 +609,7 @@
       <item>ignition<tag>out.pid="ignition";</tag></item>
       <item>takeoff no blue<tag>out.pid="takeoff_no_blue";</tag></item>
       <item>landing no blue<tag>out.pid="landing_no_blue";</tag></item>
+      <item>no D H set<tag>out.pid="no_dh_set";</tag></item>
       <!-- Takeoff CG for the pitch trim item: "twenty eight point nine percent [set]" or "two eight point nine percent" -->
       <item>
         <one-of>
@@ -620,6 +622,7 @@
         <tag>out.pid="cg_percent";</tag>
       </item>
       <item>armed<tag>out.pid="armed";</tag></item>
+      <item>disarmed<tag>out.pid="disarmed";</tag></item>
       <item>auto<tag>out.pid="auto";</tag></item>
       <item>normal<tag>out.pid="normal";</tag></item>
       <item>retracted<tag>out.pid="retracted";</tag></item>

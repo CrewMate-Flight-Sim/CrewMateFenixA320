@@ -53,8 +53,14 @@
     },
     {
       "label": "Weather Radar",
-      "read": "(L:INI_WXR2_ON)",
-      "on": "0 (>L:INI_WXR2_ON)",
+      "read": "(L:S_WR_SYS)",
+      "on": "1 (>L:S_WR_SYS)",
+      "expect": 1
+    },
+    {
+      "label": "Predictive Windshear",
+      "read": "(L:S_WR_PRED_WS)",
+      "on": "0 (>L:S_WR_PRED_WS)",
       "expect": 0
     },
     {

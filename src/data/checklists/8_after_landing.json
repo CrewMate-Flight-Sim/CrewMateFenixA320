@@ -1,0 +1,22 @@
+{
+  "id": "after_landing",
+  "name": "After Landing Checklist",
+  "items": [
+    {
+      "challenge": "radar_pred_ws.ogg",
+      "response": ["off", "set and checked"],
+      "label": "Radar & PRED W/S",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [
+            { "type": "simvar", "var": "(L:S_WR_SYS)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_WR_PRED_WS)", "expected": 0 }
+          ]
+        }
+      ]
+    }
+  ],
+  "completion": "after_landing_checklist_completed.ogg"
+}

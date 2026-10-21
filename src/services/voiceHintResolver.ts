@@ -169,7 +169,11 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
     return {
       id: "after_landing_hints",
       title: "After landing",
-      phrases: ["shutdown engine X", "taxi light off"]
+      phrases: [
+        ...(lastCl !== "after_landing" ? ["after landing checklist"] : []),
+        "shutdown engine X",
+        "taxi light off"
+      ]
     }
   }
 

@@ -6,17 +6,20 @@ import type { ChecklistItem } from "@/types/checklist"
 
 const WEIGHT_UNITS = new Set(["tons", "kilograms", "pounds", "kilograms balanced", "pounds balanced"])
 
-// "config one" also matches "config one plus f", so one hint covers both
-const FLAP_CONFIG_DISPLAY: Record<string, string> = {
+// Answers are matched as spoken words; "config one" also matches "config one plus f", so one hint covers both
+const RESPONSE_DISPLAY: Record<string, string> = {
   "config one": "config 1 (+F)",
   "config two": "config 2",
-  "config three": "config 3"
+  "config three": "config 3",
+  "no d h set": "no DH set",
+  "t a r a": "TA RA",
+  "t a only": "TA only"
 }
 
 /** Applies final display formatting: weight units → "xxx.x <unit>", feet → "xxxx feet" */
 function renderResponseToken(token: string): string {
   if (WEIGHT_UNITS.has(token)) return `xxx.x ${token}`
-  if (FLAP_CONFIG_DISPLAY[token]) return FLAP_CONFIG_DISPLAY[token]
+  if (RESPONSE_DISPLAY[token]) return RESPONSE_DISPLAY[token]
   if (token === "feet") return "xxxx feet"
   return token
 }

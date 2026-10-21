@@ -131,6 +131,7 @@ lineup checklist
 before takeoff procedure
 approach checklist
 landing checklist
+after landing checklist
 parking checklist
 secure aircraft checklist
 cancel checklist
@@ -186,6 +187,7 @@ checked
 on
 off
 armed
+disarmed
 auto
 normal
 up
@@ -201,6 +203,7 @@ on and auto
 ignition
 takeoff no blue
 landing no blue
+no D H set
 started
 running
 advised
