@@ -437,20 +437,22 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 
 ### Taxi
 
-| Item            | Say                                                 |
-| --------------- | --------------------------------------------------- |
-| Flight Controls | "checked"                                           |
-| Flap Settings   | "config one plus f" / "config two" / "config three" |
-| Radar           | "on"                                                |
+| Item             | Say                                                                                               |
+| ---------------- | ------------------------------------------------------------------------------------------------- |
+| Flight Controls  | "checked" — the FO answers "checked" too                                                          |
+| Flap Settings    | "config one" / "config one plus f" / "config two" / "config three" — the FO reads the config back |
+| Radar & PRED W/S | "on and auto" — checked against the radar system switch (not OFF) and PWS (AUTO)                  |
+| ENG Mode Sel     | "normal" / "ignition" — checked against the engine mode selector                                  |
+| ECAM Memo        | "takeoff no blue"                                                                                 |
 
 ### Departure Change
 
-| Item                      | Say                                                                               |
-| ------------------------- | --------------------------------------------------------------------------------- |
-| Runway and SID            | "set and checked"                                                                 |
-| Flap Settings             | "config one plus f" / "config two" / "config three"                               |
-| Takeoff Speeds and Thrust | "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ flex \_\_" or "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ toga" |
-| FCU ALT                   | "set"                                                                             |
+| Item                      | Say                                                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Runway and SID            | "set and checked"                                                                                          |
+| Flap Settings             | "config one" / "config one plus f" / "config two" / "config three" — the FO reads the config back          |
+| Takeoff Speeds and Thrust | "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ flex \_\_" or "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ toga" — the FO reads them back |
+| FCU ALT                   | "set"                                                                                                      |
 
 ### Line-Up
 

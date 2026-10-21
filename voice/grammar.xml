@@ -604,6 +604,9 @@
       <item>zero<tag>out.pid="zero";</tag></item>
       <item>T A R A<tag>out.pid="ta_ra";</tag></item>
       <item>T A only<tag>out.pid="ta_only";</tag></item>
+      <item>on and auto<tag>out.pid="on_and_auto";</tag></item>
+      <item>ignition<tag>out.pid="ignition";</tag></item>
+      <item>takeoff no blue<tag>out.pid="takeoff_no_blue";</tag></item>
       <!-- Takeoff CG for the pitch trim item: "twenty eight point nine percent [set]" or "two eight point nine percent" -->
       <item>
         <one-of>

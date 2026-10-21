@@ -194,6 +194,9 @@ released
 received
 T A R A
 T A only
+on and auto
+ignition
+takeoff no blue
 started
 running
 advised
