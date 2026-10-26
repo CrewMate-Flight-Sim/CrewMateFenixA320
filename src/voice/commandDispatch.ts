@@ -324,8 +324,9 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   checklist_lineup: () => executeChecklist("line_up"),
   checklist_approach: () => executeChecklist("approach"),
   checklist_landing: () => executeChecklist("landing"),
+  checklist_after_landing: () => executeChecklist("after_landing"),
   checklist_parking: () => executeChecklist("parking"),
-  checklist_secure_aircraft: () => executeChecklist("secure_aircraft"),
+  checklist_shutdown: () => executeChecklist("shutdown"),
   checklist_cancel: () => abortChecklist(),
 
   // ── RTO / Continue  ─────────────────────────────────────

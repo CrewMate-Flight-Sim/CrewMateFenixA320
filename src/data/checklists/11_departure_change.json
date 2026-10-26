@@ -9,11 +9,11 @@
     },
     {
       "challenge": "flap_settings.ogg",
-      "response": ["config one plus f", "config two", "config three", "set and checked"],
+      "response": ["config one", "config two", "config three", "set and checked"],
       "label": "Flap Settings",
       "validations": [
         {
-          "when": { "responses": ["config one plus f"] },
+          "when": { "responses": ["config one"] },
           "checks": [
             { "type": "simvar", "var": "(L:S_FC_FLAPS)", "expected": 1 },
             { "type": "store", "store": "takeoff.flaps", "equals": "1" }

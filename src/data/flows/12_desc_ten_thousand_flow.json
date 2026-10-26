@@ -33,6 +33,16 @@
       "expect": 1
     },
     {
+      "label": "LDG Flap 3",
+      "read": "(L:S_OH_GPWS_LDG_FLAP3)",
+      "on": "1 (>L:S_OH_GPWS_LDG_FLAP3)",
+      "expect": 1,
+      "only_if": {
+        "option": "landing.flaps",
+        "one_of": ["3"]
+      }
+    },
+    {
       "label": "FO CSTR",
       "read": "(L:I_FCU_EFIS2_CSTR)",
       "on": "S_FCU_EFIS2_CSTR",

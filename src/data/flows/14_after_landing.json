@@ -13,6 +13,12 @@
       }
     },
     {
+      "label": "LDG Flap 3",
+      "read": "(L:S_OH_GPWS_LDG_FLAP3)",
+      "on": "0 (>L:S_OH_GPWS_LDG_FLAP3)",
+      "expect": 0
+    },
+    {
       "label": "APU",
       "read": "(L:INI_APU_MASTER_SWITCH)",
       "on": "1 (>L:INI_APU_MASTER_SWITCH)",
@@ -47,8 +53,14 @@
     },
     {
       "label": "Weather Radar",
-      "read": "(L:INI_WXR2_ON)",
-      "on": "0 (>L:INI_WXR2_ON)",
+      "read": "(L:S_WR_SYS)",
+      "on": "1 (>L:S_WR_SYS)",
+      "expect": 1
+    },
+    {
+      "label": "Predictive Windshear",
+      "read": "(L:S_WR_PRED_WS)",
+      "on": "0 (>L:S_WR_PRED_WS)",
       "expect": 0
     },
     {

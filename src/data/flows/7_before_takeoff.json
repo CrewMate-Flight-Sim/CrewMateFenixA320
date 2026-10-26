@@ -6,19 +6,19 @@
   "steps": [
     {
       "label": "Pack 1",
-      "read": "(L:INI_AIR_PACK1_BUTTON)",
+      "read": "(L:S_OH_PNEUMATIC_PACK_1)",
       "on": "{pack1_cmd}",
       "expect": "{pack1_expect}"
     },
     {
       "label": "Pack 2",
-      "read": "(L:INI_AIR_PACK2_BUTTON)",
+      "read": "(L:S_OH_PNEUMATIC_PACK_2)",
       "on": "{pack2_cmd}",
       "expect": "{pack2_expect}"
     },
     {
       "label": "APU Bleed",
-      "read": "(L:INI_AIR_BLEED_APU)",
+      "read": "(L:S_OH_PNEUMATIC_APU_BLEED)",
       "on": "{apu_bleed_cmd}",
       "expect": "{apu_bleed_expect}"
     },

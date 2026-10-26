@@ -20,9 +20,9 @@ export interface Condition {
 }
 
 export interface Check {
-  type: "simvar" | "store" | "any"
+  type: "simvar" | "store" | "dataref" | "any"
 
-  // simvar
+  // simvar, or the dataRef name for dataref
   var?: string
   expected?: number | boolean | { store: string }
 

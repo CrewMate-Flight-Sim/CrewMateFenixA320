@@ -3,15 +3,38 @@
   "name": "Line Up Checklist",
   "items": [
     {
-      "challenge": "cabin.ogg",
-      "response": ["secured", "signaled", "set and checked"],
-      "label": "Cabin Advisory"
-    },
-    {
       "challenge": "takeoff_runway.ogg",
       "response": ["confirmed", "set and checked"],
       "label": "Take off Runway",
       "rwy_confirmation": true
+    },
+    {
+      "challenge": "tcas.ogg",
+      "response": ["t a r a", "t a only", "set and checked"],
+      "label": "TCAS",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": { "responses": ["t a r a"] },
+          "checks": [{ "type": "simvar", "var": "(L:S_XPDR_MODE)", "expected": 2 }]
+        },
+        {
+          "when": { "responses": ["t a only"] },
+          "checks": [{ "type": "simvar", "var": "(L:S_XPDR_MODE)", "expected": 1 }]
+        },
+        {
+          "when": { "responses": ["set and checked"] },
+          "checks": [
+            {
+              "type": "any",
+              "groups": [
+                [{ "type": "simvar", "var": "(L:S_XPDR_MODE)", "expected": 2 }],
+                [{ "type": "simvar", "var": "(L:S_XPDR_MODE)", "expected": 1 }]
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "label": "Packs Settings",
@@ -22,24 +45,24 @@
           "when": { "responses": ["on"] },
           "checks": [
             { "type": "store", "store": "takeoff.packs", "equals": "on" },
-            { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 1 },
-            { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 1 }
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_1)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_2)", "expected": 1 }
           ]
         },
         {
           "when": { "responses": ["on supplied by apu"] },
           "checks": [
             { "type": "store", "store": "takeoff.packs", "equals": "apu" },
-            { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 1 },
-            { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 1 }
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_1)", "expected": 1 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_2)", "expected": 1 }
           ]
         },
         {
           "when": { "responses": ["off"] },
           "checks": [
             { "type": "store", "store": "takeoff.packs", "equals": "off" },
-            { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 0 },
-            { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 0 }
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_1)", "expected": 0 },
+            { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_2)", "expected": 0 }
           ]
         },
         {
@@ -50,18 +73,18 @@
               "groups": [
                 [
                   { "type": "store", "store": "takeoff.packs", "equals": "on" },
-                  { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 1 },
-                  { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 1 }
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_1)", "expected": 1 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_2)", "expected": 1 }
                 ],
                 [
                   { "type": "store", "store": "takeoff.packs", "equals": "apu" },
-                  { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 1 },
-                  { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 1 }
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_1)", "expected": 1 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_2)", "expected": 1 }
                 ],
                 [
                   { "type": "store", "store": "takeoff.packs", "equals": "off" },
-                  { "type": "simvar", "var": "(L:INI_AIR_PACK1_BUTTON)", "expected": 0 },
-                  { "type": "simvar", "var": "(L:INI_AIR_PACK2_BUTTON)", "expected": 0 }
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_1)", "expected": 0 },
+                  { "type": "simvar", "var": "(L:S_OH_PNEUMATIC_PACK_2)", "expected": 0 }
                 ]
               ]
             }

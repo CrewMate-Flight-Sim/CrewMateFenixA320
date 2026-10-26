@@ -1,0 +1,206 @@
+{
+  "id": "parking",
+  "name": "Parking Checklist",
+  "items": [
+    {
+      "challenge": "slides.ogg",
+      "response": ["disarmed", "set and checked"],
+      "label": "Slides",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "dataref",
+              "var": "aircraft.communication.cids.slide.d1l",
+              "expected": false
+            },
+            {
+              "type": "dataref",
+              "var": "aircraft.communication.cids.slide.d1r",
+              "expected": false
+            },
+            {
+              "type": "dataref",
+              "var": "aircraft.communication.cids.slide.d2l",
+              "expected": false
+            },
+            {
+              "type": "dataref",
+              "var": "aircraft.communication.cids.slide.d2r",
+              "expected": false
+            },
+            {
+              "type": "dataref",
+              "var": "aircraft.communication.cids.slide.d3l",
+              "expected": false
+            },
+            {
+              "type": "dataref",
+              "var": "aircraft.communication.cids.slide.d3r",
+              "expected": false
+            },
+            {
+              "type": "dataref",
+              "var": "aircraft.communication.cids.slide.d4l",
+              "expected": false
+            },
+            {
+              "type": "dataref",
+              "var": "aircraft.communication.cids.slide.d4r",
+              "expected": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "challenge": "parking_brake_or_chocks.ogg",
+      "response": ["chocks in place", "parking brake set", "set", "set and checked"],
+      "label": "Parking Brake or Chocks",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "any",
+              "groups": [
+                [
+                  {
+                    "type": "simvar",
+                    "var": "(L:S_MIP_PARKING_BRAKE)",
+                    "expected": 1
+                  }
+                ],
+                [
+                  {
+                    "type": "simvar",
+                    "var": "(L:B_CONFIG_CHOCKS)",
+                    "expected": 1
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "challenge": "engines.ogg",
+      "response": ["off", "set and checked"],
+      "label": "Engines",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "simvar",
+              "var": "(L:S_ENG_MASTER_1)",
+              "expected": 0
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_ENG_MASTER_2)",
+              "expected": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "challenge": "fuel_pumps.ogg",
+      "response": ["off", "set and checked"],
+      "label": "Fuel Pumps",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "simvar",
+              "var": "(L:S_OH_FUEL_LEFT_1)",
+              "expected": 0
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_OH_FUEL_LEFT_2)",
+              "expected": 0
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_OH_FUEL_RIGHT_1)",
+              "expected": 0
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_OH_FUEL_RIGHT_2)",
+              "expected": 0
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_OH_FUEL_CENTER_1)",
+              "expected": 0
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_OH_FUEL_CENTER_2)",
+              "expected": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "challenge": "yellow_elec_pump.ogg",
+      "response": ["off", "set and checked"],
+      "label": "Yellow Elec Pump",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "simvar",
+              "var": "(L:S_OH_HYD_YELLOW_ELEC_PUMP)",
+              "expected": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "challenge": "wing_lights.ogg",
+      "response": ["off", "set and checked"],
+      "label": "Wing Lights",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "simvar",
+              "var": "(L:S_OH_EXT_LT_WING)",
+              "expected": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "completion": "parking_checklist_completed.ogg"
+}

@@ -10,42 +10,171 @@
     },
     {
       "challenge": "flap_settings.ogg",
-      "response": ["config one plus f", "config two", "config three", "set and checked"],
+      "response": ["config one", "config two", "config three", "set and checked"],
       "label": "Flap Settings",
       "validations": [
         {
-          "when": { "responses": ["config one plus f"] },
+          "when": {
+            "responses": ["config one"]
+          },
           "checks": [
-            { "type": "simvar", "var": "(L:S_FC_FLAPS)", "expected": 1 },
-            { "type": "store", "store": "takeoff.flaps", "equals": "1" }
+            {
+              "type": "simvar",
+              "var": "(L:S_FC_FLAPS)",
+              "expected": 1
+            },
+            {
+              "type": "store",
+              "store": "takeoff.flaps",
+              "equals": "1"
+            }
           ],
           "copilot_response": "config_1_plus_f.ogg"
         },
         {
-          "when": { "responses": ["config two"] },
+          "when": {
+            "responses": ["config two"]
+          },
           "checks": [
-            { "type": "simvar", "var": "(L:S_FC_FLAPS)", "expected": 2 },
-            { "type": "store", "store": "takeoff.flaps", "equals": "2" }
+            {
+              "type": "simvar",
+              "var": "(L:S_FC_FLAPS)",
+              "expected": 2
+            },
+            {
+              "type": "store",
+              "store": "takeoff.flaps",
+              "equals": "2"
+            }
           ],
           "copilot_response": "config_2.ogg"
         },
         {
-          "when": { "responses": ["config three"] },
+          "when": {
+            "responses": ["config three"]
+          },
           "checks": [
-            { "type": "simvar", "var": "(L:S_FC_FLAPS)", "expected": 3 },
-            { "type": "store", "store": "takeoff.flaps", "equals": "3" }
+            {
+              "type": "simvar",
+              "var": "(L:S_FC_FLAPS)",
+              "expected": 3
+            },
+            {
+              "type": "store",
+              "store": "takeoff.flaps",
+              "equals": "3"
+            }
           ],
           "copilot_response": "config_3.ogg"
         },
         {
-          "when": { "responses": ["set and checked"] }
+          "when": {
+            "responses": ["set and checked"]
+          }
         }
       ]
     },
     {
-      "challenge": "radar.ogg",
-      "response": ["on", "set and checked"],
-      "label": "Radar"
+      "challenge": "radar_pred_ws.ogg",
+      "response": ["on and auto", "set and checked"],
+      "label": "Radar & PRED W/S",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": {
+            "always": true
+          },
+          "checks": [
+            {
+              "type": "any",
+              "groups": [
+                [
+                  {
+                    "type": "simvar",
+                    "var": "(L:S_WR_SYS)",
+                    "expected": 0
+                  }
+                ],
+                [
+                  {
+                    "type": "simvar",
+                    "var": "(L:S_WR_SYS)",
+                    "expected": 2
+                  }
+                ]
+              ]
+            },
+            {
+              "type": "simvar",
+              "var": "(L:S_WR_PRED_WS)",
+              "expected": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "challenge": "eng_mode_sel.ogg",
+      "response": ["normal", "ignition", "set and checked"],
+      "label": "ENG Mode Sel",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": {
+            "responses": ["normal"]
+          },
+          "checks": [
+            {
+              "type": "simvar",
+              "var": "(L:S_ENG_MODE)",
+              "expected": 1
+            }
+          ]
+        },
+        {
+          "when": {
+            "responses": ["ignition"]
+          },
+          "checks": [
+            {
+              "type": "simvar",
+              "var": "(L:S_ENG_MODE)",
+              "expected": 2
+            }
+          ]
+        },
+        {
+          "when": {
+            "responses": ["set and checked"]
+          },
+          "checks": [
+            {
+              "type": "any",
+              "groups": [
+                [
+                  {
+                    "type": "simvar",
+                    "var": "(L:S_ENG_MODE)",
+                    "expected": 1
+                  }
+                ],
+                [
+                  {
+                    "type": "simvar",
+                    "var": "(L:S_ENG_MODE)",
+                    "expected": 2
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "challenge": "ecam_memo.ogg",
+      "response": ["takeoff no blue", "set and checked"],
+      "label": "ECAM Memo"
     }
   ],
   "completion": "taxi_checklist_completed.ogg"

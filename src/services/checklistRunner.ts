@@ -1,6 +1,7 @@
 import { listen } from "@tauri-apps/api/event"
 
-import { simvarGet, simvarSet } from "@/API/simvarApi"
+import { readDataRef } from "@/API/fenixApi"
+import { simvarGet } from "@/API/simvarApi"
 import { delay } from "@/lib/utils"
 import { getChecklistById } from "@/services/checklistLoader"
 import { getTakeoffCg, getTakeoffTrim, readPitchTrim } from "@/services/pitchTrim"
@@ -234,6 +235,12 @@ async function runChecks(checks: Check[], signal: AbortSignal): Promise<boolean>
       pass = getStoreValue(check.store!) === check.equals
     }
 
+    // Fenix GraphQL value, for state no LVar exposes (e.g. the CIDS slides)
+    if (check.type === "dataref") {
+      pass = (await readDataRef(check.var!)) === check.expected
+      checkAbort(signal)
+    }
+
     if (!pass) {
       console.log(
         `[ChecklistRunner] check FAILED: type="${check.type}" var="${check.var ?? check.store}" expected="${check.expected ?? check.equals}"`
@@ -317,8 +324,6 @@ class ChecklistRunner {
     const silent = checklist.mode === "silent"
 
     try {
-      await this.triggerChecklistMenu()
-
       if (silent) {
         const allPassed = await this.runSilentItems(checklist.items, signal)
         if (allPassed) {
@@ -344,12 +349,6 @@ class ChecklistRunner {
     } finally {
       this.abortController = null
     }
-  }
-
-  // ── MCDU integration ──────────────────────────────────────────────────────
-
-  private async triggerChecklistMenu(): Promise<void> {
-    await simvarSet(`1 (>L:INI_MCDU2_CL_MENU)`)
   }
 
   // ── Silent-mode item iteration ────────────────────────────────────────────
@@ -521,7 +520,9 @@ class ChecklistRunner {
         }
 
         const expectsFeet = responseList.some((r) => r.toLowerCase().includes("feet"))
-        if ((item.baro_confirmation || item.cg_confirmation || expectsFeet) && !spoken.includes("set and checked")) {
+        // "no d h set" is a minimum answer that carries no number
+        const noNumberAnswer = spoken.includes("set and checked") || spoken.includes("no d h set")
+        if ((item.baro_confirmation || item.cg_confirmation || expectsFeet) && !noNumberAnswer) {
           if (!(/\b\d{2,4}\b/.test(spoken) || NUMBER_WORDS_RE.test(spoken))) continue
         }
 
@@ -608,7 +609,7 @@ class ChecklistRunner {
 
   private onChecklistCompleted(checklistId: string): void {
     useVoiceHintProgressStore.getState().recordChecklistCompleted(checklistId)
-    if (checklistId === "secure_aircraft") {
+    if (checklistId === "shutdown") {
       useVoiceHintProgressStore.getState().resetForColdGround()
     }
   }

@@ -4,14 +4,14 @@
   "steps": [
     {
       "label": "pack 1",
-      "read": "(L:INI_AIR_PACK1_BUTTON)",
-      "on": "1 (>L:INI_AIR_PACK1_BUTTON)",
+      "read": "(L:S_OH_PNEUMATIC_PACK_1)",
+      "on": "1 (>L:S_OH_PNEUMATIC_PACK_1)",
       "expect": 1
     },
     {
       "label": "pack 2",
-      "read": "(L:INI_AIR_PACK2_BUTTON)",
-      "on": "1 (>L:INI_AIR_PACK2_BUTTON)",
+      "read": "(L:S_OH_PNEUMATIC_PACK_2)",
+      "on": "1 (>L:S_OH_PNEUMATIC_PACK_2)",
       "expect": 1,
       "sound_on_execute": "packs_1_and_2_on.ogg"
     },

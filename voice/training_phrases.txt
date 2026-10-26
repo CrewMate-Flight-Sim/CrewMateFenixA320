@@ -66,6 +66,9 @@ radio one hundred sixty feet
 radio fifty feet
 baro one thousand feet
 baro one thousand two hundred thirty four feet
+baro four five zero feet
+baro one two three zero feet
+radio five zero feet
 
 # ── FMA callouts ─────────────────────────────────────────────────────────────
 toga srs runway autothrust blue
@@ -128,8 +131,9 @@ lineup checklist
 before takeoff procedure
 approach checklist
 landing checklist
+after landing checklist
 parking checklist
-secure aircraft checklist
+shutdown checklist
 cancel checklist
 
 # ── Prepare / engines / APU ───────────────────────────────────────────────────
@@ -183,6 +187,7 @@ checked
 on
 off
 armed
+disarmed
 auto
 normal
 up
@@ -192,11 +197,20 @@ secured
 removed
 released
 received
+T A R A
+T A only
+on and auto
+ignition
+takeoff no blue
+landing no blue
+no D H set
 started
 running
 advised
 signaled
 stop
+low
+brake low
 medium
 brake medium
 go around flaps

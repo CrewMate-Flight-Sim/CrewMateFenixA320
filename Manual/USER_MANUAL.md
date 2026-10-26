@@ -87,7 +87,7 @@ This tutorial assumes you are parked at the gate with engines off. You are the C
 - 44 min: PM departs for external walkaround. PF starts cockpit preparation.
   ![Cockpit Preparation flow pattern](Images/COCKPIT%20PREPARATION%20FLOW%20PATTERN.png)
 - 35 min: PM returns and starts cockpit preparation on the right-hand side. The FO reports the walkaround: "all good, no issues found", or each worn tyre or brake by gear (nose, left main, right main) followed by "we need maintenance". Worn means red on the EFB maintenance page.
-- 25 min: PF conducts the departure briefing (enter takeoff data in the Takeoff Performance window, including the departure **Runway** — the FO reads it back on the LINE-UP checklist).
+- 25 min: PF conducts the departure briefing (enter takeoff data in the Takeoff Performance window; the FO reads back the F-PLN departure runway on the LINE-UP checklist).
 - 20 min: PF calls for the COCKPIT PREPARATION checklist.
 - 5 min: PM closes the table, and a reminder to start the APU is shown.
 - 1 min: CrewMate closes the cockpit door. PF and PM perform before start flow, after that PF calls for the BEFORE START checklist.
@@ -148,6 +148,8 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 ### 10k Descent
 
+- With CONF 3 on the MCDU PERF APPR page, the FO also sets the GPWS **LDG FLAP 3** pushbutton.
+
 ![10k descent flow pattern](Images/AT%2010%20000%20FT%20AAL%20DES%20FLOW%20PATTERN.png)
 
 ### Approach
@@ -166,6 +168,8 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 - Disarming the ground spoilers will trigger the After‑Landing flow.
 - If anti‑ice is used, flaps may remain at LDG CONF per procedure.
+- The FO resets the GPWS **LDG FLAP 3** pushbutton and switches the weather radar and predictive windshear off.
+- When the flow is done, call for the AFTER LANDING checklist.
 
 ![After landing flow pattern](Images/AFTER%20LANDING%20FLOW%20PATTERN.png)
 
@@ -179,9 +183,9 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 ![Parking flow pattern](Images/PARKING%20FLOW%20PATTERN.png)
 
-### Securing the Aircraft
+### Shutdown
 
-- After the last passenger leaves (if securing the aircraft), call for the SECURING THE AIRCRAFT checklist.
+- After the last passenger leaves (if shutting the aircraft down), call for the SHUTDOWN checklist.
 - The shutdown flow returns TCAS and the transponder to standby.
 
 ---
@@ -221,8 +225,9 @@ Where a command takes a number, say it naturally: "two seven zero", "three hundr
 | "Lineup checklist"                                        | LINE-UP                     |
 | "Approach checklist"                                      | APPROACH                    |
 | "Landing checklist"                                       | LANDING                     |
+| "After landing checklist"                                 | AFTER LANDING               |
 | "Parking checklist"                                       | PARKING                     |
-| "Secure aircraft checklist"                               | SECURING THE AIRCRAFT       |
+| "Shutdown checklist"                                      | SHUTDOWN                    |
 | "Cancel checklist" / "Stop checklist" / "Abort checklist" | Aborts the active checklist |
 
 ### Gear
@@ -437,58 +442,74 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 
 ### Taxi
 
-| Item            | Say                                                 |
-| --------------- | --------------------------------------------------- |
-| Flight Controls | "checked"                                           |
-| Flap Settings   | "config one plus f" / "config two" / "config three" |
-| Radar           | "on"                                                |
+| Item             | Say                                                                                               |
+| ---------------- | ------------------------------------------------------------------------------------------------- |
+| Flight Controls  | "checked" — the FO answers "checked" too                                                          |
+| Flap Settings    | "config one" / "config one plus f" / "config two" / "config three" — the FO reads the config back |
+| Radar & PRED W/S | "on and auto" — checked against the radar system switch (not OFF) and PWS (AUTO)                  |
+| ENG Mode Sel     | "normal" / "ignition" — checked against the engine mode selector                                  |
+| ECAM Memo        | "takeoff no blue"                                                                                 |
 
 ### Departure Change
 
-| Item                      | Say                                                                               |
-| ------------------------- | --------------------------------------------------------------------------------- |
-| Runway and SID            | "set and checked"                                                                 |
-| Flap Settings             | "config one plus f" / "config two" / "config three"                               |
-| Takeoff Speeds and Thrust | "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ flex \_\_" or "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ toga" |
-| FCU ALT                   | "set"                                                                             |
+| Item                      | Say                                                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Runway and SID            | "set and checked"                                                                                          |
+| Flap Settings             | "config one" / "config one plus f" / "config two" / "config three" — the FO reads the config back          |
+| Takeoff Speeds and Thrust | "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ flex \_\_" or "V1 \_\_\_ VR \_\_\_ V2 \_\_\_ toga" — the FO reads them back |
+| FCU ALT                   | "set"                                                                                                      |
 
 ### Line-Up
 
-| Item           | Say                                                                                                                                                  |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cabin Advisory | "secured" / "signaled"                                                                                                                               |
-| Takeoff Runway | The runway, then "confirmed" — e.g. "zero nine left confirmed". "Left", "right", "center" and "centre" are understood; the FO reads the runway back. |
-| Packs Settings | "on" / "on supplied by apu" / "off"                                                                                                                  |
+| Item           | Say                                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Takeoff Runway | The runway, then "confirmed" — e.g. "zero nine left confirmed". "Left", "right", "center" and "centre" are understood; the FO reads back the F-PLN departure runway. |
+| TCAS           | "TA RA" / "TA only" — checked against the TCAS mode selector                                                                                                         |
+| Packs Settings | "on" / "on supplied by apu" / "off"                                                                                                                                  |
 
 ### Approach
 
-| Item                 | Say                                                                                                     |
-| -------------------- | ------------------------------------------------------------------------------------------------------- |
-| Barometric Reference | "altimeter \_\_\_\_ set" / "QNH \_\_\_\_ set" / "\_\_\_\_ set" / "set" — the FO reads the setting back. |
-| Minimums Reference   | "baro \_\_\_ feet" or "radio \_\_\_ feet"                                                               |
-| Runway Condition     | "dry" / "wet" / "compacted snow" / "snow" / "slippery" / "standing water" / "slush" / "ice"             |
-| Auto Brake           | "medium" / "brake medium" — checked against the FMA.                                                    |
+| Item                 | Say                                                                                                                                                                          |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Barometric Reference | "altimeter \_\_\_\_ set" / "QNH \_\_\_\_ set" / "\_\_\_\_ set" / "set" — the FO reads the setting back.                                                                      |
+| Seat Belts           | "on" — checked against the seat belts sign                                                                                                                                   |
+| Minimums Reference   | "baro \_\_\_ feet" or "radio \_\_\_ feet", as a number or digit by digit — e.g. "baro four hundred fifty feet" or "baro four five zero feet"; "no DH set" when there is none |
+| Auto Brake           | "low" / "brake low" / "medium" / "brake medium" — checked against the autobrake ON light                                                                                     |
+| ENG Mode Sel         | "normal" / "ignition" — checked against the engine mode selector                                                                                                             |
 
 ### Landing
 
-Run silently — the FO checks spoilers armed, flaps and gear down, and calls out anything that is not set.
+The FO first checks spoilers armed, flaps in the landing config and gear down, and calls out anything that is not set.
+
+| Item      | Say               |
+| --------- | ----------------- |
+| ECAM Memo | "landing no blue" |
+
+### After Landing
+
+| Item             | Say                                                                 |
+| ---------------- | ------------------------------------------------------------------- |
+| Radar & PRED W/S | "off" — checked against the radar system switch (OFF) and PWS (OFF) |
 
 ### Parking
 
-| Item                    | Say                                     |
-| ----------------------- | --------------------------------------- |
-| Parking Brake or Chocks | "chocks in place" / "parking brake set" |
-| Wing Lights             | "off"                                   |
+| Item                    | Say                                                                                               |
+| ----------------------- | ------------------------------------------------------------------------------------------------- |
+| Slides                  | "disarmed" — checked against every door slide                                                     |
+| Parking Brake or Chocks | "set" / "chocks in place" / "parking brake set" — checked against the parking brake or the chocks |
+| Engines                 | "off" — checked against both engine masters                                                       |
+| Fuel Pumps              | "off" — checked against all six fuel pumps                                                        |
+| Yellow Elec Pump        | "off" — checked against the yellow electric pump                                                  |
+| Wing Lights             | "off" — checked against the wing lights switch                                                    |
 
-### Securing the Aircraft
+### Shutdown
 
-| Item             | Say          |
-| ---------------- | ------------ |
-| Exterior Lights  | "off"        |
-| Ground Servicing | "off"        |
-| External Power   | "off" / "on" |
-| EFBs             | "off"        |
-| Batteries        | "off"        |
+| Item         | Say                                              |
+| ------------ | ------------------------------------------------ |
+| Oxygen       | "off" — checked against the crew oxygen supply   |
+| Emer Exit Lt | "off" — checked against the emergency exit light |
+| EFBs         | "off"                                            |
+| Batteries    | "off" — checked against both batteries           |
 
 ---
 
