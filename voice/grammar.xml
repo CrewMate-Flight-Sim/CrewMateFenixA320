@@ -456,8 +456,6 @@
       <item>autopilot one one<tag>out.pid="autopilot_engage";</tag></item>
       <item>auto pilot on<tag>out.pid="autopilot_engage";</tag></item>
       <item>auto pilot one on<tag>out.pid="autopilot_engage";</tag></item>
-      <item>autopilot off<tag>out.pid="autopilot_disconnect";</tag></item>
-      <item>auto pilot off<tag>out.pid="autopilot_disconnect";</tag></item>
       <item>set runway track<tag>out.pid="set_runway_track";</tag></item>
       <item>altitude pull<tag>out.pid="pull_altitude";</tag></item>
       <item>altitude manage<tag>out.pid="manage_altitude";</tag></item>
@@ -513,7 +511,6 @@
       <item>left side clear<tag>out.pid="clear_left";</tag></item>
       <item>clear left side<tag>out.pid="clear_left";</tag></item>
       <item>runway entry procedure<tag>out.pid="runway_entry_procedure";</tag></item>
-      <item>start engine two<tag>out.pid="start_engine_2";</tag></item>
       <item>clear to line up<tag>out.pid="runway_entry_procedure";</tag></item>
       <item>takeoff<tag>out.pid="clear_for_takeoff";</tag></item>
       <item>before start procedure<tag>out.pid="before_start";</tag></item>
@@ -529,8 +526,8 @@
       <item>starting engine two<tag>out.pid="engine_start_2";</tag></item>
       <item>starting engine number two<tag>out.pid="engine_start_2";</tag></item>
       <item>starting two<tag>out.pid="engine_start_2";</tag></item>
-      <item>shutdown engine one<tag>out.pid="shutdown_engine_1";</tag></item>
       <item>shutdown engine two<tag>out.pid="shutdown_engine_2";</tag></item>
+      <item>secure the aircraft<tag>out.pid="secure_aircraft";</tag></item>
       <item>starting number two<tag>out.pid="engine_start_2";</tag></item>
       <item>start the apu<tag>out.pid="apu_start";</tag></item>
       <item>start apu<tag>out.pid="apu_start";</tag></item>

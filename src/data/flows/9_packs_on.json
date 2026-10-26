@@ -3,17 +3,25 @@
   "name": "Packs on",
   "steps": [
     {
-      "label": "pack 1",
+      "label": "Pack 1",
       "read": "(L:S_OH_PNEUMATIC_PACK_1)",
       "on": "1 (>L:S_OH_PNEUMATIC_PACK_1)",
-      "expect": 1
+      "expect": 1,
+      "only_if": {
+        "option": "takeoff.packs",
+        "one_of": ["off"]
+      }
     },
     {
-      "label": "pack 2",
+      "label": "Pack 2",
       "read": "(L:S_OH_PNEUMATIC_PACK_2)",
       "on": "1 (>L:S_OH_PNEUMATIC_PACK_2)",
       "expect": 1,
-      "sound_on_execute": "packs_1_and_2_on.ogg"
+      "sound_on_execute": "packs_1_and_2_on.ogg",
+      "only_if": {
+        "option": "takeoff.packs",
+        "one_of": ["off"]
+      }
     },
     {
       "label": "Chrono Stop",

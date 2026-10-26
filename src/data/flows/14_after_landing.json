@@ -3,6 +3,24 @@
   "name": "After Landing",
   "steps": [
     {
+      "label": "Weather Radar OFF",
+      "read": "(L:S_WR_SYS)",
+      "on": "1 (>L:S_WR_SYS)",
+      "expect": 1
+    },
+    {
+      "label": "Predictive Windshear OFF",
+      "read": "(L:S_WR_PRED_WS)",
+      "on": "0 (>L:S_WR_PRED_WS)",
+      "expect": 0
+    },
+    {
+      "label": "Engine Mode NORM",
+      "read": "(L:S_ENG_MODE)",
+      "on": "1 (>L:S_ENG_MODE)",
+      "expect": 1
+    },
+    {
       "label": "Flaps",
       "read": "(L:S_FC_FLAPS)",
       "on": "0 (>L:S_FC_FLAPS)",
@@ -13,16 +31,17 @@
       }
     },
     {
-      "label": "LDG Flap 3",
-      "read": "(L:S_OH_GPWS_LDG_FLAP3)",
-      "on": "0 (>L:S_OH_GPWS_LDG_FLAP3)",
+      "label": "TCAS STBY",
+      "read": "(L:S_XPDR_MODE)",
+      "on": "0 (>L:S_XPDR_MODE)",
       "expect": 0
     },
     {
-      "label": "APU",
-      "read": "(L:INI_APU_MASTER_SWITCH)",
-      "on": "1 (>L:INI_APU_MASTER_SWITCH)",
+      "label": "APU Master ON",
+      "read": "(L:S_OH_ELEC_APU_MASTER)",
+      "on": "1 (>L:S_OH_ELEC_APU_MASTER)",
       "expect": 1,
+      "wait_ms": 3000,
       "only_if": {
         "option": "landing.apuStart",
         "one_of": ["auto"]
@@ -30,13 +49,20 @@
     },
     {
       "label": "APU Start",
-      "read": "(L:INI_APU_START_BUTTON)",
-      "on": "1 (>L:INI_APU_START_BUTTON)",
+      "read": "(L:I_OH_ELEC_APU_START_L)",
+      "on": "S_OH_ELEC_APU_START",
       "expect": 1,
-      "only_if": {
-        "option": "landing.apuStart",
-        "one_of": ["auto"]
-      }
+      "press": true,
+      "only_if": [
+        {
+          "option": "landing.apuStart",
+          "one_of": ["auto"]
+        },
+        {
+          "read": "(L:I_OH_ELEC_APU_START_U)",
+          "one_of": [0]
+        }
+      ]
     },
     {
       "label": "Engine 1 Anti Ice",
@@ -52,27 +78,9 @@
       "expect": "{landing_anti_ice_eng2_expect}"
     },
     {
-      "label": "Weather Radar",
-      "read": "(L:S_WR_SYS)",
-      "on": "1 (>L:S_WR_SYS)",
-      "expect": 1
-    },
-    {
-      "label": "Predictive Windshear",
-      "read": "(L:S_WR_PRED_WS)",
-      "on": "0 (>L:S_WR_PRED_WS)",
-      "expect": 0
-    },
-    {
-      "label": "Terrain Display",
-      "read": "(L:INI_TERR_ON_FO)",
-      "on": "0 (>L:INI_TERR_ON_FO)",
-      "expect": 0
-    },
-    {
-      "label": "Landing Lights",
-      "read": "(L:INI_LIGHTS_LANDING)",
-      "on": "0 (>L:INI_LIGHTS_LANDING)",
+      "label": "Landing Light Left",
+      "read": "(L:S_OH_EXT_LT_LANDING_L)",
+      "on": "0 (>L:S_OH_EXT_LT_LANDING_L)",
       "expect": 0,
       "only_if": {
         "option": "settings.lightsControlMode",
@@ -80,9 +88,19 @@
       }
     },
     {
-      "label": "Strobes",
-      "read": "(L:INI_LIGHTS_STROBE)",
-      "on": "1 (>L:INI_LIGHTS_STROBE)",
+      "label": "Landing Light Right",
+      "read": "(L:S_OH_EXT_LT_LANDING_R)",
+      "on": "0 (>L:S_OH_EXT_LT_LANDING_R)",
+      "expect": 0,
+      "only_if": {
+        "option": "settings.lightsControlMode",
+        "one_of": ["virtual"]
+      }
+    },
+    {
+      "label": "Strobes AUTO",
+      "read": "(L:S_OH_EXT_LT_STROBE)",
+      "on": "1 (>L:S_OH_EXT_LT_STROBE)",
       "expect": 1,
       "only_if": {
         "option": "settings.lightsControlMode",
@@ -90,9 +108,9 @@
       }
     },
     {
-      "label": "Nose Wheel Light",
-      "read": "(L:INI_LIGHTS_NOSE)",
-      "on": "1 (>L:INI_LIGHTS_NOSE)",
+      "label": "Nose Light TAXI",
+      "read": "(L:S_OH_EXT_LT_NOSE)",
+      "on": "1 (>L:S_OH_EXT_LT_NOSE)",
       "expect": 1,
       "only_if": {
         "option": "settings.lightsControlMode",

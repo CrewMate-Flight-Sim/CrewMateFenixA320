@@ -39,6 +39,18 @@ export async function pressButton(name: string, label: string): Promise<boolean>
   return setLvar(count + 2, name, label)
 }
 
+// Test buttons act only while held: the odd count is the press, the next count the release
+export async function holdButton(name: string, ms: number, label: string): Promise<boolean> {
+  const count = await readLvar(name)
+  if (count === null) {
+    console.error(`[SimVar] Failed to read ${label} (L:${name})`)
+    return false
+  }
+  if (!(await setLvar(count + 1, name, label))) return false
+  await delay(ms)
+  return setLvar(count + 2, name, label)
+}
+
 // Lit buttons toggle, so the button is pressed only when its light differs
 export async function setLitButton(button: string, light: string, on: boolean, label: string): Promise<boolean> {
   const lit = await readLvar(light)

@@ -4,9 +4,19 @@
   "sound_start": "clear_right.ogg",
   "steps": [
     {
-      "label": "Nose Wheel Light",
-      "read": "(L:INI_LIGHTS_NOSE)",
-      "on": "1 (>L:INI_LIGHTS_NOSE)",
+      "label": "Nose Light TAXI",
+      "read": "(L:S_OH_EXT_LT_NOSE)",
+      "on": "1 (>L:S_OH_EXT_LT_NOSE)",
+      "expect": 1,
+      "only_if": {
+        "option": "settings.lightsControlMode",
+        "one_of": ["virtual"]
+      }
+    },
+    {
+      "label": "Runway Turnoff Lights",
+      "read": "(L:S_OH_EXT_LT_RWY_TURNOFF)",
+      "on": "1 (>L:S_OH_EXT_LT_RWY_TURNOFF)",
       "expect": 1,
       "only_if": {
         "option": "settings.lightsControlMode",

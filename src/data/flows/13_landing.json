@@ -14,6 +14,12 @@
       "read": "(L:S_OH_EXT_LT_NOSE)",
       "on": "2 (>L:S_OH_EXT_LT_NOSE)",
       "expect": 2
+    },
+    {
+      "label": "Runway Turnoff Lights",
+      "read": "(L:S_OH_EXT_LT_RWY_TURNOFF)",
+      "on": "1 (>L:S_OH_EXT_LT_RWY_TURNOFF)",
+      "expect": 1
     }
   ]
 }

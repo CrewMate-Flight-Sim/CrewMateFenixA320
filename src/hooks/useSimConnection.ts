@@ -23,6 +23,7 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "brakeLeftPosition", expression: "(A:BRAKE LEFT POSITION,Number)" },
   { key: "parkingBrake", expression: "(L:S_MIP_PARKING_BRAKE)" },
   { key: "taxiLight", expression: "(L:S_OH_EXT_LT_NOSE)" },
+  { key: "beacon", expression: "(L:S_OH_EXT_LT_BEACON)" },
   { key: "brakeRightPosition", expression: "(A:BRAKE RIGHT POSITION,Number)" },
   // Fenix surface positions, 0-200 with 100 neutral; the sim deflection simvars follow the stick instead
   { key: "aileronDeflection", expression: "(L:A320_FC_AIL_L)" },
@@ -47,8 +48,8 @@ const SIM_VARS: { key: string; expression: string }[] = [
   // 0 CRANK, 1 NORM, 2 IGN/START
   { key: "engineMode", expression: "(L:S_ENG_MODE)" },
   { key: "flapsIndex", expression: "(L:S_FC_FLAPS)" },
-  { key: "mixture1", expression: "(L:INI_MIXTURE_RATIO1_HANDLE)" },
-  { key: "mixture2", expression: "(L:INI_MIXTURE_RATIO2_HANDLE)" },
+  { key: "engineMaster1", expression: "(L:S_ENG_MASTER_1)" },
+  { key: "engineMaster2", expression: "(L:S_ENG_MASTER_2)" },
   // 0 armed, 1 retracted
   { key: "speedbrakeLever", expression: "(L:A_FC_SPEEDBRAKE)" },
   { key: "fcuAlt", expression: "(L:N_FCU_ALTITUDE)" },
@@ -62,7 +63,6 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "autobrakeLoDecel", expression: "(L:I_MIP_AUTOBRAKE_LO_U)" },
   { key: "autobrakeMedDecel", expression: "(L:I_MIP_AUTOBRAKE_MED_U)" },
   { key: "autobrakeMaxDecel", expression: "(L:I_MIP_AUTOBRAKE_MAX_U)" },
-  { key: "thrustLeverClb", expression: "(L:INI_LEVER_IN_CL)" },
   { key: "foChrono", expression: "(L:N_MIP_CLOCK_CHRONO)" },
   { key: "baroStd", expression: "(L:B_FCU_EFIS1_BARO_STD)" },
   { key: "pitchDegrees", expression: "(A:PLANE PITCH DEGREES,Degrees)" },

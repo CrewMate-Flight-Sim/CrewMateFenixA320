@@ -2,8 +2,19 @@
   "id": "before_takeoff",
   "name": "Before Takeoff",
   "sound_start": "cabin_takeoff.ogg",
-  "sound_end": "ready.ogg",
+  "sound_end": ["appr_path_clear_of_tfc.ogg", "ready.ogg"],
   "steps": [
+    {
+      "label": "Brake Fan",
+      "read": "(L:S_MIP_BRAKE_FAN)",
+      "on": "0 (>L:S_MIP_BRAKE_FAN)",
+      "expect": 0,
+      "only_if": {
+        "read": "(L:B_CONFIG_BRAKEFANS)",
+        "one_of": [1]
+      }
+    },
+    { "label": "TCAS TA/RA", "read": "(L:S_XPDR_MODE)", "on": "2 (>L:S_XPDR_MODE)", "expect": 2 },
     {
       "label": "Pack 1",
       "read": "(L:S_OH_PNEUMATIC_PACK_1)",
@@ -22,28 +33,12 @@
       "on": "{apu_bleed_cmd}",
       "expect": "{apu_bleed_expect}"
     },
+    { "label": "FO ND Range", "read": "(L:S_FCU_EFIS2_ND_ZOOM)", "on": "1 (>L:S_FCU_EFIS2_ND_ZOOM)", "expect": 1 },
     {
-      "label": "Brake Fan",
-      "read": "(L:S_MIP_BRAKE_FAN)",
-      "on": "0 (>L:S_MIP_BRAKE_FAN)",
-      "expect": 0,
-      "only_if": {
-        "read": "(L:B_CONFIG_BRAKEFANS)",
-        "one_of": [1]
-      }
-    },
-    {
-      "label": "ND SET",
-      "read": "(L:INI_MAP_RANGE_FO_SWITCH)",
-      "on": "6 (>L:INI_MAP_RANGE_FO_SWITCH)",
-      "expect": 6,
-      "sound_on_execute": "appr_path_clear_of_tfc.ogg"
-    },
-    {
-      "label": "Strobes",
-      "read": "(L:INI_LIGHTS_STROBE)",
-      "on": "0 (>L:INI_LIGHTS_STROBE)",
-      "expect": 0,
+      "label": "Strobes ON",
+      "read": "(L:S_OH_EXT_LT_STROBE)",
+      "on": "2 (>L:S_OH_EXT_LT_STROBE)",
+      "expect": 2,
       "only_if": {
         "option": "settings.lightsControlMode",
         "one_of": ["virtual"]

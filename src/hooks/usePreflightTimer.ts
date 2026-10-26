@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef } from "react"
 
-import { reportBrakesAndTyres } from "@/services/brakesReport"
 import { executeFlow } from "@/services/flowRunner"
 import { playSound } from "@/services/playSounds"
 import { useFlowStore } from "@/store/flowStore"
 import { useFoPresenceStore } from "@/store/foPresenceStore"
 import { usePreflightTimerStore, type TimelineEvent } from "@/store/preflightTimerStore"
+import { requestGroundDisconnect } from "@/voice/commands/groundServices"
 
 // Marks between which the FO is outside doing the walkaround and does not answer.
 const WALKAROUND_START_MARK = 44
@@ -37,8 +37,8 @@ export function usePreflightTimer() {
       playSound(event.sound)
     }
 
-    if (event.brakesReport) {
-      void reportBrakesAndTyres()
+    if (event.groundDisconnect) {
+      void requestGroundDisconnect()
     }
   }, [])
 

@@ -1,10 +1,14 @@
 import { useEffect, useRef } from "react"
 
 import { useTelemetryTick } from "@/hooks/useTelemetryTick"
+import { startElapsedTime } from "@/services/clockChrono"
 import { executeFlow } from "@/services/flowRunner"
 import { useFlowStore } from "@/store/flowStore"
 import { useGoAroundStore } from "@/store/goAroundStore"
 import { useTelemetryStore } from "@/store/telemetryStore"
+
+// Thrust lever detent (A_FC_THROTTLE_*_INPUT): 2 idle, 3 CL, 4 FLX/MCT, 5 TOGA
+const DETENT_CL = 3
 
 // Auto flows fire once per phase; the ground/airborne transitions re-arm them
 interface TriggeredFlags {
@@ -16,6 +20,7 @@ interface TriggeredFlags {
   climbTenK: boolean
   descTenK: boolean
   shutdown: boolean
+  clockStart: boolean
 }
 
 interface PrevValues {
@@ -24,9 +29,10 @@ interface PrevValues {
   speedbrakeLever: number
   landingGear: number
   alt: number
-  mixture1: number
-  mixture2: number
-  thrustLeverClb: number
+  engineMaster1: number
+  engineMaster2: number
+  leversInClb: boolean
+  parkingBrake: number
 }
 
 export function useAutoFlows() {
@@ -38,7 +44,8 @@ export function useAutoFlows() {
     afterLanding: false,
     climbTenK: false,
     descTenK: false,
-    shutdown: false
+    shutdown: false,
+    clockStart: false
   })
 
   const prev = useRef<PrevValues>({
@@ -47,9 +54,10 @@ export function useAutoFlows() {
     speedbrakeLever: 1,
     landingGear: 1,
     alt: 0,
-    mixture1: 1,
-    mixture2: 1,
-    thrustLeverClb: 0
+    engineMaster1: 1,
+    engineMaster2: 1,
+    leversInClb: false,
+    parkingBrake: 1
   })
 
   const phase = useRef<"ground" | "airborne">("ground")
@@ -79,9 +87,10 @@ export function useAutoFlows() {
       prev.current.speedbrakeLever = t.speedbrakeLever ?? 1
       prev.current.landingGear = t.landingGear ?? 1
       prev.current.alt = t.alt ?? 0
-      prev.current.thrustLeverClb = t.thrustLeverClb ?? 0
-      prev.current.mixture1 = t.mixture1 ?? 1
-      prev.current.mixture2 = t.mixture2 ?? 1
+      prev.current.leversInClb = t.throttleDetent1 === DETENT_CL && t.throttleDetent2 === DETENT_CL
+      prev.current.engineMaster1 = t.engineMaster1 ?? 1
+      prev.current.engineMaster2 = t.engineMaster2 ?? 1
+      prev.current.parkingBrake = t.parkingBrake ?? 1
       phase.current = t.onGround ? "ground" : "airborne"
       return
     }
@@ -89,6 +98,7 @@ export function useAutoFlows() {
     const fl = triggered.current
     const p = prev.current
     const isRunning = useFlowStore.getState().executionState === "running"
+    const leversInClb = t.throttleDetent1 === DETENT_CL && t.throttleDetent2 === DETENT_CL
 
     if (phase.current === "ground" && !t.onGround && t.vs > 200) {
       // Ground → Airborne
@@ -108,6 +118,12 @@ export function useAutoFlows() {
       fl.descTenK = false
     }
 
+    // The PM starts the clock when the parking brake comes off for pushback (beacon on), once per departure
+    if (!fl.clockStart && t.onGround && t.beacon === 1 && p.parkingBrake === 1 && t.parkingBrake === 0) {
+      fl.clockStart = true
+      void startElapsedTime()
+    }
+
     if (!isRunning) {
       // After Start: engine mode selector IGN/START → NORM while on ground
       if (!fl.afterStart && t.onGround && p.engineMode === 2 && t.engineMode === 1) {
@@ -115,8 +131,8 @@ export function useAutoFlows() {
         executeFlow("after_start")
       }
 
-      // Packs on: THR lever moved to CLB detent while airborne
-      else if (!fl.packsOn && !t.onGround && !p.thrustLeverClb && t.thrustLeverClb === 1) {
+      // Packs on: both thrust levers moved to the CL detent while airborne
+      else if (!fl.packsOn && !t.onGround && !p.leversInClb && leversInClb) {
         fl.packsOn = true
         executeFlow("packs_on")
       }
@@ -154,23 +170,25 @@ export function useAutoFlows() {
       else if (
         !fl.shutdown &&
         t.onGround &&
-        (p.mixture1 === 1 || p.mixture2 === 1) &&
-        t.mixture1 === 0 &&
-        t.mixture2 === 0
+        (p.engineMaster1 === 1 || p.engineMaster2 === 1) &&
+        t.engineMaster1 === 0 &&
+        t.engineMaster2 === 0
       ) {
         fl.shutdown = true
+        fl.clockStart = false
         executeFlow("shutdown")
       }
     }
 
-    p.thrustLeverClb = t.thrustLeverClb ?? 0
+    p.leversInClb = leversInClb
     p.engineMode = t.engineMode ?? 0
     p.flapsIndex = t.flapsIndex ?? 0
     p.speedbrakeLever = t.speedbrakeLever ?? 1
     p.landingGear = t.landingGear ?? 1
     p.alt = t.alt ?? 0
-    p.mixture1 = t.mixture1 ?? 1
-    p.mixture2 = t.mixture2 ?? 1
+    p.engineMaster1 = t.engineMaster1 ?? 1
+    p.engineMaster2 = t.engineMaster2 ?? 1
+    p.parkingBrake = t.parkingBrake ?? 1
   }
 
   useTelemetryTick(tick)

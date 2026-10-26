@@ -16,7 +16,7 @@
     "minuteMark": 35,
     "label": "PM back from walkaround and cockpit preparation",
     "type": "flow",
-    "brakesReport": true,
+    "sound": "walkaround_completed.ogg",
     "flowId": "cockpit_prep"
   },
   {
@@ -31,9 +31,10 @@
   },
   {
     "minuteMark": 5,
-    "label": "FO closes table and APU start reminder",
+    "label": "Before pushback: FO closes table and asks for ground power and air off",
     "type": "flow",
-    "flowId": "table_close"
+    "flowId": "table_close",
+    "groundDisconnect": true
   },
   {
     "minuteMark": 1,

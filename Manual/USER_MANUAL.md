@@ -83,16 +83,16 @@ This tutorial assumes you are parked at the gate with engines off. You are the C
 
 ### Typical preflight timeline (example)
 
-- 48 min: PM starts preliminary cockpit preparation and sets the parking brake, so the brake wear indicators can be checked on the walkaround.
+- 48 min: PM does the preliminary cockpit preparation: weather radar and windshear off, engine masters off and mode NORM, gear down, wipers off, battery check, external power on if available, RMP and ACP, APU fire test and start, ADIRS to NAV, the ECAM ENG, HYD and DOOR pages, and the parking brake on, so the brake wear indicators can be checked on the walkaround.
 - 44 min: PM departs for external walkaround. PF starts cockpit preparation.
   ![Cockpit Preparation flow pattern](Images/COCKPIT%20PREPARATION%20FLOW%20PATTERN.png)
-- 35 min: PM returns and starts cockpit preparation on the right-hand side. The FO reports the walkaround: "all good, no issues found", or each worn tyre or brake by gear (nose, left main, right main) followed by "we need maintenance". Worn means red on the EFB maintenance page.
+- 35 min: PM returns, reports "walkaround completed, all good no issues found" and starts cockpit preparation on the right-hand side: APU bleed on once the APU is available, the FO EFIS and ND, and the FO oxygen mask test.
 - 25 min: PF conducts the departure briefing (enter takeoff data in the Takeoff Performance window; the FO reads back the F-PLN departure runway on the LINE-UP checklist).
 - 20 min: PF calls for the COCKPIT PREPARATION checklist.
-- 5 min: PM closes the table, and a reminder to start the APU is shown.
-- 1 min: CrewMate closes the cockpit door. PF and PM perform before start flow, after that PF calls for the BEFORE START checklist.
+- 5 min: PM closes the table and, once the APU is available, asks the ground crew to disconnect ground power and air conditioning.
+- 1 min: PF and PM perform the before start flow, after that PF calls for the BEFORE START checklist.
 
-The before start flow takes TCAS out of standby and sets the transponder mode, then **leaves the SURV page open on the MCDU on purpose**. The ALT RPTG, ADS-B RPTG and ADS-B TRAFFIC pushbuttons on that page cannot be operated from outside the aircraft, so the FO cannot press them — set them yourself while the page is up.
+The before start flow closes the table and the cockpit door, sets the transponder to AUTO and makes the PA "Cabin crew, arm slides and cross check". TCAS stays in standby until line-up. When you release the parking brake for pushback with the beacon on, the FO starts the elapsed time on the clock.
 
 > **The FO is outside between T-44 and T-35.** While away on the walkaround the FO does not answer any command, and an **FO outside** indicator is shown. Ground engineer calls and the preflight timer still work, because the ground engineer is a different person on the interphone.
 
@@ -111,14 +111,14 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 ### Taxi
 
 - PM announces when the cabin is ready.
-- After the AFTER START checklist, PM performs the TAXI flow pattern.
+- After the flight controls check, PM performs the TAXI flow pattern: auto brake MAX, weather radar on, predictive windshear AUTO, terrain on the FO ND, both FDs on and the T.O CONFIG test.
 - After T.O. CONFIG pushbutton is pressed PF calls for the TAXI checklist.
 
 ![Taxi flow pattern](Images/TAXI%20FLOW%20PATTERN.png)
 
 ### Line‑up & Takeoff
 
-- PF calls for the Line‑up flow.
+- PF calls for the Line‑up flow. The FO makes the cabin crew PA, sets TCAS to TA/RA and the packs per the Takeoff Performance window, then reports "approach path clear of traffic".
 - When line‑up clearance is received and the Line‑up flow pattern is complete, PF calls for the LINE‑UP checklist.
 - When cleared for takeoff, announce "TAKEOFF."
 
@@ -148,7 +148,7 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 ### 10k Descent
 
-- With CONF 3 on the MCDU PERF APPR page, the FO also sets the GPWS **LDG FLAP 3** pushbutton.
+- The GPWS **LDG FLAP 3** pushbutton is yours to set during descent preparation.
 
 ![10k descent flow pattern](Images/AT%2010%20000%20FT%20AAL%20DES%20FLOW%20PATTERN.png)
 
@@ -168,7 +168,7 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 - Disarming the ground spoilers will trigger the After‑Landing flow.
 - If anti‑ice is used, flaps may remain at LDG CONF per procedure.
-- The FO resets the GPWS **LDG FLAP 3** pushbutton and switches the weather radar and predictive windshear off.
+- The FO switches the weather radar and predictive windshear off, sets the engine mode selector to NORM, retracts the flaps, puts TCAS in standby and starts the APU (per the Landing Performance window).
 - When the flow is done, call for the AFTER LANDING checklist.
 
 ![After landing flow pattern](Images/AFTER%20LANDING%20FLOW%20PATTERN.png)
@@ -176,7 +176,7 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 ### Parking
 
 - Turn off taxi lights when turning into the gate, or ask the PM to confirm.
-- Shutting down the engines will trigger the Parking flow.
+- Shutting down the engines will trigger the Parking flow: anti-ice off, APU bleed on (or external power on when available), fuel pumps off, transponder to standby, then the PA "Cabin crew, disarm slides please".
 - After the Parking flow pattern completes, PF calls for the PARKING checklist.
 
 > **Engine shutdown is held for five minutes after landing.** With **5 minutes cool down** enabled, asking the FO to shut an engine down before the cooling period has elapsed is refused with "five minutes not passed". The countdown starts automatically at the 70 knot call.
@@ -185,8 +185,8 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 ### Shutdown
 
-- After the last passenger leaves (if shutting the aircraft down), call for the SHUTDOWN checklist.
-- The shutdown flow returns TCAS and the transponder to standby.
+- After the last passenger leaves (if shutting the aircraft down), say "Secure the aircraft". The FO does the securing items: crew oxygen off, exterior lights off, APU bleed and master off, emergency exit lights off and both batteries off (after waiting two minutes for the APU flap to close).
+- Then call for the SHUTDOWN checklist.
 
 ---
 
@@ -211,7 +211,7 @@ Where a command takes a number, say it naturally: "two seven zero", "three hundr
 | "Runway entry procedure" / "Clear to line up"                              | Before Takeoff flow                                      |
 | "Takeoff"                                                                  | Takeoff flow                                             |
 | "Flight controls check"                                                    | Flight controls sequence, then the next After Start hint |
-| "Start engine two"                                                         | Starts engine 2 (single-engine taxi start)               |
+| "Secure the aircraft"                                                      | Securing the Aircraft flow                               |
 
 ### Launching Checklists by Voice
 
@@ -254,7 +254,6 @@ The FO will confirm speed limits before moving flaps while airborne.
 | Say                                                     | What happens                                      |
 | ------------------------------------------------------- | ------------------------------------------------- |
 | "Autopilot on"                                          | Engages Autopilot 1.                              |
-| "Autopilot off"                                         | Disconnects the autopilot.                        |
 | "Set speed \_\_\_" / "Pull speed \_\_\_"                | Sets the commanded speed. "Knots" may be added.   |
 | "Pull speed"                                            | Pulls the speed knob (selected speed).            |
 | "Manage speed"                                          | Pushes the speed knob (managed speed).            |
@@ -339,23 +338,21 @@ Wipers are refused above 230 knots unless you are selecting OFF.
 
 ### Engines and APU
 
-| Say                                                                                           | What happens                                              |
-| --------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| "Starting engine one" / "Starting engine number one" / "Starting one" / "Starting number one" | You announce the start; the FO acknowledges with "check". |
-| "Starting engine two" / "Starting engine number two" / "Starting two" / "Starting number two" | You announce the start; the FO acknowledges with "check". |
-| "Start engine two"                                                                            | Starts engine 2 and runs the after start flow for it.     |
-| "Shutdown engine one"                                                                         | Shuts down engine 1.                                      |
-| "Shutdown engine two"                                                                         | Shuts down engine 2.                                      |
-| "Start the apu" / "Start apu"                                                                 | Starts the APU.                                           |
+| Say                                                                                           | What happens                                                                         |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| "Starting engine one" / "Starting engine number one" / "Starting one" / "Starting number one" | You announce the start; the FO acknowledges with "check".                            |
+| "Starting engine two" / "Starting engine number two" / "Starting two" / "Starting number two" | You announce the start; the FO acknowledges with "check".                            |
+| "Shutdown engine two"                                                                         | Shuts down engine 2 for single-engine taxi and switches the yellow electric pump on. |
+| "Start the apu" / "Start apu"                                                                 | Starts the APU.                                                                      |
 
 ### Cabin and Doors
 
-| Say                                                               | What happens             |
-| ----------------------------------------------------------------- | ------------------------ |
-| "Cabin crew arm slides" / "Cabin crew arm slides and cross check" | Arms the door slides.    |
-| "Cabin crew disarm slides"                                        | Disarms the door slides. |
-| "Seat belts on"                                                   | Seat belt signs on.      |
-| "Seat belts off"                                                  | Seat belt signs off.     |
+| Say                                                               | What happens                                                   |
+| ----------------------------------------------------------------- | -------------------------------------------------------------- |
+| "Cabin crew arm slides" / "Cabin crew arm slides and cross check" | The FO makes the arm-slides PA; the cabin crew arm them.       |
+| "Cabin crew disarm slides"                                        | The FO makes the disarm-slides PA; the cabin crew disarm them. |
+| "Seat belts on"                                                   | Seat belt signs on.                                            |
+| "Seat belts off"                                                  | Seat belt signs off.                                           |
 
 ### Brakes
 

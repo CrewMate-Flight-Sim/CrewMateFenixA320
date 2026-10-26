@@ -1,4 +1,4 @@
-import { pressButton, simvarGet, simvarSet } from "@/API/simvarApi"
+import { holdButton, pressButton, simvarGet, simvarSet } from "@/API/simvarApi"
 import { delay } from "@/lib/utils"
 import { chronoSeconds, stopChrono } from "@/services/clockChrono"
 import { moveFlapsLever } from "@/services/flapsLever"
@@ -10,7 +10,7 @@ import { useSettingsStore } from "@/store/settingsStore"
 import { useTelemetryStore } from "@/store/telemetryStore"
 import type { Telemetry } from "@/store/telemetryStore"
 import { useVoiceHintProgressStore } from "@/store/voiceHintProgressStore"
-import type { Flow, FlowStep, FlowConditionValue } from "@/types/flow"
+import type { Flow, FlowCondition, FlowStep, FlowConditionValue } from "@/types/flow"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -21,7 +21,7 @@ const SIMVAR = { READ_RETRIES: 5, READ_RETRY_DELAY: 150 }
 const STEP_VERIFY = { RETRIES: 5, DELAY: 300 }
 const DRIVE = { POLL_INTERVAL: 100, DEFAULT_TIMEOUT: 20000 }
 
-const BLOCKED_FLOWS = new Set(["shutdown_eng1", "shutdown_eng2"])
+const BLOCKED_FLOWS = new Set(["shutdown_eng2"])
 const FUZZY_EPS = 0.5
 
 // ---------------------------------------------------------------------------
@@ -94,9 +94,14 @@ async function shouldExecuteStep(step: FlowStep): Promise<boolean> {
   // A write whose template value came out blank (e.g. no PERF TO flaps) has nothing to set
   if (!step.press && /^\s*\(>/.test(step.on)) return false
 
-  const condition = step.only_if
-  if (!condition) return true
+  const conditions = step.only_if === undefined ? [] : [step.only_if].flat()
+  for (const condition of conditions) {
+    if (!(await conditionHolds(step, condition))) return false
+  }
+  return true
+}
 
+async function conditionHolds(step: FlowStep, condition: FlowCondition): Promise<boolean> {
   if ("option" in condition) {
     const optionValue = resolveFlowOption(condition.option)
     if (optionValue === undefined) {
@@ -329,7 +334,7 @@ class FlowRunner {
 
     // A button without a light can't be checked before or after, so it is just pressed
     if (step.press && step.skip_verify) {
-      await pressButton(step.on, step.label)
+      await this.press(step)
       this.checkAbort(signal)
       await this.handlePostWrite(step, signal)
       setStepStatus(index, "done")
@@ -349,13 +354,13 @@ class FlowRunner {
     }
 
     if (step.flaps_lever) await moveFlapsLever(expectedValue)
-    else if (step.press) await pressButton(step.on, step.label)
+    else if (step.press) await this.press(step)
     else await writeSimvar(step.on)
     this.checkAbort(signal)
 
     await this.handlePostWrite(step, signal)
 
-    if (step.hold_ms) {
+    if (step.hold_ms && !step.press) {
       await this.abortableSleep(step.hold_ms, signal)
       const releaseExpr = step.release ?? step.on.replace(/^-?\d+\s+/, "0 ")
       await writeSimvar(releaseExpr)
@@ -367,6 +372,11 @@ class FlowRunner {
     } else {
       await this.verifyAndFinish(step, index, expectedValue, signal)
     }
+  }
+
+  private async press(step: FlowStep): Promise<void> {
+    if (step.hold_ms) await holdButton(step.on, step.hold_ms, step.label)
+    else await pressButton(step.on, step.label)
   }
 
   // ── Drive-until phase ─────────────────────────────────────────────────────
@@ -477,7 +487,8 @@ class FlowRunner {
   }
 
   private async playFlowEndSound(flow: Flow): Promise<void> {
-    if (flow.sound_end) await this.playSyncSound(flow.sound_end)
+    const sounds = typeof flow.sound_end === "string" ? [flow.sound_end] : (flow.sound_end ?? [])
+    for (const sound of sounds) await this.playSyncSound(sound)
   }
 
   // ── Flow completion side-effects ──────────────────────────────────────────

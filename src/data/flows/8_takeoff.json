@@ -33,6 +33,16 @@
       }
     },
     {
+      "label": "Runway Turnoff Lights",
+      "read": "(L:S_OH_EXT_LT_RWY_TURNOFF)",
+      "on": "1 (>L:S_OH_EXT_LT_RWY_TURNOFF)",
+      "expect": 1,
+      "only_if": {
+        "option": "settings.lightsControlMode",
+        "one_of": ["virtual"]
+      }
+    },
+    {
       "label": "Chrono",
       "read": "(L:S_MIP_CHRONO_FO)",
       "on": "S_MIP_CHRONO_FO",

@@ -3,14 +3,13 @@ import climbTenThousand from "@/data/flows/11_climb_ten_thousand_flow.json"
 import descTenThousand from "@/data/flows/12_desc_ten_thousand_flow.json"
 import landing from "@/data/flows/13_landing.json"
 import afterLanding from "@/data/flows/14_after_landing.json"
-import shutdown_e1 from "@/data/flows/14a_shutdown_eng1.json"
 import shutdown_e2 from "@/data/flows/14b_shutdown_eng2.json"
 import parking from "@/data/flows/15_shutdown.json"
+import securing from "@/data/flows/16_securing.json"
 import prelimCockpitPrep from "@/data/flows/1_prelim_cockpit_prep.json"
 import cockpitPrep from "@/data/flows/2_cockpit_prep.json"
 import beforeStart from "@/data/flows/3_before_start.json"
 import afterStart from "@/data/flows/4_after_start.json"
-import afterStartE2 from "@/data/flows/4a_after_start_e2.json"
 import clearLeft from "@/data/flows/5_clear_left.json"
 import afterControlsCheck from "@/data/flows/6_after_flight_controls_check.json"
 import beforeTakeoff from "@/data/flows/7_before_takeoff.json"
@@ -20,14 +19,13 @@ import table_close from "@/data/flows/table_close.json"
 import table_open from "@/data/flows/table_open.json"
 import { getTakeoffTrim, PITCH_TRIM_SCALE } from "@/services/pitchTrim"
 import { usePerformanceStore } from "@/store/performanceStore"
-import type { Flow, FlowStep } from "@/types/flow"
+import type { Flow, FlowCondition, FlowStep } from "@/types/flow"
 
 export const ALL_FLOWS: Flow[] = [
   prelimCockpitPrep,
   cockpitPrep,
   beforeStart,
   afterStart,
-  afterStartE2,
   clearLeft,
   afterControlsCheck,
   beforeTakeoff,
@@ -38,9 +36,9 @@ export const ALL_FLOWS: Flow[] = [
   descTenThousand,
   landing,
   afterLanding,
-  shutdown_e1,
   shutdown_e2,
   parking,
+  securing,
   table_open,
   table_close
 ] as Flow[]
@@ -103,17 +101,16 @@ function resolveString(str: string, vars: Record<string, string>): string {
 
 async function resolveStep(step: FlowStep, vars?: Record<string, string>): Promise<FlowStep> {
   const templateVars = vars ?? (await getTemplateVars())
-  const resolvedOnlyIf = step.only_if
-    ? {
-        ...step.only_if,
-        ...("read" in step.only_if
-          ? { read: resolveString(step.only_if.read, templateVars) }
-          : { option: resolveString(step.only_if.option, templateVars) }),
-        one_of: step.only_if.one_of.map((value) =>
-          typeof value === "string" ? resolveString(value, templateVars) : value
-        )
-      }
-    : undefined
+  const resolveCondition = (condition: FlowCondition): FlowCondition => ({
+    ...condition,
+    ...("read" in condition
+      ? { read: resolveString(condition.read, templateVars) }
+      : { option: resolveString(condition.option, templateVars) }),
+    one_of: condition.one_of.map((value) => (typeof value === "string" ? resolveString(value, templateVars) : value))
+  })
+  const resolvedOnlyIf = Array.isArray(step.only_if)
+    ? step.only_if.map(resolveCondition)
+    : step.only_if && resolveCondition(step.only_if)
 
   return {
     ...step,

@@ -100,7 +100,6 @@ config three
 # ── Autopilot / autothrottle ──────────────────────────────────────────────────
 autopilot engage
 auto pilot on
-autopilot disconnect
 autothrottle engage
 autothrottle disconnect
 
@@ -147,6 +146,7 @@ start the apu
 # ── Clearances ────────────────────────────────────────────────────────────────
 clear left
 runway entry procedure
+secure the aircraft
 clear to line up
 clear for takeoff
 takeoff
