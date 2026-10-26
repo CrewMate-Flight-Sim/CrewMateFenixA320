@@ -1,0 +1,104 @@
+{
+  "id": "securing",
+  "name": "Securing the Aircraft",
+  "sound_start": "check.ogg",
+  "steps": [
+    {
+      "label": "Crew Oxygen OFF",
+      "read": "(L:S_OH_OXYGEN_CREW_OXYGEN)",
+      "on": "0 (>L:S_OH_OXYGEN_CREW_OXYGEN)",
+      "expect": 0
+    },
+    {
+      "label": "Strobe OFF",
+      "read": "(L:S_OH_EXT_LT_STROBE)",
+      "on": "0 (>L:S_OH_EXT_LT_STROBE)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Beacon OFF",
+      "read": "(L:S_OH_EXT_LT_BEACON)",
+      "on": "0 (>L:S_OH_EXT_LT_BEACON)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Wing Lights OFF",
+      "read": "(L:S_OH_EXT_LT_WING)",
+      "on": "0 (>L:S_OH_EXT_LT_WING)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Nav and Logo OFF",
+      "read": "(L:S_OH_EXT_LT_NAV_LOGO)",
+      "on": "0 (>L:S_OH_EXT_LT_NAV_LOGO)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Runway Turnoff OFF",
+      "read": "(L:S_OH_EXT_LT_RWY_TURNOFF)",
+      "on": "0 (>L:S_OH_EXT_LT_RWY_TURNOFF)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Landing Light Left Retract",
+      "read": "(L:S_OH_EXT_LT_LANDING_L)",
+      "on": "0 (>L:S_OH_EXT_LT_LANDING_L)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Landing Light Right Retract",
+      "read": "(L:S_OH_EXT_LT_LANDING_R)",
+      "on": "0 (>L:S_OH_EXT_LT_LANDING_R)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Nose Light OFF",
+      "read": "(L:S_OH_EXT_LT_NOSE)",
+      "on": "0 (>L:S_OH_EXT_LT_NOSE)",
+      "expect": 0
+    },
+    {
+      "label": "APU Bleed OFF",
+      "read": "(L:S_OH_PNEUMATIC_APU_BLEED)",
+      "on": "0 (>L:S_OH_PNEUMATIC_APU_BLEED)",
+      "expect": 0
+    },
+    {
+      "label": "APU Master OFF",
+      "read": "(L:S_OH_ELEC_APU_MASTER)",
+      "on": "0 (>L:S_OH_ELEC_APU_MASTER)",
+      "expect": 0,
+      "wait_ms": 120000,
+      "only_if": {
+        "read": "(L:S_OH_ELEC_APU_MASTER)",
+        "one_of": [1]
+      }
+    },
+    {
+      "label": "Emer Exit Lights OFF",
+      "read": "(L:S_OH_INT_LT_EMER)",
+      "on": "0 (>L:S_OH_INT_LT_EMER)",
+      "expect": 0
+    },
+    {
+      "label": "Battery 1 OFF",
+      "read": "(L:S_OH_ELEC_BAT1)",
+      "on": "0 (>L:S_OH_ELEC_BAT1)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Battery 2 OFF",
+      "read": "(L:S_OH_ELEC_BAT2)",
+      "on": "0 (>L:S_OH_ELEC_BAT2)",
+      "expect": 0
+    }
+  ]
+}

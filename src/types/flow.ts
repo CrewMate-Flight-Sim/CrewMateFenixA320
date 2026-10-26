@@ -1,6 +1,7 @@
 export type FlowConditionValue = number | string | boolean
 
-type FlowCondition = { read: string; one_of: FlowConditionValue[] } | { option: string; one_of: FlowConditionValue[] }
+export type FlowCondition =
+  { read: string; one_of: FlowConditionValue[] } | { option: string; one_of: FlowConditionValue[] }
 
 export interface FlowStep {
   label: string
@@ -12,7 +13,7 @@ export interface FlowStep {
   skip_verify?: boolean
   skip_delay?: boolean
   sound_on_execute?: string
-  only_if?: FlowCondition
+  only_if?: FlowCondition | FlowCondition[]
   until?: "at_least" | "at_most"
   release?: string
   timeout_ms?: number
@@ -25,7 +26,7 @@ export interface Flow {
   name: string
   steps: FlowStep[]
   sound_start?: string
-  sound_end?: string
+  sound_end?: string | string[]
 }
 
 export type StepStatus = "pending" | "executing" | "verifying" | "done" | "skipped" | "failed"

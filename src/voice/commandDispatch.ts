@@ -18,7 +18,7 @@ import {
   setAirspeedDial,
   setAltitudeDial,
   setAPPR,
-  setAutoPilot,
+  engageAutoPilot,
   setBird,
   setFlightDirector,
   setHeadingDial,
@@ -33,8 +33,6 @@ import {
 } from "./commands/autoPilot"
 import { setStdBaro } from "./commands/baro"
 import { setBrakeFan } from "./commands/brakeFan"
-import { setDoorSlides } from "./commands/doorSlides"
-import { setIgnKnob, startEngine2 } from "./commands/engine"
 import { setFlaps } from "./commands/flaps"
 import { flightControlsCheck } from "./commands/flightControlsCheck"
 import { setGearHandle } from "./commands/gear"
@@ -167,9 +165,8 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   // ── Autopilot  ──────────────────────────────────────────────
   autopilot_engage: () => {
     playSound("check.ogg")
-    setAutoPilot(true)
+    engageAutoPilot()
   },
-  autopilot_disconnect: () => setAutoPilot(false),
 
   // ── FCU knob commands ──────────────────────────────
   pull_heading: () => {
@@ -246,13 +243,6 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
     playSound("check.ogg")
     setStartAPU(1)
   },
-  start_engine_2: async () => {
-    playSound("check.ogg")
-    setIgnKnob(2)
-    playSound("starting_engine_2.ogg")
-    await delay(4000)
-    startEngine2(1)
-  },
 
   // ── Anti-ice ──────────────────────────────────────────────────────────────
   engine_anti_ice_on: () => {
@@ -288,8 +278,9 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   wipers_fast: () => setWipers(2),
 
   // ── Cabin crew / doors ────────────────────────────────────────────────────
-  cabin_crew_arm_slides: () => setDoorSlides(true),
-  cabin_crew_disarm_slides: () => setDoorSlides(false),
+  // The cabin crew work the slides; the FO only makes the PA
+  cabin_crew_arm_slides: () => playSound("cabin_arm_slides.ogg"),
+  cabin_crew_disarm_slides: () => playSound("cabin_disarm_slides.ogg"),
 
   // ── Brake check ───────────────────────────────────────────────────────────
   brake_check: () => playSound("pressure_zero.ogg"),
@@ -311,8 +302,8 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
   clear_left: () => executeFlow("clear_left"),
   before_start: () => executeFlow("before_start"),
   runway_entry_procedure: () => executeFlow("before_takeoff"),
-  shutdown_engine_1: () => executeFlow("shutdown_eng1"),
   shutdown_engine_2: () => executeFlow("shutdown_eng2"),
+  secure_aircraft: () => executeFlow("securing"),
   clear_for_takeoff: () => executeFlow("takeoff"),
 
   // ── Checklists ────────────────────────────────────────────────────────────

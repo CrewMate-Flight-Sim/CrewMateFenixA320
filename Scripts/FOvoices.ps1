@@ -140,12 +140,13 @@ $phrases = @{
     "oxygen"                                    = "Oxygen"
     "emer_exit_lt"                              = "Emergency exit light"
     "shutdown_checklist_completed"              = "Shutdown checklist completed"
+    "cabin_arm_slides"                          = "Cabin crew, arm slides and cross check"
+    "cabin_disarm_slides"                       = "Cabin crew, disarm slides please"
     "beacon"                                    = "Beacon"
     "pressure_zero"                             = "Pressure zero"
     "standard_cross_checked"                    = "Standard cross checked"
     "passing_flight_level"                      = "Passing flight level"
     "now_at"                                    = "Now"
-    "starting_engine_2"                         = "Starting engine two"
     "five_minutes"                              = "Five minutes"
     "five_minutes_not_passed"                   = "Five minutes not passed yet"
     "feet_set" = "feet set" # new
@@ -162,13 +163,6 @@ $phrases = @{
     "loc"                                       = "Localizer"
     "glide"                                     = "Glide"
     "brake_med"                                 = "Brake med"
-    "walkaround_findings"                       = "Walkaround completed, I found some issues"
-    "nose_tyre_worn"                            = "Nose gear tyre worn"
-    "left_tyre_worn"                            = "Left main gear tyre worn"
-    "left_brakes_worn"                          = "Left main gear brakes worn"
-    "right_tyre_worn"                           = "Right main gear tyre worn"
-    "right_brakes_worn"                         = "Right main gear brakes worn"
-    "need_maintenance"                          = "We need maintenance"
 }
 
 # Find Python automatically

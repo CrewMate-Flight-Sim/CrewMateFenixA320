@@ -1,10 +1,16 @@
-import { pressButton, readLvar } from "@/API/simvarApi"
+import { pressButton, readLvar, setLvar } from "@/API/simvarApi"
 import { delay } from "@/lib/utils"
 
 // Main panel clock: CHR toggles start/stop and resumes from the old time, so a fresh start goes through RST
 const CHR = "S_MIP_CLOCK_CHR"
 const RST = "S_MIP_CLOCK_RST"
 const CHRONO = "N_MIP_CLOCK_CHRONO"
+
+// ET knob positions: 0 RUN, 1 STP, 2 RST; RST clears the time, so RUN then counts up from zero
+const ET = "S_MIP_CLOCK_ET"
+const ET_RUN = 0
+const ET_RST = 2
+const ET_RESET_MS = 500
 
 // The readout is minutes * 100 + seconds, -1 when cleared
 export function chronoSeconds(value: number): number {
@@ -22,4 +28,10 @@ export async function restartChrono() {
 
 export async function stopChrono() {
   await pressButton(CHR, "clock CHR")
+}
+
+export async function startElapsedTime() {
+  if (!(await setLvar(ET_RST, ET, "clock ET"))) return
+  await delay(ET_RESET_MS)
+  await setLvar(ET_RUN, ET, "clock ET")
 }

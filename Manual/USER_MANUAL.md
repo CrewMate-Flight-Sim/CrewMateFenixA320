@@ -1,6 +1,6 @@
-# CrewmateA350 — User Manual
+# CrewMate Fenix A320 — User Manual
 
-**CrewmateA350** is a virtual First Officer companion for the **Airbus A350** in Microsoft Flight Simulator. It listens to your voice, responds with audio callouts, runs automated cockpit flows, and guides you through interactive checklists — just like a real crew member.
+**CrewMate Fenix A320** is a virtual First Officer companion for the **Fenix A320** in Microsoft Flight Simulator. It listens to your voice, responds with audio callouts, runs automated cockpit flows, and guides you through interactive checklists — just like a real crew member.
 
 ---
 
@@ -10,11 +10,22 @@
 
 ## Table of Contents
 
-1. [Getting Started](#getting-started)
-2. [Tutorial](#tutorial)
-3. [Voice Commands](#voice-commands)
-4. [Checklist Responses](#checklist-responses)
-5. [Tips & Troubleshooting](#tips--troubleshooting)
+1. [Standard Operating Procedures](#standard-operating-procedures)
+2. [Getting Started](#getting-started)
+3. [Tutorial](#tutorial)
+4. [Voice Commands](#voice-commands)
+5. [Checklist Responses](#checklist-responses)
+6. [Tips & Troubleshooting](#tips--troubleshooting)
+
+---
+
+## Standard Operating Procedures
+
+The FO's flows, callouts and preflight timeline follow the **A320 Normal Procedures** published by [TheAirlinePilots.com](https://theairlinepilots.com), used with the permission of its author. The FO carries out the items assigned to the PM or CM2, and the items both pilots do. Everything assigned to the PF or CM1 is left to you.
+
+For the aircraft procedures themselves (what each item is, when it is done and who does it), see the manual: [A320 Normal Procedures (PDF)](https://theairlinepilots.com/forumarchive/a320/a320-normal-procedures.pdf). This manual only covers what CrewMate does and how to talk to it.
+
+The checklists are the exception: they follow the Normal Checklist on the back cover of the Fenix QRH, as the aircraft implements it.
 
 ---
 
@@ -28,7 +39,7 @@
 
 ### Voice Modes
 
-CrewmateA350 supports two voice recognition modes, chosen with **Voice Mode** in Settings:
+CrewMate supports two voice recognition modes, chosen with **Voice Mode** in Settings:
 
 | Mode                 | How it works                                                                                                    |
 | -------------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -79,114 +90,105 @@ CrewMate does not take the key or button away from MSFS, so pick one that is not
 
 ### Assumptions
 
-This tutorial assumes you are parked at the gate with engines off. You are the Captain and PF (Pilot Flying); CrewMate acts as PM (Pilot Monitoring).
+This tutorial assumes you are parked at the gate with the aircraft cold and dark. You are the Captain and PF (Pilot Flying); CrewMate acts as PM (Pilot Monitoring). Each phase below lists what the FO does and what starts it. For the full procedure of each phase, including your own PF items, see the [A320 Normal Procedures](#standard-operating-procedures).
 
-### Typical preflight timeline (example)
+### Preflight timeline
 
-- 48 min: PM starts preliminary cockpit preparation and sets the parking brake, so the brake wear indicators can be checked on the walkaround.
-- 44 min: PM departs for external walkaround. PF starts cockpit preparation.
-  ![Cockpit Preparation flow pattern](Images/COCKPIT%20PREPARATION%20FLOW%20PATTERN.png)
-- 35 min: PM returns and starts cockpit preparation on the right-hand side. The FO reports the walkaround: "all good, no issues found", or each worn tyre or brake by gear (nose, left main, right main) followed by "we need maintenance". Worn means red on the EFB maintenance page.
-- 25 min: PF conducts the departure briefing (enter takeoff data in the Takeoff Performance window; the FO reads back the F-PLN departure runway on the LINE-UP checklist).
-- 20 min: PF calls for the COCKPIT PREPARATION checklist.
-- 5 min: PM closes the table, and a reminder to start the APU is shown.
-- 1 min: CrewMate closes the cockpit door. PF and PM perform before start flow, after that PF calls for the BEFORE START checklist.
+Say "Let's prepare the aircraft" to start the preflight timer. The times count down to the planned off-block time.
 
-The before start flow takes TCAS out of standby and sets the transponder mode, then **leaves the SURV page open on the MCDU on purpose**. The ALT RPTG, ADS-B RPTG and ADS-B TRAFFIC pushbuttons on that page cannot be operated from outside the aircraft, so the FO cannot press them — set them yourself while the page is up.
+- **T-48:** the FO does the preliminary cockpit preparation:
+  - weather radar and predictive windshear off, engine masters off, engine mode selector NORM, gear lever down, wipers off;
+  - battery check (both batteries off, then AUTO), external power on when it is available;
+  - RMP 2 on and the ACP 2 VHF 1 volume up;
+  - APU fire test, APU master on and APU start;
+  - all three IRs to NAV, dome light on at night;
+  - the ECAM ENG, HYD and DOOR pages, then the parking brake on.
+- **T-44:** the FO leaves for the walkaround. You start your cockpit preparation.
+- **T-35:** the FO comes back, reports "walkaround completed, all good no issues found" and does the cockpit preparation on the right-hand side: APU bleed on once the APU is available, table open, the FO EFIS (CSTR, VOR 1 and 2, ND in ARC at the smallest range) and the FO oxygen mask test.
+- **T-25:** departure briefing. Enter the takeoff data in the **Takeoff Performance** window; the flows read packs, anti-ice and flaps from it.
+- **T-20:** call for the COCKPIT PREPARATION checklist.
+- **T-5:** the FO closes the table and, once the APU is available, asks the ground crew to disconnect ground power and air conditioning.
+- **T-1:** say "Before start procedure". The FO closes the table and the cockpit door, sets the transponder to AUTO and makes the PA "Cabin crew, arm slides and cross check". Then call for the BEFORE START checklist.
 
 > **The FO is outside between T-44 and T-35.** While away on the walkaround the FO does not answer any command, and an **FO outside** indicator is shown. Ground engineer calls and the preflight timer still work, because the ground engineer is a different person on the interphone.
 
-![Before Start flow pattern](Images/BEFORE%20START%20FLOW%20PATTERN.png)
-
 ### Pushback and Engine Start
 
-- Announce each engine start (e.g., "Starting engine one").
-- When ignition is set to NORMAL, PF and PM will start the AFTER START flow pattern. If anti‑ice will be used, flaps may be left as required.
-- After the AFTER START flow, complete the flight controls check when prompted.
-- Control check sequence: Full Up, Full Down, Neutral, Full Left, Full Right, Neutral, Rudder Full Left, Rudder Full Right, Neutral. The FO calls out each position as it is reached and waits for you.
-- When the controls check is complete, call for the AFTER START checklist.
-
-![After Start flow pattern](Images/AFTER%20START%20FLOW%20PATTERN.png)
+- When you release the parking brake for pushback with the beacon on, the FO starts the elapsed time on the clock.
+- Announce each engine start ("Starting engine one", "Starting engine two"); the FO answers "check".
+- When you set the engine mode selector back to NORM, the FO runs the **After Start** flow: ground spoilers armed, rudder trim reset, flaps set for takeoff (left up when anti-ice is used for taxi), pitch trim set, ECAM STATUS shown and the dome light off.
+- Say "Flight controls check". The FO calls each position as you reach it: full up, full down, neutral, full left, full right, neutral, then rudder full left, full right, neutral.
+- When the check is complete, call for the AFTER START checklist.
 
 ### Taxi
 
-- PM announces when the cabin is ready.
-- After the AFTER START checklist, PM performs the TAXI flow pattern.
-- After T.O. CONFIG pushbutton is pressed PF calls for the TAXI checklist.
+- Say "Clear left" when the left side is clear. The FO answers "clear right" and, with **Auto Ground lights control** on, sets the nose light to TAXI and the runway turnoff lights on.
+- At the end of the flight controls check the FO runs the **Taxi** flow: autobrake MAX, weather radar on, predictive windshear AUTO, terrain on the FO ND, both FDs on and the T.O CONFIG test.
+- Then call for the TAXI checklist.
 
-![Taxi flow pattern](Images/TAXI%20FLOW%20PATTERN.png)
+### Line-up & Takeoff
 
-### Line‑up & Takeoff
-
-- PF calls for the Line‑up flow.
-- When line‑up clearance is received and the Line‑up flow pattern is complete, PF calls for the LINE‑UP checklist.
-- When cleared for takeoff, announce "TAKEOFF."
-
-![Line‑up flow pattern](Images/LINE-UP%20FLOW%20PATTERN.png)
+- When cleared to line up, say "Runway entry procedure" or "Clear to line up". The FO makes the PA "Cabin crew, please be seated for takeoff", switches the brake fans off if they are on, sets TCAS to TA/RA, sets the packs and APU bleed per the Takeoff Performance window and the FO ND range, and turns the strobes on. Then the FO reports "approach path clear of traffic, ready".
+- Call for the LINE-UP checklist.
+- When cleared for takeoff, say "Takeoff". The FO sets the landing lights on, the nose light to T.O and the runway turnoff lights on, and starts the chrono.
 
 ### Rejected Takeoff
 
-- To reject, announce **"STOP"**. The FO then follows the FCOM tasksharing: **"reverse green"** once reverse is selected, then **"decel"** or **"no decel"**.
-- Nothing is said about reverse if it is never selected — a low speed reject produces no reverse call at all.
+- To reject, announce **"STOP"**. The FO calls **"reverse green"** once reverse is selected, then **"decel"** or **"no decel"**.
+- Nothing is said about reverse if it is never selected, so a low speed reject produces no reverse call at all.
 
-### Acceleration
+### After Takeoff
 
-- The After‑Takeoff flow is triggered when flaps are retracted to zero.
+- When you set the thrust levers to CL, the FO turns the packs on if you took off with them off, then stops and resets the chrono.
+- When the flaps are retracted to zero, the FO runs the **After Takeoff** flow: ground spoilers disarmed, nose and runway turnoff lights off, APU bleed and APU off.
 
-![Acceleration flow pattern](Images/ACCELERATION%20FLOW%20PATTERN.png)
+### Climb through 10,000 ft
 
-### Climb to 10,000 ft
-
-![10,000 ft flow pattern](Images/AT%2010%20000%20FT%20AAL%20FLOW%20PATTERN.png)
+- The FO retracts the landing lights, selects ARPT and terrain off on the FO ND, sets the ND and opens the table.
 
 ### Descent Preparation
 
-- PF should insert landing data in the Landing Performance window.
-- **SEL LS** selects the LS pushbutton on the FO side during the descent flow. Deselect it for RNP AR approaches.
+- Enter the landing data in the **Landing Performance** window; the after landing flow reads the APU start and anti-ice from it.
 
-![PF Descent preparation items](Images/PF%20DESCENT%20PREP%20ITEMS.png)
+### Descent through 10,000 ft
 
-### 10k Descent
-
-- With CONF 3 on the MCDU PERF APPR page, the FO also sets the GPWS **LDG FLAP 3** pushbutton.
-
-![10k descent flow pattern](Images/AT%2010%20000%20FT%20AAL%20DES%20FLOW%20PATTERN.png)
+- The FO closes the table, turns the landing and wing lights on and the seat belt signs on, selects terrain on and CSTR on the FO ND, sets the ND and presses the FO LS.
 
 ### Approach
 
-- After passing the transition level call for "set altimeters/QNH", complete the APPROACH checklist.
+- After passing the transition level, call "set altimeters" or "set QNH" (see [Altimeter](#altimeter)), then call for the APPROACH checklist.
 - The transition altitude and transition level calls are skipped when the altimeter has already been set, so setting standard early does not produce a redundant call later.
-- Between 1,000 ft and 50 ft radio altitude with the gear down, the FO calls the FCOM approach deviations: "speed" (below the speed target -5 kt or above +10 kt), "sink rate" (more than 1,000 ft/min), "bank" (more than 6°), "pitch" (above 10° or below 0°), "localizer" and "glide" (more than ½ dot, ILS only). Each call is made once and again only after the value has come back inside the limit. They stop after a go-around until the next approach, and can be switched off in Settings.
+- Between 1,000 ft and 50 ft radio altitude with the gear down, the FO calls the approach deviations: "speed" (below the speed target -5 kt or above +10 kt), "sink rate" (more than 1,000 ft/min), "bank" (more than 6°), "pitch" (above 10° or below 0°), "localizer" and "glide" (more than ½ dot, ILS only). Each call is made once and again only after the value has come back inside the limit. They stop after a go-around until the next approach, and can be switched off in Settings.
 
 ### Landing
 
-- When LDG CONF is set and a cabin report is received, call for the LANDING checklist.
-- PF announces "Continue" at minima or "Go‑around - flaps" as appropriate.
-- After touchdown the FO calls "spoilers", "reverse green" and "decel". There is no "autobrake off" call: the aircraft announces that itself.
+- When the gear goes down, the FO makes the PA "Cabin crew, please be seated for landing", arms the ground spoilers and sets the nose light to T.O and the runway turnoff lights on.
+- When the landing configuration is set, call for the LANDING checklist.
+- Announce "Continue" at minima or "Go-around, flaps" as appropriate.
+- After touchdown the FO calls "spoilers", "reverse green" and "decel".
 
 ### After Landing
 
-- Disarming the ground spoilers will trigger the After‑Landing flow.
-- If anti‑ice is used, flaps may remain at LDG CONF per procedure.
-- The FO resets the GPWS **LDG FLAP 3** pushbutton and switches the weather radar and predictive windshear off.
+- Disarming the ground spoilers starts the **After Landing** flow:
+  - weather radar and predictive windshear off, engine mode selector NORM, TCAS standby;
+  - flaps up, unless anti-ice is used per the Landing Performance window;
+  - APU master on and APU start, when the Landing Performance window says so;
+  - engine anti-ice per the Landing Performance window;
+  - with **Auto Ground lights control** on: landing lights retracted, strobes AUTO, nose light TAXI.
 - When the flow is done, call for the AFTER LANDING checklist.
-
-![After landing flow pattern](Images/AFTER%20LANDING%20FLOW%20PATTERN.png)
+- To taxi in on one engine, say "Shutdown engine two". The FO switches engine 2 anti-ice off, engine 2 master off and the yellow electric pump on.
 
 ### Parking
 
-- Turn off taxi lights when turning into the gate, or ask the PM to confirm.
-- Shutting down the engines will trigger the Parking flow.
-- After the Parking flow pattern completes, PF calls for the PARKING checklist.
+- Shutting down both engines starts the **Parking** flow: anti-ice off, APU bleed on (or external power on when available), all fuel pumps off, transponder to standby, dome light on at night, FO LS off and the cockpit door open, then the PA "Cabin crew, disarm slides please".
+- After the flow, call for the PARKING checklist.
 
 > **Engine shutdown is held for five minutes after landing.** With **5 minutes cool down** enabled, asking the FO to shut an engine down before the cooling period has elapsed is refused with "five minutes not passed". The countdown starts automatically at the 70 knot call.
 
-![Parking flow pattern](Images/PARKING%20FLOW%20PATTERN.png)
-
 ### Shutdown
 
-- After the last passenger leaves (if shutting the aircraft down), call for the SHUTDOWN checklist.
-- The shutdown flow returns TCAS and the transponder to standby.
+- After the last passenger leaves (if shutting the aircraft down), say "Secure the aircraft". The FO switches the crew oxygen off, all exterior lights off, the APU bleed off, the APU master off, the emergency exit lights off and both batteries off. When the APU was running, the batteries go off two minutes after the APU master, once the APU flap has closed.
+- Then call for the SHUTDOWN checklist.
 
 ---
 
@@ -211,7 +213,7 @@ Where a command takes a number, say it naturally: "two seven zero", "three hundr
 | "Runway entry procedure" / "Clear to line up"                              | Before Takeoff flow                                      |
 | "Takeoff"                                                                  | Takeoff flow                                             |
 | "Flight controls check"                                                    | Flight controls sequence, then the next After Start hint |
-| "Start engine two"                                                         | Starts engine 2 (single-engine taxi start)               |
+| "Secure the aircraft"                                                      | Securing the Aircraft flow                               |
 
 ### Launching Checklists by Voice
 
@@ -241,20 +243,19 @@ Where a command takes a number, say it naturally: "two seven zero", "three hundr
 
 The FO will confirm speed limits before moving flaps while airborne.
 
-| Say           | Flap Setting        | Max Speed                                |
-| ------------- | ------------------- | ---------------------------------------- |
-| "Flaps zero"  | Flaps 0 (retracted) | —                                        |
-| "Flaps one"   | Flaps 1             | 255 kts (A350‑900) / 260 kts (A350‑1000) |
-| "Flaps two"   | Flaps 2             | 212 kts / 219 kts                        |
-| "Flaps three" | Flaps 3             | 195 kts / 206 kts                        |
-| "Flaps full"  | Flaps Full          | 186 kts / 192 kts                        |
+| Say           | Flap Setting        | Max Speed (A319 / A320) | Max Speed (A321) |
+| ------------- | ------------------- | ----------------------- | ---------------- |
+| "Flaps zero"  | Flaps 0 (retracted) | —                       | —                |
+| "Flaps one"   | Flaps 1             | 230 kts                 | 235 kts          |
+| "Flaps two"   | Flaps 2             | 200 kts                 | 215 kts          |
+| "Flaps three" | Flaps 3             | 185 kts                 | 195 kts          |
+| "Flaps full"  | Flaps Full          | 177 kts                 | 190 kts          |
 
 ### Autopilot
 
 | Say                                                     | What happens                                      |
 | ------------------------------------------------------- | ------------------------------------------------- |
 | "Autopilot on"                                          | Engages Autopilot 1.                              |
-| "Autopilot off"                                         | Disconnects the autopilot.                        |
 | "Set speed \_\_\_" / "Pull speed \_\_\_"                | Sets the commanded speed. "Knots" may be added.   |
 | "Pull speed"                                            | Pulls the speed knob (selected speed).            |
 | "Manage speed"                                          | Pushes the speed knob (managed speed).            |
@@ -339,23 +340,21 @@ Wipers are refused above 230 knots unless you are selecting OFF.
 
 ### Engines and APU
 
-| Say                                                                                           | What happens                                              |
-| --------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| "Starting engine one" / "Starting engine number one" / "Starting one" / "Starting number one" | You announce the start; the FO acknowledges with "check". |
-| "Starting engine two" / "Starting engine number two" / "Starting two" / "Starting number two" | You announce the start; the FO acknowledges with "check". |
-| "Start engine two"                                                                            | Starts engine 2 and runs the after start flow for it.     |
-| "Shutdown engine one"                                                                         | Shuts down engine 1.                                      |
-| "Shutdown engine two"                                                                         | Shuts down engine 2.                                      |
-| "Start the apu" / "Start apu"                                                                 | Starts the APU.                                           |
+| Say                                                                                           | What happens                                                                         |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| "Starting engine one" / "Starting engine number one" / "Starting one" / "Starting number one" | You announce the start; the FO acknowledges with "check".                            |
+| "Starting engine two" / "Starting engine number two" / "Starting two" / "Starting number two" | You announce the start; the FO acknowledges with "check".                            |
+| "Shutdown engine two"                                                                         | Shuts down engine 2 for single-engine taxi and switches the yellow electric pump on. |
+| "Start the apu" / "Start apu"                                                                 | Starts the APU.                                                                      |
 
 ### Cabin and Doors
 
-| Say                                                               | What happens             |
-| ----------------------------------------------------------------- | ------------------------ |
-| "Cabin crew arm slides" / "Cabin crew arm slides and cross check" | Arms the door slides.    |
-| "Cabin crew disarm slides"                                        | Disarms the door slides. |
-| "Seat belts on"                                                   | Seat belt signs on.      |
-| "Seat belts off"                                                  | Seat belt signs off.     |
+| Say                                                               | What happens                                                   |
+| ----------------------------------------------------------------- | -------------------------------------------------------------- |
+| "Cabin crew arm slides" / "Cabin crew arm slides and cross check" | The FO makes the arm-slides PA; the cabin crew arm them.       |
+| "Cabin crew disarm slides"                                        | The FO makes the disarm-slides PA; the cabin crew disarm them. |
+| "Seat belts on"                                                   | Seat belt signs on.                                            |
+| "Seat belts off"                                                  | Seat belt signs off.                                           |
 
 ### Brakes
 

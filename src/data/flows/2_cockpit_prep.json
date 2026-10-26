@@ -3,59 +3,71 @@
   "name": "Cockpit Preparation",
   "steps": [
     {
+      "label": "APU Bleed ON",
+      "read": "(L:S_OH_PNEUMATIC_APU_BLEED)",
+      "on": "1 (>L:S_OH_PNEUMATIC_APU_BLEED)",
+      "expect": 1,
+      "only_if": {
+        "read": "(L:I_OH_ELEC_APU_START_U)",
+        "one_of": [1]
+      }
+    },
+    {
       "label": "Table",
-      "read": "(L:INI_FO_TRAY_COVER_TGT)",
-      "on": "1 (>L:INI_FO_TRAY_COVER_TGT)",
+      "read": "(L:S_TRAY_TABLE_FO)",
+      "on": "1 (>L:S_TRAY_TABLE_FO)",
       "expect": 1
     },
     {
-      "label": "Show Airports FO EFIS",
-      "read": "(L:INI_SHOW_AIRPORTS2)",
-      "on": "1 (>L:INI_SHOW_AIRPORTS2)",
-      "expect": 1
+      "label": "FO CSTR",
+      "read": "(L:I_FCU_EFIS2_CSTR)",
+      "on": "S_FCU_EFIS2_CSTR",
+      "expect": 1,
+      "press": true
     },
     {
-      "label": "Show Constraints FO EFIS",
-      "read": "(L:INI_SHOW_CONSTRAINTS2)",
-      "on": "1 (>L:INI_SHOW_CONSTRAINTS2)",
-      "expect": 1
+      "label": "FO VOR 1",
+      "read": "(L:S_FCU_EFIS2_NAV1)",
+      "on": "2 (>L:S_FCU_EFIS2_NAV1)",
+      "expect": 2
     },
     {
-      "label": "Show VOR1 FO EFIS",
-      "read": "(L:INI_FO_VOR1_ACTIVE)",
-      "on": "1 (>L:INI_FO_VOR1_ACTIVE)",
-      "expect": 1
+      "label": "FO VOR 2",
+      "read": "(L:S_FCU_EFIS2_NAV2)",
+      "on": "2 (>L:S_FCU_EFIS2_NAV2)",
+      "expect": 2
     },
     {
-      "label": "Show VOR2 FO EFIS",
-      "read": "(L:INI_FO_VOR2_ACTIVE)",
-      "on": "1 (>L:INI_FO_VOR2_ACTIVE)",
-      "expect": 1
-    },
-    {
-      "label": "ND SET",
-      "read": "(L:INI_MAP_MODE_FO_SWITCH)",
-      "on": "3 (>L:INI_MAP_MODE_FO_SWITCH)",
+      "label": "FO ND ARC",
+      "read": "(L:S_FCU_EFIS2_ND_MODE)",
+      "on": "3 (>L:S_FCU_EFIS2_ND_MODE)",
       "expect": 3
     },
     {
-      "label": "Oxy Test Hatch FO",
-      "read": "(L:INI_OXYTEST_HATCH_FO)",
-      "on": "1 (>L:INI_OXYTEST_HATCH_FO)",
+      "label": "FO ND Range",
+      "read": "(L:S_FCU_EFIS2_ND_ZOOM)",
+      "on": "0 (>L:S_FCU_EFIS2_ND_ZOOM)",
+      "expect": 0
+    },
+    {
+      "label": "Oxygen Mask Cover",
+      "read": "(L:S_OXYGEN_MASK_COVER_FO)",
+      "on": "1 (>L:S_OXYGEN_MASK_COVER_FO)",
       "expect": 1
     },
     {
-      "label": "Oxy Test Hatch FO",
-      "read": "(L:INI_OXYTEST_BLINKER_FO)",
-      "on": "1 (>L:INI_OXYTEST_BLINKER_FO)",
-      "hold_ms": 5000,
-      "expect": 1,
+      "label": "Oxygen Mask Test",
+      "read": "(L:S_OXYGEN_MASK_1_TEST_FO)",
+      "on": "S_OXYGEN_MASK_1_TEST_FO",
+      "expect": 0,
+      "press": true,
+      "hold_ms": 3000,
       "skip_verify": true
     },
     {
-      "label": "Oxy Test Hatch FO",
-      "read": "(L:INI_OXYTEST_HATCH_FO)",
-      "on": "0 (>L:INI_OXYTEST_HATCH_FO)",
+      "label": "Oxygen Mask Cover",
+      "read": "(L:S_OXYGEN_MASK_COVER_FO)",
+      "on": "0 (>L:S_OXYGEN_MASK_COVER_FO)",
       "expect": 0
     }
   ]

@@ -69,6 +69,12 @@
 
 ---
 
+## Standard Operating Procedures
+
+The FO's flows, callouts and preflight timeline follow the [A320 Normal Procedures](https://theairlinepilots.com/forumarchive/a320/a320-normal-procedures.pdf) by [TheAirlinePilots.com](https://theairlinepilots.com), used with the permission of its author. See that manual for the procedures themselves.
+
+---
+
 ## Reporting Bugs & Requesting Features
 
 If you encounter a problem or want to request a new feature, please [open an issue](https://github.com/CrewMate-Flight-Sim/CrewMateFenixA320/issues).

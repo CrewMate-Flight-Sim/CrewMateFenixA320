@@ -4,8 +4,8 @@
   "steps": [
     {
       "label": "Table",
-      "read": "(L:INI_FO_TRAY_COVER_TGT)",
-      "on": "1 (>L:INI_FO_TRAY_COVER_TGT)",
+      "read": "(L:S_TRAY_TABLE_FO)",
+      "on": "1 (>L:S_TRAY_TABLE_FO)",
       "expect": 1
     }
   ]

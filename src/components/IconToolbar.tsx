@@ -41,8 +41,8 @@ export function IconToolbar({ voiceEnabled, voiceMode, pttHeld, onToggleVoice, v
   const enginesOn =
     (telemetry?.engine1N1 ?? 0) >= N1_IDLE_MAX ||
     (telemetry?.engine2N1 ?? 0) >= N1_IDLE_MAX ||
-    (telemetry?.mixture1 ?? 0) >= 0.5 ||
-    (telemetry?.mixture2 ?? 0) >= 0.5
+    (telemetry?.engineMaster1 ?? 0) >= 0.5 ||
+    (telemetry?.engineMaster2 ?? 0) >= 0.5
 
   const timeDisplay = String(Math.floor(remainingSeconds / 60)).padStart(2, "0")
 

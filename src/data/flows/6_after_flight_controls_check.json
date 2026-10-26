@@ -3,78 +3,29 @@
   "name": "Taxi",
   "steps": [
     {
-      "label": "Controls check start",
-      "read": "(L:INI_PREFERRED_SEAT)",
-      "on": "1 (>L:INI_PREFERRED_SEAT)",
+      "label": "Auto Brake MAX",
+      "read": "(L:I_MIP_AUTOBRAKE_MAX_L)",
+      "on": "S_MIP_AUTOBRAKE_MAX",
       "expect": 1,
-      "skip_delay": true
+      "press": true
     },
+    { "label": "Weather Radar SYS 1", "read": "(L:S_WR_SYS)", "on": "0 (>L:S_WR_SYS)", "expect": 0 },
+    { "label": "Predictive Windshear AUTO", "read": "(L:S_WR_PRED_WS)", "on": "1 (>L:S_WR_PRED_WS)", "expect": 1 },
     {
-      "label": "Elevator Full Up",
-      "read": "(A:ELEVATOR DEFLECTION PCT, Percent Over 100)",
-      "on": "-16383 (>K:ELEVATOR_SET)",
+      "label": "Terrain on ND",
+      "read": "(L:I_MIP_GPWS_TERRAIN_ON_ND_FO_L)",
+      "on": "S_MIP_GPWS_TERRAIN_ON_ND_FO",
       "expect": 1,
-      "wait_ms": 1500
+      "press": true
     },
+    { "label": "Captain FD ON", "read": "(L:I_FCU_EFIS1_FD)", "on": "S_FCU_EFIS1_FD", "expect": 1, "press": true },
+    { "label": "FO FD ON", "read": "(L:I_FCU_EFIS2_FD)", "on": "S_FCU_EFIS2_FD", "expect": 1, "press": true },
     {
-      "label": "Elevator Full Down",
-      "read": "(A:ELEVATOR DEFLECTION PCT, Percent Over 100)",
-      "on": "16383 (>K:ELEVATOR_SET)",
-      "expect": -0.57,
-      "wait_ms": 3000
-    },
-    {
-      "label": "Elevator Neutral",
-      "read": "(A:ELEVATOR DEFLECTION PCT, Percent Over 100)",
-      "on": "0 (>K:ELEVATOR_SET)",
+      "label": "T.O CONFIG",
+      "read": "(L:S_ECAM_TO)",
+      "on": "S_ECAM_TO",
       "expect": 0,
-      "wait_ms": 1500
-    },
-    {
-      "label": "Aileron Full Left",
-      "read": "(A:AILERON LEFT DEFLECTION PCT, Percent Over 100)",
-      "on": "16383 (>K:AILERON_SET)",
-      "expect": -1,
-      "wait_ms": 1500
-    },
-    {
-      "label": "Aileron Full Right",
-      "read": "(A:AILERON RIGHT DEFLECTION PCT, Percent Over 100)",
-      "on": "-16383 (>K:AILERON_SET)",
-      "expect": 1,
-      "wait_ms": 1500
-    },
-    {
-      "label": "Aileron Neutral",
-      "read": "(A:AILERON RIGHT DEFLECTION PCT, Percent Over 100)",
-      "on": "0 (>K:AILERON_SET)",
-      "expect": 0,
-      "wait_ms": 1500
-    },
-    {
-      "label": "Controls check end",
-      "read": "(L:INI_PREFERRED_SEAT)",
-      "on": "0 (>L:INI_PREFERRED_SEAT)",
-      "expect": 0,
-      "skip_delay": true
-    },
-    {
-      "label": "Terrain Display",
-      "read": "(L:INI_TERR_ON_FO)",
-      "on": "1 (>L:INI_TERR_ON_FO)",
-      "expect": 1
-    },
-    {
-      "label": "Autobrake RTO",
-      "read": "(L:INI_AUTOBRAKE_LEVEL)",
-      "on": "4 (>L:INI_AUTOBRAKE_LEVEL)",
-      "expect": 4
-    },
-    {
-      "label": "TO CONFIG",
-      "read": "(L:PUSH_ECAM_TOCONFIG)",
-      "on": "1 (>L:PUSH_ECAM_TOCONFIG)",
-      "expect": 1,
+      "press": true,
       "hold_ms": 1500,
       "skip_verify": true
     }

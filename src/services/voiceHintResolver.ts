@@ -28,8 +28,8 @@ function isOnGround(t: Telemetry | null): boolean {
 }
 
 function enginesOff(t: Telemetry | null): boolean {
-  const m1 = num(t, "mixture1") ?? 1
-  const m2 = num(t, "mixture2") ?? 1
+  const m1 = num(t, "engineMaster1") ?? 1
+  const m2 = num(t, "engineMaster2") ?? 1
   const n1 = num(t, "engine1N1") ?? 0
   const n2 = num(t, "engine2N1") ?? 0
   return m1 < 0.5 && m2 < 0.5 && n1 < N1_IDLE_MAX && n2 < N1_IDLE_MAX
@@ -159,8 +159,8 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
       title: parked ? "Shutdown" : "Parking",
       phrases: parked
         ? // shutdown, or straight into the next flight on a turnaround
-          ["shutdown checklist", "lets prepare the aircraft"]
-        : ["parking checklist", "cabin crew disarm slides"]
+          ["secure the aircraft", "shutdown checklist", "lets prepare the aircraft"]
+        : ["parking checklist"]
     }
   }
 
@@ -268,7 +268,7 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
     return {
       id: "call_before_start_checklist",
       title: "Ready for before start",
-      phrases: ["before start checklist", "cabin crew arm slides"]
+      phrases: ["before start checklist"]
     }
   }
 

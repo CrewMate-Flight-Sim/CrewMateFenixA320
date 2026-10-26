@@ -31,14 +31,8 @@ async function turnKnob(
   return false
 }
 
-// Autopilot commands; either AP can be the engaged one, so a disconnect checks both
-export async function setAutoPilot(on: boolean) {
-  if (on) {
-    await setLitButton("S_FCU_AP1", "I_FCU_AP1", true, "autopilot 1")
-    return
-  }
-  await setLitButton("S_FCU_AP1", "I_FCU_AP1", false, "autopilot 1")
-  await setLitButton("S_FCU_AP2", "I_FCU_AP2", false, "autopilot 2")
+export async function engageAutoPilot() {
+  await setLitButton("S_FCU_AP1", "I_FCU_AP1", true, "autopilot 1")
 }
 
 export async function setLevelOff() {
