@@ -456,7 +456,6 @@
       <item>autopilot one one<tag>out.pid="autopilot_engage";</tag></item>
       <item>auto pilot on<tag>out.pid="autopilot_engage";</tag></item>
       <item>auto pilot one on<tag>out.pid="autopilot_engage";</tag></item>
-      <item>set runway track<tag>out.pid="set_runway_track";</tag></item>
       <item>altitude pull<tag>out.pid="pull_altitude";</tag></item>
       <item>altitude manage<tag>out.pid="manage_altitude";</tag></item>
       <item>pull speed<tag>out.pid="pull_speed";</tag></item>

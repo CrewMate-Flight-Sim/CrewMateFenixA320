@@ -21,8 +21,8 @@ MANUAL = ROOT / "Manual" / "USER_MANUAL.md"
 CSS = ROOT / "Manual" / "manual-print.css"
 # Bundled with the app (see bundle.resources in tauri.conf.json), so the
 # build output lives under src-tauri like the other shipped artefacts.
-OUT = ROOT / "src-tauri" / "Manual" / "CrewmateA350-User-Manual.pdf"
-TITLE = "CrewmateA350 — User Manual"
+OUT = ROOT / "src-tauri" / "Manual" / "CrewMateFenixA320-User-Manual.pdf"
+TITLE = "CrewMate Fenix A320 — User Manual"
 PORT = 9333
 
 BROWSERS = [

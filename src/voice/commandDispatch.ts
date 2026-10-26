@@ -205,13 +205,6 @@ export const DISCRETE_COMMAND_MAP: Record<string, () => void | Promise<void>> = 
     playSound("check.ogg")
     setLOC()
   },
-  set_runway_track: () => {
-    const hdg = useTelemetryStore.getState().telemetry?.["arrRunwayHdg"]
-    if (hdg != null) {
-      playSound("check.ogg")
-      setHeadingDial(hdg)
-    }
-  },
 
   // ── Baro ──────────────────────────────────────────────────────────────────
   set_standard: () => {

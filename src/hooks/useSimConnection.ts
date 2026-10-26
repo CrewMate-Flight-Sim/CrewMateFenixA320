@@ -56,7 +56,6 @@ const SIM_VARS: { key: string; expression: string }[] = [
   // Unit selectors, 0 inHg / 1 hPa (the reverse of the cockpit tooltip order)
   { key: "cptBaro", expression: "(L:S_FCU_EFIS1_BARO_MODE)" },
   { key: "foBaro", expression: "(L:S_FCU_EFIS2_BARO_MODE)" },
-  { key: "arrRunwayHdg", expression: "(L:INI_ARR_RUNWAY_HDG)" },
   { key: "engine1InReverse", expression: "(L:A320_Sound:ENG_1_In_Reverse)" },
   { key: "engine2InReverse", expression: "(L:A320_Sound:ENG_2_In_Reverse)" },
   // Autobrake DECEL lights (upper legend)

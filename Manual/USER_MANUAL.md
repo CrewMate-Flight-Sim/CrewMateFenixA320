@@ -253,26 +253,25 @@ The FO will confirm speed limits before moving flaps while airborne.
 
 ### Autopilot
 
-| Say                                                     | What happens                                      |
-| ------------------------------------------------------- | ------------------------------------------------- |
-| "Autopilot on"                                          | Engages Autopilot 1.                              |
-| "Set speed \_\_\_" / "Pull speed \_\_\_"                | Sets the commanded speed. "Knots" may be added.   |
-| "Pull speed"                                            | Pulls the speed knob (selected speed).            |
-| "Manage speed"                                          | Pushes the speed knob (managed speed).            |
-| "Set heading \_\_\_"                                    | Sets the commanded heading.                       |
-| "Pull heading \_\_\_"                                   | Sets the heading and pulls the knob.              |
-| "Pull heading"                                          | Pulls the heading knob (selected heading).        |
-| "Manage nav"                                            | Pushes the heading knob (managed NAV).            |
-| "Set altitude \_\_\_"                                   | Sets the commanded altitude in feet.              |
-| "Set flight level \_\_\_"                               | Sets the commanded altitude as a flight level.    |
-| "Altitude \_\_\_ pull" / "Flight level \_\_\_ pull"     | Sets the altitude and pulls the knob.             |
-| "Altitude \_\_\_ manage" / "Flight level \_\_\_ manage" | Sets the altitude and pushes the knob.            |
-| "Altitude pull" / "Flight level pull"                   | Pulls the altitude knob.                          |
-| "Altitude manage" / "Flight level manage"               | Pushes the altitude knob.                         |
-| "Press alt"                                             | Pushes the level-off pushbutton.                  |
-| "Arm approach"                                          | Arms APPR.                                        |
-| "Arm localizer" / "Arm loc"                             | Arms LOC.                                         |
-| "Set runway track"                                      | Sets the FCU heading to the landing runway track. |
+| Say                                                     | What happens                                    |
+| ------------------------------------------------------- | ----------------------------------------------- |
+| "Autopilot on"                                          | Engages Autopilot 1.                            |
+| "Set speed \_\_\_" / "Pull speed \_\_\_"                | Sets the commanded speed. "Knots" may be added. |
+| "Pull speed"                                            | Pulls the speed knob (selected speed).          |
+| "Manage speed"                                          | Pushes the speed knob (managed speed).          |
+| "Set heading \_\_\_"                                    | Sets the commanded heading.                     |
+| "Pull heading \_\_\_"                                   | Sets the heading and pulls the knob.            |
+| "Pull heading"                                          | Pulls the heading knob (selected heading).      |
+| "Manage nav"                                            | Pushes the heading knob (managed NAV).          |
+| "Set altitude \_\_\_"                                   | Sets the commanded altitude in feet.            |
+| "Set flight level \_\_\_"                               | Sets the commanded altitude as a flight level.  |
+| "Altitude \_\_\_ pull" / "Flight level \_\_\_ pull"     | Sets the altitude and pulls the knob.           |
+| "Altitude \_\_\_ manage" / "Flight level \_\_\_ manage" | Sets the altitude and pushes the knob.          |
+| "Altitude pull" / "Flight level pull"                   | Pulls the altitude knob.                        |
+| "Altitude manage" / "Flight level manage"               | Pushes the altitude knob.                       |
+| "Press alt"                                             | Pushes the level-off pushbutton.                |
+| "Arm approach"                                          | Arms APPR.                                      |
+| "Arm localizer" / "Arm loc"                             | Arms LOC.                                       |
 
 ### Flight Director
 
