@@ -151,15 +151,15 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
   // ── GROUND ──────────────────────────────────────────────────────────────────
   const slowGround = ias <= LINEUP_MAX_IAS
 
-  // Parking, then securing — released once a new preflight starts
+  // Parking, then shutdown — released once a new preflight starts
   if (lastFl === "shutdown" && !preflightTimerRunning) {
     const parked = lastCl === "parking"
     return {
-      id: parked ? "securing" : "parking",
-      title: parked ? "Securing" : "Parking",
+      id: parked ? "shutdown" : "parking",
+      title: parked ? "Shutdown" : "Parking",
       phrases: parked
-        ? // securing, or straight into the next flight on a turnaround
-          ["secure aircraft checklist", "lets prepare the aircraft"]
+        ? // shutdown, or straight into the next flight on a turnaround
+          ["shutdown checklist", "lets prepare the aircraft"]
         : ["parking checklist", "cabin crew disarm slides"]
     }
   }

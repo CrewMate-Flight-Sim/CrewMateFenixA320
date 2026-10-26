@@ -1,4 +1,4 @@
-import secureAircraft from "@/data/checklists/10_secure_aircraft.json"
+import shutdown from "@/data/checklists/10_shutdown.json"
 import departureChange from "@/data/checklists/11_departure_change.json"
 import cockpitPrep from "@/data/checklists/1_cockpit_preparation.json"
 import beforeStart from "@/data/checklists/2_before_start.json"
@@ -21,7 +21,7 @@ export const ALL_CHECKLISTS: Checklist[] = [
   landing,
   afterLanding,
   parking,
-  secureAircraft,
+  shutdown,
   departureChange
 ] as Checklist[]
 

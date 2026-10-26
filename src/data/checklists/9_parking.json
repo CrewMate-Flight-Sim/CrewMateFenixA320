@@ -174,7 +174,7 @@
           "checks": [
             {
               "type": "simvar",
-              "var": "(L:I_OH_HYD_YELLOW_ELEC_PUMP_L)",
+              "var": "(L:S_OH_HYD_YELLOW_ELEC_PUMP)",
               "expected": 0
             }
           ]

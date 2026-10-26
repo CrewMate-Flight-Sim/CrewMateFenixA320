@@ -183,9 +183,9 @@ The before start flow takes TCAS out of standby and sets the transponder mode, t
 
 ![Parking flow pattern](Images/PARKING%20FLOW%20PATTERN.png)
 
-### Securing the Aircraft
+### Shutdown
 
-- After the last passenger leaves (if securing the aircraft), call for the SECURING THE AIRCRAFT checklist.
+- After the last passenger leaves (if shutting the aircraft down), call for the SHUTDOWN checklist.
 - The shutdown flow returns TCAS and the transponder to standby.
 
 ---
@@ -227,7 +227,7 @@ Where a command takes a number, say it naturally: "two seven zero", "three hundr
 | "Landing checklist"                                       | LANDING                     |
 | "After landing checklist"                                 | AFTER LANDING               |
 | "Parking checklist"                                       | PARKING                     |
-| "Secure aircraft checklist"                               | SECURING THE AIRCRAFT       |
+| "Shutdown checklist"                                      | SHUTDOWN                    |
 | "Cancel checklist" / "Stop checklist" / "Abort checklist" | Aborts the active checklist |
 
 ### Gear
@@ -502,15 +502,14 @@ The FO first checks spoilers armed, flaps in the landing config and gear down, a
 | Yellow Elec Pump        | "off" — checked against the yellow electric pump                                                  |
 | Wing Lights             | "off" — checked against the wing lights switch                                                    |
 
-### Securing the Aircraft
+### Shutdown
 
-| Item             | Say          |
-| ---------------- | ------------ |
-| Exterior Lights  | "off"        |
-| Ground Servicing | "off"        |
-| External Power   | "off" / "on" |
-| EFBs             | "off"        |
-| Batteries        | "off"        |
+| Item         | Say                                              |
+| ------------ | ------------------------------------------------ |
+| Oxygen       | "off" — checked against the crew oxygen supply   |
+| Emer Exit Lt | "off" — checked against the emergency exit light |
+| EFBs         | "off"                                            |
+| Batteries    | "off" — checked against both batteries           |
 
 ---
 

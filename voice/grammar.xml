@@ -503,7 +503,7 @@
       <item>landing checklist<tag>out.pid="checklist_landing";</tag></item>
       <item>after landing checklist<tag>out.pid="checklist_after_landing";</tag></item>
       <item>parking checklist<tag>out.pid="checklist_parking";</tag></item>
-      <item>secure aircraft checklist<tag>out.pid="checklist_secure_aircraft";</tag></item>
+      <item>shutdown checklist<tag>out.pid="checklist_shutdown";</tag></item>
       <item>cancel checklist<tag>out.pid="checklist_cancel";</tag></item>
       <item>stop checklist<tag>out.pid="checklist_cancel";</tag></item>
       <item>abort checklist<tag>out.pid="checklist_cancel";</tag></item>

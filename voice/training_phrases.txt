@@ -133,7 +133,7 @@ approach checklist
 landing checklist
 after landing checklist
 parking checklist
-secure aircraft checklist
+shutdown checklist
 cancel checklist
 
 # ── Prepare / engines / APU ───────────────────────────────────────────────────

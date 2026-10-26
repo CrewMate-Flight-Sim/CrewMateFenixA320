@@ -1,0 +1,51 @@
+{
+  "id": "shutdown",
+  "name": "Shutdown Checklist",
+  "items": [
+    {
+      "challenge": "oxygen.ogg",
+      "response": ["off"],
+      "label": "Oxygen",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [{ "type": "simvar", "var": "(L:S_OH_OXYGEN_CREW_OXYGEN)", "expected": 0 }]
+        }
+      ]
+    },
+    {
+      "challenge": "emer_exit_lt.ogg",
+      "response": ["off"],
+      "label": "Emer Exit Lt",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [{ "type": "simvar", "var": "(L:S_OH_INT_LT_EMER)", "expected": 0 }]
+        }
+      ]
+    },
+    {
+      "challenge": "efbs.ogg",
+      "response": ["off"],
+      "label": "EFBs"
+    },
+    {
+      "challenge": "batteries.ogg",
+      "response": ["off"],
+      "label": "Batteries",
+      "incorrect": "are_you_sure.ogg",
+      "validations": [
+        {
+          "when": { "always": true },
+          "checks": [
+            { "type": "simvar", "var": "(L:S_OH_ELEC_BAT1)", "expected": 0 },
+            { "type": "simvar", "var": "(L:S_OH_ELEC_BAT2)", "expected": 0 }
+          ]
+        }
+      ]
+    }
+  ],
+  "completion": "shutdown_checklist_completed.ogg"
+}
