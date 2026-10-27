@@ -138,7 +138,7 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
     const cruising = onStandard && Math.abs(vs) < CRUISE_VS_LIMIT && alt > 10000
     const cruisePhrases: string[] = []
     if (alt > transitionAltitude && !onStandard) cruisePhrases.push("set standard")
-    if (alt > 10000) cruisePhrases.push("seat belts auto")
+    if (alt > 10000) cruisePhrases.push("seat belts off")
     if (cruising) cruisePhrases.push("you have control", "i have control")
 
     return {
