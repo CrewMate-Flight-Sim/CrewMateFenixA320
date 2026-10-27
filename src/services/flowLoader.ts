@@ -4,6 +4,7 @@ import descTenThousand from "@/data/flows/12_desc_ten_thousand_flow.json"
 import landing from "@/data/flows/13_landing.json"
 import afterLanding from "@/data/flows/14_after_landing.json"
 import shutdown_e2 from "@/data/flows/14b_shutdown_eng2.json"
+import parkingPreShutdown from "@/data/flows/14c_parking_pre_shutdown.json"
 import parking from "@/data/flows/15_shutdown.json"
 import securing from "@/data/flows/16_securing.json"
 import prelimCockpitPrep from "@/data/flows/1_prelim_cockpit_prep.json"
@@ -37,6 +38,7 @@ export const ALL_FLOWS: Flow[] = [
   landing,
   afterLanding,
   shutdown_e2,
+  parkingPreShutdown,
   parking,
   securing,
   table_open,

@@ -25,7 +25,7 @@ The FO's flows, callouts and preflight timeline follow the **A320 Normal Procedu
 
 For the aircraft procedures themselves (what each item is, when it is done and who does it), see the manual: [A320 Normal Procedures (PDF)](https://theairlinepilots.com/forumarchive/a320/a320-normal-procedures.pdf). This manual only covers what CrewMate does and how to talk to it.
 
-The checklists are the exception: they follow the Normal Checklist on the back cover of the Fenix QRH, as the aircraft implements it.
+The checklists are the ones printed in each phase of the same manual.
 
 ---
 
@@ -96,41 +96,35 @@ This tutorial assumes you are parked at the gate with the aircraft cold and dark
 
 Say "Let's prepare the aircraft" to start the preflight timer. The times count down to the planned off-block time.
 
-- **T-48:** the FO does the preliminary cockpit preparation:
-  - weather radar and predictive windshear off, engine masters off, engine mode selector NORM, gear lever down, wipers off;
-  - battery check (both batteries off, then AUTO), external power on when it is available;
-  - RMP 2 on and the ACP 2 VHF 1 volume up;
-  - APU fire test, APU master on and APU start;
-  - all three IRs to NAV, dome light on at night;
-  - the ECAM ENG, HYD and DOOR pages, then the parking brake on.
-- **T-44:** the FO leaves for the walkaround. You start your cockpit preparation.
-- **T-35:** the FO comes back, reports "walkaround completed, all good no issues found" and does the cockpit preparation on the right-hand side: APU bleed on once the APU is available, table open, the FO EFIS (CSTR, VOR 1 and 2, ND in ARC at the smallest range) and the FO oxygen mask test.
-- **T-25:** departure briefing. Enter the takeoff data in the **Takeoff Performance** window; the flows read packs, anti-ice and flaps from it.
-- **T-20:** call for the COCKPIT PREPARATION checklist.
-- **T-5:** the FO closes the table and, once the APU is available, asks the ground crew to disconnect ground power and air conditioning.
-- **T-1:** say "Before start procedure". The FO closes the table and the cockpit door, sets the transponder to AUTO and makes the PA "Cabin crew, arm slides and cross check". Then call for the BEFORE START checklist.
+- **T-30:** the FO does the preliminary cockpit preparation and sets the parking brake for the walkaround.
+- **T-28:** the FO leaves for the walkaround. You start your cockpit preparation.
+- **T-23:** the FO comes back, reports "walkaround completed, all good no issues found" and does the right-hand side of the cockpit preparation.
+- **T-20:** departure briefing. Enter the takeoff data in the **Takeoff Performance** window; the flows read packs, anti-ice and flaps from it.
+- **T-15:** call for the COCKPIT PREPARATION checklist.
+- **T-6:** the FO closes the table and, once the APU is available, asks the ground crew to disconnect ground power and air conditioning.
+- **T-1:** say "Before start procedure", then call for the BEFORE START checklist.
 
-> **The FO is outside between T-44 and T-35.** While away on the walkaround the FO does not answer any command, and an **FO outside** indicator is shown. Ground engineer calls and the preflight timer still work, because the ground engineer is a different person on the interphone.
+> **The FO is outside between T-28 and T-23.** While away on the walkaround the FO does not answer any command, and an **FO outside** indicator is shown. Ground engineer calls and the preflight timer still work, because the ground engineer is a different person on the interphone.
 
 ### Pushback and Engine Start
 
 - When you release the parking brake for pushback with the beacon on, the FO starts the elapsed time on the clock.
 - Announce each engine start ("Starting engine one", "Starting engine two"); the FO answers "check".
-- When you set the engine mode selector back to NORM, the FO runs the **After Start** flow: ground spoilers armed, rudder trim reset, flaps set for takeoff (left up when anti-ice is used for taxi), pitch trim set, ECAM STATUS shown and the dome light off.
-- Say "Flight controls check". The FO calls each position as you reach it: full up, full down, neutral, full left, full right, neutral, then rudder full left, full right, neutral.
+- Setting the engine mode selector back to NORM starts the **After Start** flow. The flaps stay up when the Takeoff Performance window has anti-ice on for taxi.
+- Say "Flight controls check". The FO calls each position as you reach it.
 - When the check is complete, call for the AFTER START checklist.
 
 ### Taxi
 
-- Say "Clear left" when the left side is clear. The FO answers "clear right" and, with **Auto Ground lights control** on, sets the nose light to TAXI and the runway turnoff lights on.
-- At the end of the flight controls check the FO runs the **Taxi** flow: autobrake MAX, weather radar on, predictive windshear AUTO, terrain on the FO ND, both FDs on and the T.O CONFIG test.
-- Then call for the TAXI checklist.
+- Say "Clear left" when the left side is clear. The FO answers "clear right" and, with **Auto Ground lights control** on, switches the taxi and runway turnoff lights on.
+- The end of the flight controls check starts the **Taxi** flow, which ends with the T.O CONFIG test.
+- Call for the TAXI checklist. Answer CABIN with "ready" once the cabin is secured.
 
 ### Line-up & Takeoff
 
-- When cleared to line up, say "Runway entry procedure" or "Clear to line up". The FO makes the PA "Cabin crew, please be seated for takeoff", switches the brake fans off if they are on, sets TCAS to TA/RA, sets the packs and APU bleed per the Takeoff Performance window and the FO ND range, and turns the strobes on. Then the FO reports "approach path clear of traffic, ready".
+- When cleared to line up, say "Runway entry procedure" or "Clear to line up" to start the **Before Takeoff** flow. Packs and APU bleed are set per the Takeoff Performance window, and the strobes only with **Auto Ground lights control** on. The FO ends with "approach path clear of traffic, ready".
 - Call for the LINE-UP checklist.
-- When cleared for takeoff, say "Takeoff". The FO sets the landing lights on, the nose light to T.O and the runway turnoff lights on, and starts the chrono.
+- When cleared for takeoff, say "Takeoff". The FO starts the chrono and, with **Auto Ground lights control** on, sets the takeoff lights.
 
 ### Rejected Takeoff
 
@@ -139,20 +133,17 @@ Say "Let's prepare the aircraft" to start the preflight timer. The times count d
 
 ### After Takeoff
 
-- When you set the thrust levers to CL, the FO turns the packs on if you took off with them off, then stops and resets the chrono.
-- When the flaps are retracted to zero, the FO runs the **After Takeoff** flow: ground spoilers disarmed, nose and runway turnoff lights off, APU bleed and APU off.
+- When you set both thrust levers to CL, the FO turns the packs on if the Takeoff Performance window had them off, then stops and resets the chrono.
+- Retracting the flaps to zero starts the **After Takeoff** flow.
 
-### Climb through 10,000 ft
+### Climb and Descent through 10,000 ft
 
-- The FO retracts the landing lights, selects ARPT and terrain off on the FO ND, sets the ND and opens the table.
+- Passing 10,000 ft starts the FO's ten thousand feet items, in the climb and in the descent.
+- The GPWS **LDG FLAP 3** pushbutton is yours to set during descent preparation.
 
 ### Descent Preparation
 
 - Enter the landing data in the **Landing Performance** window; the after landing flow reads the APU start and anti-ice from it.
-
-### Descent through 10,000 ft
-
-- The FO closes the table, turns the landing and wing lights on and the seat belt signs on, selects terrain on and CSTR on the FO ND, sets the ND and presses the FO LS.
 
 ### Approach
 
@@ -162,33 +153,29 @@ Say "Let's prepare the aircraft" to start the preflight timer. The times count d
 
 ### Landing
 
-- When the gear goes down, the FO makes the PA "Cabin crew, please be seated for landing", arms the ground spoilers and sets the nose light to T.O and the runway turnoff lights on.
-- When the landing configuration is set, call for the LANDING checklist.
+- Lowering the gear starts the FO's gear down items, including the PA "Cabin crew, please be seated for landing".
+- When the landing configuration is set, call for the LANDING checklist. Answer CABIN with "ready" once the cabin is secured.
 - Announce "Continue" at minima or "Go-around, flaps" as appropriate.
 - After touchdown the FO calls "spoilers", "reverse green" and "decel".
 
 ### After Landing
 
-- Disarming the ground spoilers starts the **After Landing** flow:
-  - weather radar and predictive windshear off, engine mode selector NORM, TCAS standby;
-  - flaps up, unless anti-ice is used per the Landing Performance window;
-  - APU master on and APU start, when the Landing Performance window says so;
-  - engine anti-ice per the Landing Performance window;
-  - with **Auto Ground lights control** on: landing lights retracted, strobes AUTO, nose light TAXI.
+- Disarming the ground spoilers starts the **After Landing** flow. Flap retraction, APU start and engine anti-ice follow the Landing Performance window; the exterior lights are set only with **Auto Ground lights control** on.
 - When the flow is done, call for the AFTER LANDING checklist.
-- To taxi in on one engine, say "Shutdown engine two". The FO switches engine 2 anti-ice off, engine 2 master off and the yellow electric pump on.
+- To taxi in on one engine, say "Shutdown engine two".
 
 ### Parking
 
-- Shutting down both engines starts the **Parking** flow: anti-ice off, APU bleed on (or external power on when available), all fuel pumps off, transponder to standby, dome light on at night, FO LS off and the cockpit door open, then the PA "Cabin crew, disarm slides please".
+- At the gate, setting the parking brake with the taxi and runway turnoff lights off, engines still running, starts the FO's before shutdown items: anti-ice off, then APU bleed on, or external power on when the APU is not available.
+- Shutting down both engines starts the **Parking** flow, which ends with the PA "Cabin crew, disarm slides please". If the before shutdown items were missed, the FO does them here.
 - After the flow, call for the PARKING checklist.
 
 > **Engine shutdown is held for five minutes after landing.** With **5 minutes cool down** enabled, asking the FO to shut an engine down before the cooling period has elapsed is refused with "five minutes not passed". The countdown starts automatically at the 70 knot call.
 
-### Shutdown
+### Securing the Aircraft
 
-- After the last passenger leaves (if shutting the aircraft down), say "Secure the aircraft". The FO switches the crew oxygen off, all exterior lights off, the APU bleed off, the APU master off, the emergency exit lights off and both batteries off. When the APU was running, the batteries go off two minutes after the APU master, once the APU flap has closed.
-- Then call for the SHUTDOWN checklist.
+- After the last passenger leaves (if shutting the aircraft down), say "Secure the aircraft". The FO does the securing items, but switches the batteries off only two minutes after the APU AVAIL light has gone out, so the APU flap has closed. This also holds when you shut the APU down yourself shortly before. If the APU is still available after three minutes, the FO leaves the batteries on.
+- Then call for the SECURING THE AIRCRAFT checklist ("Shutdown checklist").
 
 ---
 
@@ -229,7 +216,7 @@ Where a command takes a number, say it naturally: "two seven zero", "three hundr
 | "Landing checklist"                                       | LANDING                     |
 | "After landing checklist"                                 | AFTER LANDING               |
 | "Parking checklist"                                       | PARKING                     |
-| "Shutdown checklist"                                      | SHUTDOWN                    |
+| "Shutdown checklist"                                      | SECURING THE AIRCRAFT       |
 | "Cancel checklist" / "Stop checklist" / "Abort checklist" | Aborts the active checklist |
 
 ### Gear
@@ -430,13 +417,12 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 
 ### After Start
 
-| Item             | Say                                                                                                                                                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Anti Ice         | "engines on" / "engines on wings on" / "off"                                                                                                                                                                        |
-| ECAM Status      | "checked"                                                                                                                                                                                                           |
-| Pitch Trim       | the takeoff CG, e.g. "twenty eight point nine percent" or "two eight point nine percent" — checked against the loadsheet CG, and the trim wheel against the PERF TO THS (or the trim for that CG when THS is blank) |
-| Rudder Trim      | "neutral" / "zero" — verified against the rudder trim                                                                                                                                                               |
-| Ground Clearance | "received" — the FO answers "received" too                                                                                                                                                                          |
+| Item        | Say                                                                                                                                                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Anti Ice    | "engines on" / "engines on wings on" / "off"                                                                                                                                                                        |
+| ECAM Status | "checked"                                                                                                                                                                                                           |
+| Pitch Trim  | the takeoff CG, e.g. "twenty eight point nine percent" or "two eight point nine percent" — checked against the loadsheet CG, and the trim wheel against the PERF TO THS (or the trim for that CG when THS is blank) |
+| Rudder Trim | "neutral" / "zero" — verified against the rudder trim                                                                                                                                                               |
 
 ### Taxi
 
@@ -447,6 +433,7 @@ The answers that carry numbers — speeds, altimeter settings, minimums, the run
 | Radar & PRED W/S | "on and auto" — checked against the radar system switch (not OFF) and PWS (AUTO)                  |
 | ENG Mode Sel     | "normal" / "ignition" — checked against the engine mode selector                                  |
 | ECAM Memo        | "takeoff no blue"                                                                                 |
+| Cabin            | "ready"                                                                                           |
 
 ### Departure Change
 
@@ -482,6 +469,7 @@ The FO first checks spoilers armed, flaps in the landing config and gear down, a
 | Item      | Say               |
 | --------- | ----------------- |
 | ECAM Memo | "landing no blue" |
+| Cabin     | "ready"           |
 
 ### After Landing
 
@@ -493,20 +481,17 @@ The FO first checks spoilers armed, flaps in the landing config and gear down, a
 
 | Item                    | Say                                                                                               |
 | ----------------------- | ------------------------------------------------------------------------------------------------- |
-| Slides                  | "disarmed" — checked against every door slide                                                     |
 | Parking Brake or Chocks | "set" / "chocks in place" / "parking brake set" — checked against the parking brake or the chocks |
 | Engines                 | "off" — checked against both engine masters                                                       |
-| Fuel Pumps              | "off" — checked against all six fuel pumps                                                        |
-| Yellow Elec Pump        | "off" — checked against the yellow electric pump                                                  |
 | Wing Lights             | "off" — checked against the wing lights switch                                                    |
+| Yellow Elec Pump        | "off" — checked against the yellow electric pump                                                  |
 
-### Shutdown
+### Securing the Aircraft
 
 | Item         | Say                                              |
 | ------------ | ------------------------------------------------ |
 | Oxygen       | "off" — checked against the crew oxygen supply   |
 | Emer Exit Lt | "off" — checked against the emergency exit light |
-| EFBs         | "off"                                            |
 | Batteries    | "off" — checked against both batteries           |
 
 ---
@@ -525,7 +510,7 @@ The FO first checks spoilers armed, flaps in the landing config and gear down, a
 
 **The FO ignores everything I say before departure**
 
-- Between T-44 and T-35 on the preflight timer the FO is outside on the walkaround and does not answer. The **FO outside** indicator is shown while this is the case. Ground engineer calls still work.
+- Between T-28 and T-23 on the preflight timer the FO is outside on the walkaround and does not answer. The **FO outside** indicator is shown while this is the case. Ground engineer calls still work.
 
 **The FO keeps repeating the challenge**
 

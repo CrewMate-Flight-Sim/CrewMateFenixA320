@@ -628,6 +628,7 @@
       <item>removed<tag>out.pid="removed";</tag></item>
       <item>released<tag>out.pid="released";</tag></item>
       <item>received<tag>out.pid="received";</tag></item>
+      <item>ready<tag>out.pid="ready";</tag></item>
       <item>started<tag>out.pid="started";</tag></item>
       <item>running<tag>out.pid="running";</tag></item>
       <item>advised<tag>out.pid="advised";</tag></item>

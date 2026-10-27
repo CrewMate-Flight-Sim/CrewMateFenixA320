@@ -82,6 +82,11 @@
       "challenge": "ecam_memo.ogg",
       "response": ["landing no blue", "set and checked"],
       "label": "ECAM Memo"
+    },
+    {
+      "challenge": "cabin.ogg",
+      "response": ["ready", "set and checked"],
+      "label": "Cabin"
     }
   ],
   "completion": "landing_checklist_completed.ogg"

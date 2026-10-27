@@ -1,36 +1,36 @@
 [
   {
-    "minuteMark": 48,
+    "minuteMark": 30,
     "label": "Preliminary cockpit preparation",
     "type": "flow",
     "flowId": "prelim_cockpit_prep"
   },
   {
-    "minuteMark": 44,
+    "minuteMark": 28,
     "label": "PM walkaround",
     "type": "flow",
     "sound": "walkaround.ogg",
     "flowId": "table_close"
   },
   {
-    "minuteMark": 35,
+    "minuteMark": 23,
     "label": "PM back from walkaround and cockpit preparation",
     "type": "flow",
     "sound": "walkaround_completed.ogg",
     "flowId": "cockpit_prep"
   },
   {
-    "minuteMark": 25,
+    "minuteMark": 20,
     "label": "Briefing: Add performance to takeoff window",
     "type": "reminder"
   },
   {
-    "minuteMark": 20,
+    "minuteMark": 15,
     "label": "Cockpit preparation checklist",
     "type": "reminder"
   },
   {
-    "minuteMark": 5,
+    "minuteMark": 6,
     "label": "Before pushback: FO closes table and asks for ground power and air off",
     "type": "flow",
     "flowId": "table_close",

@@ -3,61 +3,6 @@
   "name": "Parking Checklist",
   "items": [
     {
-      "challenge": "slides.ogg",
-      "response": ["disarmed", "set and checked"],
-      "label": "Slides",
-      "incorrect": "are_you_sure.ogg",
-      "validations": [
-        {
-          "when": {
-            "always": true
-          },
-          "checks": [
-            {
-              "type": "dataref",
-              "var": "aircraft.communication.cids.slide.d1l",
-              "expected": false
-            },
-            {
-              "type": "dataref",
-              "var": "aircraft.communication.cids.slide.d1r",
-              "expected": false
-            },
-            {
-              "type": "dataref",
-              "var": "aircraft.communication.cids.slide.d2l",
-              "expected": false
-            },
-            {
-              "type": "dataref",
-              "var": "aircraft.communication.cids.slide.d2r",
-              "expected": false
-            },
-            {
-              "type": "dataref",
-              "var": "aircraft.communication.cids.slide.d3l",
-              "expected": false
-            },
-            {
-              "type": "dataref",
-              "var": "aircraft.communication.cids.slide.d3r",
-              "expected": false
-            },
-            {
-              "type": "dataref",
-              "var": "aircraft.communication.cids.slide.d4l",
-              "expected": false
-            },
-            {
-              "type": "dataref",
-              "var": "aircraft.communication.cids.slide.d4r",
-              "expected": false
-            }
-          ]
-        }
-      ]
-    },
-    {
       "challenge": "parking_brake_or_chocks.ogg",
       "response": ["chocks in place", "parking brake set", "set", "set and checked"],
       "label": "Parking Brake or Chocks",
@@ -117,9 +62,9 @@
       ]
     },
     {
-      "challenge": "fuel_pumps.ogg",
+      "challenge": "wing_lights.ogg",
       "response": ["off", "set and checked"],
-      "label": "Fuel Pumps",
+      "label": "Wing Lights",
       "incorrect": "are_you_sure.ogg",
       "validations": [
         {
@@ -129,32 +74,7 @@
           "checks": [
             {
               "type": "simvar",
-              "var": "(L:S_OH_FUEL_LEFT_1)",
-              "expected": 0
-            },
-            {
-              "type": "simvar",
-              "var": "(L:S_OH_FUEL_LEFT_2)",
-              "expected": 0
-            },
-            {
-              "type": "simvar",
-              "var": "(L:S_OH_FUEL_RIGHT_1)",
-              "expected": 0
-            },
-            {
-              "type": "simvar",
-              "var": "(L:S_OH_FUEL_RIGHT_2)",
-              "expected": 0
-            },
-            {
-              "type": "simvar",
-              "var": "(L:S_OH_FUEL_CENTER_1)",
-              "expected": 0
-            },
-            {
-              "type": "simvar",
-              "var": "(L:S_OH_FUEL_CENTER_2)",
+              "var": "(L:S_OH_EXT_LT_WING)",
               "expected": 0
             }
           ]
@@ -175,26 +95,6 @@
             {
               "type": "simvar",
               "var": "(L:S_OH_HYD_YELLOW_ELEC_PUMP)",
-              "expected": 0
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "challenge": "wing_lights.ogg",
-      "response": ["off", "set and checked"],
-      "label": "Wing Lights",
-      "incorrect": "are_you_sure.ogg",
-      "validations": [
-        {
-          "when": {
-            "always": true
-          },
-          "checks": [
-            {
-              "type": "simvar",
-              "var": "(L:S_OH_EXT_LT_WING)",
               "expected": 0
             }
           ]

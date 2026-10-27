@@ -196,6 +196,7 @@ secured
 removed
 released
 received
+ready
 T A R A
 T A only
 on and auto

@@ -74,12 +74,7 @@
       "label": "APU Master OFF",
       "read": "(L:S_OH_ELEC_APU_MASTER)",
       "on": "0 (>L:S_OH_ELEC_APU_MASTER)",
-      "expect": 0,
-      "wait_ms": 120000,
-      "only_if": {
-        "read": "(L:S_OH_ELEC_APU_MASTER)",
-        "one_of": [1]
-      }
+      "expect": 0
     },
     {
       "label": "Emer Exit Lights OFF",
@@ -92,13 +87,15 @@
       "read": "(L:S_OH_ELEC_BAT1)",
       "on": "0 (>L:S_OH_ELEC_BAT1)",
       "expect": 0,
-      "skip_delay": true
+      "skip_delay": true,
+      "after_apu_flap": true
     },
     {
       "label": "Battery 2 OFF",
       "read": "(L:S_OH_ELEC_BAT2)",
       "on": "0 (>L:S_OH_ELEC_BAT2)",
-      "expect": 0
+      "expect": 0,
+      "after_apu_flap": true
     }
   ]
 }

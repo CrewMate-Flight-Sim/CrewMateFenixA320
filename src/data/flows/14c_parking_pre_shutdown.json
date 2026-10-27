@@ -1,0 +1,52 @@
+{
+  "id": "parking_pre_shutdown",
+  "name": "Parking (Before Shutdown)",
+  "steps": [
+    {
+      "label": "Engine 1 Anti Ice",
+      "read": "(L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)",
+      "on": "0 (>L:S_OH_PNEUMATIC_ENG1_ANTI_ICE)",
+      "expect": 0,
+      "skip_delay": true
+    },
+    {
+      "label": "Engine 2 Anti Ice",
+      "read": "(L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)",
+      "on": "0 (>L:S_OH_PNEUMATIC_ENG2_ANTI_ICE)",
+      "expect": 0
+    },
+    {
+      "label": "Wing Anti Ice",
+      "read": "(L:S_OH_PNEUMATIC_WING_ANTI_ICE)",
+      "on": "0 (>L:S_OH_PNEUMATIC_WING_ANTI_ICE)",
+      "expect": 0
+    },
+    {
+      "label": "APU Bleed ON",
+      "read": "(L:S_OH_PNEUMATIC_APU_BLEED)",
+      "on": "1 (>L:S_OH_PNEUMATIC_APU_BLEED)",
+      "expect": 1,
+      "only_if": {
+        "read": "(L:I_OH_ELEC_APU_START_U)",
+        "one_of": [1]
+      }
+    },
+    {
+      "label": "External Power ON",
+      "read": "(L:I_OH_ELEC_EXT_PWR_L)",
+      "on": "S_OH_ELEC_EXT_PWR",
+      "expect": 1,
+      "press": true,
+      "only_if": [
+        {
+          "read": "(L:I_OH_ELEC_APU_START_U)",
+          "one_of": [0]
+        },
+        {
+          "read": "(L:I_OH_ELEC_EXT_PWR_U)",
+          "one_of": [1]
+        }
+      ]
+    }
+  ]
+}

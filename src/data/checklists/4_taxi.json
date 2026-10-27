@@ -175,6 +175,11 @@
       "challenge": "ecam_memo.ogg",
       "response": ["takeoff no blue", "set and checked"],
       "label": "ECAM Memo"
+    },
+    {
+      "challenge": "cabin.ogg",
+      "response": ["ready", "set and checked"],
+      "label": "Cabin"
     }
   ],
   "completion": "taxi_checklist_completed.ogg"

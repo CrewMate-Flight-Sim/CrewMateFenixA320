@@ -88,12 +88,6 @@
           "checks": [{ "type": "simvar", "var": "(L:N_FC_RUDDER_TRIM)", "expected": 0 }]
         }
       ]
-    },
-    {
-      "challenge": "ground_clearance.ogg",
-      "response": ["received", "set and checked"],
-      "label": "Ground Clearance",
-      "copilot_response": "received.ogg"
     }
   ],
   "completion": "after_start_checklist_completed.ogg"

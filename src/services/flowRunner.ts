@@ -1,5 +1,6 @@
 import { holdButton, pressButton, simvarGet, simvarSet } from "@/API/simvarApi"
 import { delay } from "@/lib/utils"
+import { apuFlapRemainingMs, isApuAvail } from "@/services/apuFlap"
 import { chronoSeconds, stopChrono } from "@/services/clockChrono"
 import { moveFlapsLever } from "@/services/flapsLever"
 import { getFlowById, resolveFlow } from "@/services/flowLoader"
@@ -20,6 +21,7 @@ const STEP_DELAY = { MIN: 500, MAX: 1500 }
 const SIMVAR = { READ_RETRIES: 5, READ_RETRY_DELAY: 150 }
 const STEP_VERIFY = { RETRIES: 5, DELAY: 300 }
 const DRIVE = { POLL_INTERVAL: 100, DEFAULT_TIMEOUT: 20000 }
+const APU_SHUTDOWN = { POLL_INTERVAL: 1000, AVAIL_TIMEOUT: 180000 }
 
 const BLOCKED_FLOWS = new Set(["shutdown_eng2"])
 const FUZZY_EPS = 0.5
@@ -353,6 +355,11 @@ class FlowRunner {
       return
     }
 
+    if (step.after_apu_flap && !(await this.waitForApuFlap(step, signal))) {
+      setStepStatus(index, "failed")
+      return
+    }
+
     if (step.flaps_lever) await moveFlapsLever(expectedValue)
     else if (step.press) await this.press(step)
     else await writeSimvar(step.on)
@@ -372,6 +379,25 @@ class FlowRunner {
     } else {
       await this.verifyAndFinish(step, index, expectedValue, signal)
     }
+  }
+
+  // Batteries off with the APU flap still open can put smoke in the cabin, and with the APU running loses its fire protection
+  private async waitForApuFlap(step: FlowStep, signal: AbortSignal): Promise<boolean> {
+    const deadline = Date.now() + APU_SHUTDOWN.AVAIL_TIMEOUT
+    while (isApuAvail()) {
+      if (Date.now() >= deadline) {
+        console.warn(`[FlowRunner] Step "${step.label}": APU still available, left as is`)
+        return false
+      }
+      await this.abortableSleep(APU_SHUTDOWN.POLL_INTERVAL, signal)
+    }
+
+    const remainingMs = apuFlapRemainingMs()
+    if (remainingMs > 0) {
+      console.log(`[FlowRunner] Step "${step.label}": waiting ${Math.ceil(remainingMs / 1000)} s for the APU flap`)
+      await this.abortableSleep(remainingMs, signal)
+    }
+    return true
   }
 
   private async press(step: FlowStep): Promise<void> {

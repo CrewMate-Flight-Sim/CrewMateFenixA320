@@ -1,6 +1,6 @@
 {
   "id": "shutdown",
-  "name": "Shutdown Checklist",
+  "name": "Securing the Aircraft",
   "items": [
     {
       "challenge": "oxygen.ogg",
@@ -25,11 +25,6 @@
           "checks": [{ "type": "simvar", "var": "(L:S_OH_INT_LT_EMER)", "expected": 0 }]
         }
       ]
-    },
-    {
-      "challenge": "efbs.ogg",
-      "response": ["off"],
-      "label": "EFBs"
     },
     {
       "challenge": "batteries.ogg",

@@ -151,29 +151,44 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
   // ── GROUND ──────────────────────────────────────────────────────────────────
   const slowGround = ias <= LINEUP_MAX_IAS
 
-  // Parking, then shutdown — released once a new preflight starts
+  // Parking, then securing — released once a new preflight starts
   if (lastFl === "shutdown" && !preflightTimerRunning) {
     const parked = lastCl === "parking"
     return {
       id: parked ? "shutdown" : "parking",
-      title: parked ? "Shutdown" : "Parking",
+      title: parked ? "Securing the aircraft" : "Parking",
       phrases: parked
-        ? // shutdown, or straight into the next flight on a turnaround
+        ? // securing, or straight into the next flight on a turnaround
           ["secure the aircraft", "shutdown checklist", "lets prepare the aircraft"]
         : ["parking checklist"]
     }
   }
 
-  // After landing
-  if (lastFl === "after_landing" && ias <= TAXI_MAX_IAS) {
+  // Securing flow done — its checklist is next
+  if (lastFl === "securing" && !preflightTimerRunning) {
+    return {
+      id: "securing",
+      title: "Securing the aircraft",
+      phrases: ["shutdown checklist", "lets prepare the aircraft"]
+    }
+  }
+
+  // After landing, until the engines are shut down
+  if (
+    (lastFl === "after_landing" || lastFl === "shutdown_eng2" || lastFl === "parking_pre_shutdown") &&
+    ias <= TAXI_MAX_IAS
+  ) {
+    const afterLanding = [
+      ...(lastCl !== "after_landing" ? ["after landing checklist"] : []),
+      ...(lastFl === "after_landing" ? ["shutdown engine two"] : []),
+      ...(lastFl !== "parking_pre_shutdown" ? ["taxi light off"] : [])
+    ]
+    // Nothing left to say before the engines are shut down
+    if (afterLanding.length === 0) return null
     return {
       id: "after_landing_hints",
       title: "After landing",
-      phrases: [
-        ...(lastCl !== "after_landing" ? ["after landing checklist"] : []),
-        "shutdown engine X",
-        "taxi light off"
-      ]
+      phrases: afterLanding
     }
   }
 
@@ -227,12 +242,12 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
     }
   }
 
-  // Taxi — clear left done
+  // Taxi — clear left done; the after start checklist comes after the flight controls check
   if (lastFl === "clear_left" && ias <= TAXI_MAX_IAS) {
     return {
       id: "post_clear_left",
       title: "Taxi",
-      phrases: ["flight controls check", "taxi light on"]
+      phrases: lastCl === "after_start" ? ["taxi checklist", "brake check"] : ["flight controls check", "taxi light on"]
     }
   }
 
@@ -277,7 +292,7 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
     return {
       id: "post_cockpit_prep",
       title: "Before start",
-      phrases: ["before start procedure", "start the apu"]
+      phrases: ["before start procedure"]
     }
   }
 
@@ -288,7 +303,7 @@ export function resolveVoiceHints(args: ResolveVoiceHintsArgs): VoiceHintPhase |
     return {
       id: "prep_timeline",
       title: "Prepare",
-      phrases: ["cockpit preparation checklist", "start the apu"]
+      phrases: ["cockpit preparation checklist"]
     }
   }
 

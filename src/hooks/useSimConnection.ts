@@ -23,7 +23,9 @@ const SIM_VARS: { key: string; expression: string }[] = [
   { key: "brakeLeftPosition", expression: "(A:BRAKE LEFT POSITION,Number)" },
   { key: "parkingBrake", expression: "(L:S_MIP_PARKING_BRAKE)" },
   { key: "taxiLight", expression: "(L:S_OH_EXT_LT_NOSE)" },
+  { key: "runwayTurnoffLight", expression: "(L:S_OH_EXT_LT_RWY_TURNOFF)" },
   { key: "beacon", expression: "(L:S_OH_EXT_LT_BEACON)" },
+  { key: "apuAvail", expression: "(L:I_OH_ELEC_APU_START_U)" },
   { key: "brakeRightPosition", expression: "(A:BRAKE RIGHT POSITION,Number)" },
   // Fenix surface positions, 0-200 with 100 neutral; the sim deflection simvars follow the stick instead
   { key: "aileronDeflection", expression: "(L:A320_FC_AIL_L)" },

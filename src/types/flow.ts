@@ -19,6 +19,7 @@ export interface FlowStep {
   timeout_ms?: number
   flaps_lever?: boolean
   press?: boolean
+  after_apu_flap?: boolean
 }
 
 export interface Flow {

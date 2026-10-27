@@ -19,6 +19,7 @@ interface TriggeredFlags {
   afterLanding: boolean
   climbTenK: boolean
   descTenK: boolean
+  preShutdown: boolean
   shutdown: boolean
   clockStart: boolean
 }
@@ -44,6 +45,7 @@ export function useAutoFlows() {
     afterLanding: false,
     climbTenK: false,
     descTenK: false,
+    preShutdown: false,
     shutdown: false,
     clockStart: false
   })
@@ -104,6 +106,7 @@ export function useAutoFlows() {
       // Ground → Airborne
       phase.current = "airborne"
       fl.afterStart = false
+      fl.preShutdown = false
       fl.shutdown = false
       fl.afterLanding = false
     }
@@ -164,6 +167,20 @@ export function useAutoFlows() {
       else if (!fl.descTenK && !t.onGround && t.vs < -100 && p.alt > 10000 && t.alt <= 10000) {
         fl.descTenK = true
         executeFlow("desc_ten_thousand_flow")
+      }
+
+      // Parked at the gate: brake set with taxi and turnoff lights off, engines still running (SOP: just before shutdown)
+      else if (
+        !fl.preShutdown &&
+        fl.afterLanding &&
+        t.onGround &&
+        t.parkingBrake === 1 &&
+        t.taxiLight === 0 &&
+        t.runwayTurnoffLight === 0 &&
+        (t.engineMaster1 === 1 || t.engineMaster2 === 1)
+      ) {
+        fl.preShutdown = true
+        executeFlow("parking_pre_shutdown")
       }
 
       // Shutdown: both engine master switches to cutoff on ground

@@ -8,8 +8,8 @@ import { usePreflightTimerStore, type TimelineEvent } from "@/store/preflightTim
 import { requestGroundDisconnect } from "@/voice/commands/groundServices"
 
 // Marks between which the FO is outside doing the walkaround and does not answer.
-const WALKAROUND_START_MARK = 44
-const WALKAROUND_END_MARK = 35
+const WALKAROUND_START_MARK = 28
+const WALKAROUND_END_MARK = 23
 
 export function usePreflightTimer() {
   const clearLabelTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
