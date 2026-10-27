@@ -792,7 +792,7 @@ dependencies = [
 
 [[package]]
 name = "crewmatefenixa320"
-version = "0.1.0"
+version = "0.9.0"
 dependencies = [
  "crewmate-core",
  "serde_json",
