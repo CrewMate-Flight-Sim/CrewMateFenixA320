@@ -128,9 +128,9 @@ async function conditionHolds(step: FlowStep, condition: FlowCondition): Promise
 
 class PostLandingTimer {
   private active = false
-  // Armed only by a reset on the ground, so a chrono already past 5:00 at app start or touchdown stays quiet
+  // Armed only by a reset on the ground, so a chrono already past 3:00 at app start or touchdown stays quiet
   private expired = true
-  private readonly THRESHOLD = 300
+  private readonly THRESHOLD = 180
   public onReset?: () => void
 
   get isActive(): boolean {
@@ -147,7 +147,7 @@ class PostLandingTimer {
     if (!telemetry) return
     if (typeof telemetry.foChrono !== "number") return
 
-    // A chrono started for takeoff would otherwise reach 5:00 in the climb
+    // A chrono started for takeoff would otherwise reach 3:00 in the climb
     if (!telemetry.onGround) {
       this.active = false
       this.expired = true
@@ -155,16 +155,25 @@ class PostLandingTimer {
     }
 
     const chronoValue = chronoSeconds(telemetry.foChrono)
+    const enginesOff = telemetry.engineMaster1 === 0 && telemetry.engineMaster2 === 0
 
-    // Chrono reset or cleared — re-arm for the cool down
+    // Chrono reset or cleared — re-arm for the cool down, unless the engines are already off and there is nothing to time
     if (chronoValue <= 0) {
       this.active = false
-      this.expired = false
+      this.expired = enginesOff
       this.onReset?.()
       return
     }
 
     if (this.expired) return
+
+    // Both engines shut down before the time is up: the cool down is over, so the chrono stops without a call
+    if (enginesOff) {
+      this.active = false
+      this.expired = true
+      void stopChrono()
+      return
+    }
 
     if (chronoValue < this.THRESHOLD) {
       this.active = true
@@ -179,7 +188,7 @@ class PostLandingTimer {
   private async fireExpiry(): Promise<void> {
     await stopChrono()
     try {
-      await playSound("five_minutes.ogg")
+      await playSound("three_minutes.ogg")
     } catch (err) {
       console.error("[FlowRunner] Failed to play post-landing expiry announcement:", err)
     }
@@ -193,14 +202,14 @@ class PostLandingTimer {
 class FlowRunner {
   private abortController: AbortController | null = null
   private lastCompletedFlow: string | null = null
-  private parkingSoundPlayedThisCycle = false
+  private coolDownWarningPlayed = false
   readonly postLandingTimer = new PostLandingTimer()
 
   constructor() {
     // Reset flags on timer reset
     this.postLandingTimer.onReset = () => {
       this.lastCompletedFlow = null
-      this.parkingSoundPlayedThisCycle = false
+      this.coolDownWarningPlayed = false
     }
 
     // SCENARIO 1: Real-time telemetry check (Independent of running flows)
@@ -221,13 +230,18 @@ class FlowRunner {
     if (
       this.lastCompletedFlow === "after_landing" &&
       this.postLandingTimer.isActive &&
-      !this.parkingSoundPlayedThisCycle &&
       telemetry.parkingBrake > 0.5 &&
       telemetry.taxiLight === 0 // S_OH_EXT_LT_NOSE 0 = nose light off
     ) {
-      this.parkingSoundPlayedThisCycle = true
-      await playSound("five_minutes_not_passed.ogg")
+      await this.warnCoolDownNotPassed()
     }
+  }
+
+  // Once per landing: parking and the shutdown request would otherwise both say it
+  private async warnCoolDownNotPassed(): Promise<void> {
+    if (this.coolDownWarningPlayed) return
+    this.coolDownWarningPlayed = true
+    await playSound("three_minutes_not_passed.ogg")
   }
 
   // ── Scenario 2: Precondition Guard on Flow Execution ─────────────────────
@@ -236,7 +250,7 @@ class FlowRunner {
     const settings = useSettingsStore.getState()
 
     if (settings.postLandingShutdownEnabled && this.postLandingTimer.isActive && BLOCKED_FLOWS.has(flowId)) {
-      await playSound("five_minutes_not_passed.ogg")
+      await this.warnCoolDownNotPassed()
       return `Cannot start ${flowId} flow - post-landing timer is still running`
     }
 
@@ -401,8 +415,17 @@ class FlowRunner {
   }
 
   private async press(step: FlowStep): Promise<void> {
-    if (step.hold_ms) await holdButton(step.on, step.hold_ms, step.label)
-    else await pressButton(step.on, step.label)
+    if (!step.hold_ms) {
+      await pressButton(step.on, step.label)
+      return
+    }
+
+    // Not awaited: a held test is called as it runs, so the callout overlaps the hold
+    if (step.sound_on_execute) {
+      await waitForSoundFinished()
+      void playSound(step.sound_on_execute)
+    }
+    await holdButton(step.on, step.hold_ms, step.label)
   }
 
   // ── Drive-until phase ─────────────────────────────────────────────────────
@@ -464,7 +487,8 @@ class FlowRunner {
   // ── Post-write phase ──────────────────────────────────────────────────────
 
   private async handlePostWrite(step: FlowStep, signal: AbortSignal): Promise<void> {
-    if (step.sound_on_execute) await this.playSyncSound(step.sound_on_execute, signal)
+    const calledDuringHold = step.press && step.hold_ms
+    if (step.sound_on_execute && !calledDuringHold) await this.playSyncSound(step.sound_on_execute, signal)
     if (step.wait_ms) await this.abortableSleep(step.wait_ms, signal)
   }
 

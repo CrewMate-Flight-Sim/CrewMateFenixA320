@@ -62,8 +62,12 @@ export async function flightControlsCheck() {
   const check = ++latestCheck
   await waitForSoundFinished()
 
-  for (const step of STEPS) {
-    await waitFor(step.condition)
+  // Each step is watched from the moment the previous one is reached, so an input made while the FO is talking still counts
+  let previous = Promise.resolve()
+  const reached = STEPS.map((step) => (previous = previous.then(() => waitFor(step.condition))))
+
+  for (const [index, step] of STEPS.entries()) {
+    await reached[index]
     if (check !== latestCheck) return
     await playSound(step.sound)
     await waitForSoundFinished()

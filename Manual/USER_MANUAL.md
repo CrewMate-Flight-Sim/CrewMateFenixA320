@@ -81,7 +81,7 @@ CrewMate does not take the key or button away from MSFS, so pick one that is not
 | **Mic On/Off**                               | A key or button that switches the mic on and off, like the toolbar mic.                                                                            |
 | **Hold checklist on incorrect item**         | On: the FO repeats the challenge until the item is answered correctly. Off: the item is skipped and the checklist moves on.                        |
 | **Auto Ground lights control**               | On: the FO operates landing, taxi and strobe lights during the flows. Off: the lights are left to you.                                             |
-| **5 minutes cool down (for engine shutoff)** | On: the FO refuses to shut an engine down until five minutes have passed since landing, and says so. Off: engines can be shut down at any time.    |
+| **3 minutes cool down (for engine shutoff)** | On: the FO refuses to shut an engine down until three minutes have passed since landing, and says so. Off: engines can be shut down at any time.   |
 | **Approach deviation calls**                 | On: the FO calls speed, sink rate, bank, pitch, localizer and glide deviations between 1,000 ft and 50 ft. Off: no deviation calls.                |
 
 ---
@@ -96,7 +96,7 @@ This tutorial assumes you are parked at the gate with the aircraft cold and dark
 
 Say "Let's prepare the aircraft" to start the preflight timer. The times count down to the planned off-block time.
 
-- **T-30:** the FO does the preliminary cockpit preparation and sets the parking brake for the walkaround.
+- **T-30:** the FO does the preliminary cockpit preparation and sets the parking brake for the walkaround. With external power on, the FO leaves the APU to you: say "Start the APU" before T-6.
 - **T-28:** the FO leaves for the walkaround. You start your cockpit preparation.
 - **T-23:** the FO comes back, reports "walkaround completed, all good no issues found" and does the right-hand side of the cockpit preparation.
 - **T-20:** departure briefing. Enter the takeoff data in the **Takeoff Performance** window; the flows read packs, anti-ice and flaps from it.
@@ -170,7 +170,7 @@ Say "Let's prepare the aircraft" to start the preflight timer. The times count d
 - Shutting down both engines starts the **Parking** flow, which ends with the PA "Cabin crew, disarm slides please". If the before shutdown items were missed, the FO does them here.
 - After the flow, call for the PARKING checklist.
 
-> **Engine shutdown is held for five minutes after landing.** With **5 minutes cool down** enabled, asking the FO to shut an engine down before the cooling period has elapsed is refused with "five minutes not passed". The countdown starts automatically at the 70 knot call.
+> **Engine shutdown is held for three minutes after landing.** With **3 minutes cool down** enabled, asking the FO to shut an engine down before the cooling period has elapsed is refused, and the FO says "three minutes not passed" once per landing. The countdown starts automatically at the 70 knot call.
 
 ### Securing the Aircraft
 
@@ -519,7 +519,7 @@ The FO first checks spoilers armed, flaps in the landing config and gear down, a
 
 **The FO won't shut the engines down**
 
-- The **5 minutes cool down** setting holds engine shutdown until five minutes have passed since landing, and the FO says "five minutes not passed". Wait, or switch the setting off.
+- The **3 minutes cool down** setting holds engine shutdown until three minutes have passed since landing, and the FO says "three minutes not passed". Wait, or switch the setting off.
 
 **The Voice Trainer says training failed**
 

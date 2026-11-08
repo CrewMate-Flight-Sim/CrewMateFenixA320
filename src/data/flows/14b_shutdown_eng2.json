@@ -17,9 +17,10 @@
     },
     {
       "label": "Yellow Elec Pump ON",
-      "read": "(L:S_OH_HYD_YELLOW_ELEC_PUMP)",
-      "on": "1 (>L:S_OH_HYD_YELLOW_ELEC_PUMP)",
-      "expect": 1
+      "read": "(L:I_OH_HYD_YELLOW_ELEC_PUMP_L)",
+      "on": "S_OH_HYD_YELLOW_ELEC_PUMP",
+      "expect": 1,
+      "press": true
     }
   ]
 }
