@@ -130,7 +130,7 @@ class PostLandingTimer {
   private active = false
   // Armed only by a reset on the ground, so a chrono already past 3:00 at app start or touchdown stays quiet
   private expired = true
-  private readonly THRESHOLD = 180
+  private readonly THRESHOLD = 300
   public onReset?: () => void
 
   get isActive(): boolean {
