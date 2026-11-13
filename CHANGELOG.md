@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.9.1]
+## [0.9.1] - 2026-11-13
 
 - Engine cool down was 5 minutes; it is now 3 minutes - @marxio09dio
 - Cool down call played after the engines were already shut down; the timer now stops silently once both engines are off - @marxio09dio
