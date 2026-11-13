@@ -1,4 +1,4 @@
-import { setLvar } from "@/API/simvarApi"
+import { pressButton, setLvar } from "@/API/simvarApi"
 import { delay } from "@/lib/utils"
 
 export async function setStartAPU(position: number) {
@@ -7,5 +7,5 @@ export async function setStartAPU(position: number) {
 
   await delay(5000)
 
-  await setLvar(position, "S_OH_ELEC_APU_START", "APU start button")
+  await pressButton("S_OH_ELEC_APU_START", "APU start button")
 }

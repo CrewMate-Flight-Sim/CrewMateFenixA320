@@ -59,135 +59,114 @@ export function LandingWindow() {
     handleChange("missedAltitude", Math.max(MISSED_ALT_MIN, Math.min(MISSED_ALT_MAX, next)))
   }
 
-  const labelRow = "flex items-center gap-1 h-4"
-
   return (
-    <div className="h-screen bg-black text-white p-3 flex flex-col gap-3">
-      {/* Missed Approach; landing flaps come from the MCDU PERF APPR page */}
-      <div className="grid grid-cols-2 gap-2">
-        <div className="space-y-1">
-          <Label htmlFor="missedAltitude" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
-            Missed App (ft)
-          </Label>
-          <Input
-            ref={missedRef}
-            type="number"
-            min={MISSED_ALT_MIN}
-            max={MISSED_ALT_MAX}
-            id="missedAltitude"
-            name="missedAltitude"
-            value={landing.missedAltitude}
-            onChange={handleNumberInput}
-            onWheel={(e) => handleMissedWheel(e.deltaY)}
-            className="h-8 bg-slate-900/50 border-slate-600 text-white text-xs font-mono text-center px-1 focus-visible:ring-cyan-500"
-            placeholder="4000"
-          />
-        </div>
-      </div>
+    <TooltipProvider>
+      <div className="h-screen overflow-hidden bg-black text-white p-3 flex flex-col gap-3">
+        {/* Landing flaps come from the MCDU PERF APPR page */}
+        <div className="grid grid-cols-2 gap-x-2 gap-y-3">
+          <Field id="missedAltitude" label="Missed App (ft)">
+            <Input
+              ref={missedRef}
+              type="number"
+              min={MISSED_ALT_MIN}
+              max={MISSED_ALT_MAX}
+              id="missedAltitude"
+              name="missedAltitude"
+              value={landing.missedAltitude}
+              onChange={handleNumberInput}
+              onWheel={(e) => handleMissedWheel(e.deltaY)}
+              className="h-8 bg-slate-900/50 border-slate-600 text-white text-xs font-mono px-2 focus-visible:ring-cyan-500"
+              placeholder="4000"
+            />
+          </Field>
 
-      {/* Anti Ice + APU Start */}
-      <div className="grid grid-cols-2 gap-2">
-        <div className="space-y-1">
-          <div className={labelRow}>
-            <Label htmlFor="antiIce" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
-              Anti Ice
-            </Label>
-
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="w-3 h-3 text-slate-400 cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="text-xs max-w-[200px]">
-                  Will leave Flaps down on "After Landing" flow if Anti Ice is used
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-
-          <select
-            id="antiIce"
-            name="antiIce"
-            value={landing.antiIce}
-            onChange={handleSelectChange}
-            className={SELECT_CLS}
-          >
-            <option value="off">OFF</option>
-            <option value="oneng">ENG</option>
-          </select>
-        </div>
-
-        <div className="space-y-1">
-          <div className={labelRow}>
-            <Label htmlFor="apuStart" className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
-              APU
-            </Label>
-
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="w-3 h-3 text-slate-400 cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="text-xs max-w-[200px]">
-                  Will start the APU on "After Landing" flow if set to "Auto"
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-
-          <select
-            id="apuStart"
-            name="apuStart"
-            value={landing.apuStart}
-            onChange={handleSelectChange}
-            className={SELECT_CLS}
-          >
-            <option value="auto">Auto</option>
-            <option value="manual">Manual</option>
-          </select>
-        </div>
-      </div>
-
-      {/* SEL LS Checkbox */}
-      <div className="flex flex-col items-center gap-1">
-        <div className="flex items-center gap-1">
-          <Label
-            htmlFor="selLs"
-            className="text-xs font-mono text-cyan-400 uppercase tracking-widest cursor-pointer select-none"
-          >
-            SEL LS?
-          </Label>
-
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="w-3 h-3 text-slate-400 cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent className="text-xs max-w-[200px]">
-                This tells the FO whether to select the LS button. Deselect it when flying an RNP AR approach, for
-                example.
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-
-        <div className="flex items-center justify-center h-8">
-          <input
-            type="checkbox"
+          <Field
             id="selLs"
-            name="ls"
-            checked={Boolean(landing.ls)}
-            onChange={handleCheckboxChange}
-            className="w-4 h-4 rounded border-slate-600 bg-slate-900/50 accent-cyan-500 cursor-pointer"
-          />
+            label="LS"
+            hint="Tells the FO whether to press the LS button. Untick it for an RNP AR approach, for example."
+          >
+            <label
+              htmlFor="selLs"
+              className="flex items-center gap-2 h-8 px-2 rounded-md border border-slate-600 bg-slate-900/50 text-xs cursor-pointer select-none"
+            >
+              <input
+                type="checkbox"
+                id="selLs"
+                name="ls"
+                checked={Boolean(landing.ls)}
+                onChange={handleCheckboxChange}
+                className="w-4 h-4 accent-cyan-500 cursor-pointer"
+              />
+              {landing.ls ? "FO presses LS" : "Leave LS off"}
+            </label>
+          </Field>
+
+          <Field
+            id="antiIce"
+            label="Anti Ice"
+            hint="Any setting other than OFF keeps the flaps down in the After Landing flow."
+          >
+            <select
+              id="antiIce"
+              name="antiIce"
+              value={landing.antiIce}
+              onChange={handleSelectChange}
+              className={SELECT_CLS}
+            >
+              <option value="off">OFF</option>
+              <option value="oneng">ENG</option>
+            </select>
+          </Field>
+
+          <Field id="apuStart" label="APU" hint="AUTO starts the APU in the After Landing flow.">
+            <select
+              id="apuStart"
+              name="apuStart"
+              value={landing.apuStart}
+              onChange={handleSelectChange}
+              className={SELECT_CLS}
+            >
+              <option value="auto">AUTO</option>
+              <option value="manual">MANUAL</option>
+            </select>
+          </Field>
         </div>
+
+        <Button
+          onClick={() => getCurrentWindow().close()}
+          className="w-full h-8 mt-auto bg-cyan-700 hover:bg-cyan-800 text-white font-semibold text-sm"
+        >
+          Ok
+        </Button>
       </div>
-      <Button
-        onClick={() => getCurrentWindow().close()}
-        className="w-full h-8 bg-cyan-700 hover:bg-cyan-800 text-white font-semibold text-sm mt-3"
-      >
-        Ok
-      </Button>
+    </TooltipProvider>
+  )
+}
+
+interface FieldProps {
+  id: string
+  label: string
+  hint?: string
+  children: React.ReactNode
+}
+
+function Field({ id, label, hint, children }: FieldProps) {
+  return (
+    <div className="space-y-1">
+      <div className="flex items-center gap-1 h-4">
+        <Label htmlFor={id} className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">
+          {label}
+        </Label>
+        {hint && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Info className="w-3 h-3 text-slate-400 cursor-help" />
+            </TooltipTrigger>
+            <TooltipContent className="text-xs max-w-[200px]">{hint}</TooltipContent>
+          </Tooltip>
+        )}
+      </div>
+      {children}
     </div>
   )
 }

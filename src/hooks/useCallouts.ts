@@ -382,7 +382,7 @@ export function useCallouts() {
     if (t.onGround && crossedDown(p.speed, t.ias, 70) && !sp.called70) {
       playSound("70_knots.ogg")
       sp.called70 = true
-      // The clock chrono times the 5 minute engine cool down; the announcement plays when it reaches 5:00
+      // The clock chrono times the 3 minute engine cool down; the announcement plays when it reaches 3:00
       setTimeout(() => {
         if (useSettingsStore.getState().postLandingShutdownEnabled) {
           void restartChrono()
